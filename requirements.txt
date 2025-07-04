@@ -9,3 +9,4 @@ djangorestframework_simplejwt
 asgiref
 sqlparse
 tzdata
+gunicorn
