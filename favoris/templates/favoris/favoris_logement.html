@@ -1,0 +1,68 @@
+{% extends 'base_template.html' %}
+{% load static %}
+{% block content %}
+<div style="padding: 20px;">
+    {% include 'favoris/index.html' %}
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap;margin-top: 20px;">
+        {% for favoris in mes_logements %}
+        <div>
+            <div
+                style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden; font-family: sans-serif; width: 350px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <div style="position: relative; height: 200px; overflow: hidden;">
+                    <img src="{{ favoris.logement.images.first.image_url }}" alt="{{ favoris.logement.title }}"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    <div
+                        style="position: absolute; top: 10px; left: 10px; background-color: rgba(0,0,0,0.6); color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">
+                        <div>{{favoris.logement.type_ecole.nom}}</div>
+                    </div>
+                    <div style="position: absolute; top: 10px; right: 10px;">
+                        <form action="{% url 'logements:add_to_fave' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" id="logementId" name="logementId"
+                                value="{{favoris.logement.identifiant}}">
+                            <button type="submit"
+                                style="background-color: #ff4d4f; border: none; border-radius: 50%; width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; cursor: pointer; padding: 0;"><span><i
+                                        class="fa-solid fa-trash" style="color: white;"></i></span></button>
+                        </form>
+                    </div>
+                </div>
+                <div style="padding: 16px;">
+                    <h3 style="margin-top: 0; margin-bottom: 8px; font-size: 18px; color: #333;">
+                        {{favoris.logement.title|truncatechars:35 }}</h3>
+                    <div style="display: flex; align-items: center; margin-bottom: 8px; color: #777; font-size: 14px;">
+                        <i class="fa-solid fa-location-dot"
+                            style="margin-right: 5px;"></i><span>{{favoris.logement.city}}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                        <div style="display: flex; align-items: center; color: #f9b115; font-size: 14px;"><i
+                                class="fa-solid fa-star"
+                                style="margin-right: 5px;"></i><span>{{favoris.logement.rating}}</span></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; gap: 10px;">
+                        <button onclick="openView_logement(this)" data-logement-id="{{ favoris.logement.identifiant }}"
+                            data-logement-name="{{ favoris.logement.title|escapejs }}"
+                            data-logement-images='{% if favoris.logement.images.all %}[{% for image in favoris.logement.images.all %}"{{ image.image_url|escapejs }}"{% if not forloop.last %},{% endif %}{% endfor %}]{% else %}[]{% endif %}'
+                            data-logement-type="{{ favoris.logement.logement_type.name|escapejs }}"
+                            data-logement-description="{{ favoris.logement.description|escapejs }}"
+                            data-logement-rating="{{ favoris.logement.rating|floatformat:1 }}"
+                            data-logement-localisation="{{ favoris.logement.city|escapejs }}"
+                            data-logement-details='{"surface": "{% if favoris.logement.surface_area %}{{ favoris.logement.surface_area|floatformat:0 }}m²{% else %}N/A{% endif %}", "pieces": "{% if favoris.logement.num_bedrooms is not None %}{{ favoris.logement.num_bedrooms }} ch.{% else %}N/A{% endif %}", "bains": "{% if favoris.logement.num_bathrooms is not None %}{{ favoris.logement.num_bathrooms }} s.b.{% else %}N/A{% endif %}", "prix": "{{ favoris.logement.price_per_month|floatformat:0 }} {{ favoris.logement.currency }}"}'
+                            data-logement-equipement='{% if favoris.logement.amenities.all %}[{% for amenity in favoris.logement.amenities.all %}"{{ amenity.name|escapejs }}"{% if not forloop.last %},{% endif %}{% endfor %}]{% else %}[]{% endif %}'
+                            data-is-favorised="true"
+                            style="flex: 1; background-color: white; color: #007bff; border: 1px solid #007bff; padding: 10px 15px; border-radius: 5px; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 14px;">
+                            <span><i class="fa-solid fa-eye" style="margin-right: 8px;"></i></span>Détails
+                        </button>
+                        <button onclick="opendemande(this)"
+                            style="flex: 1; background-color: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 14px;">
+                            <span><i class="fa-solid fa-calendar-days" style="margin-right: 8px;"></i></span>Réserver
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- limite modal -->
+{% include 'logements/details.html' %}
+{% endblock %}

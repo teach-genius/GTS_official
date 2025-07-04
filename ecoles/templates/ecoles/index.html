@@ -1,0 +1,484 @@
+{% extends 'base_template.html' %}
+{% load static %}
+
+{# ============================== #}
+{#            CSS STYLES         #}
+{# ============================== #}
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/ecole/style.css' %}">
+{% endblock %}
+
+{# ============================== #}
+{#          HTML CONTENT         #}
+{# ============================== #}
+{% block content %}
+
+
+
+{# ---------- Contenu principal ---------- #}
+<div>
+  <section class="schools-list-section">
+    <div style="padding: 0px 30px;">
+<style>
+  
+/* ================== Responsive Adjustments for School Page ================== */
+@media (max-width: 992px) {
+    .results-filter-bart{
+    
+    }
+}
+
+@media (max-width: 768px) {
+  .results-filter-bar input[type="text"],
+.results-filter-bar select {
+    width: 100%;
+    padding: 12px 18px;
+    border: 1px solid #c0c0c0;
+    border-radius: 8px;
+    font-size: 0.6em;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; /* Remove default arrow for select */
+    cursor: pointer;
+}
+.results-filter-bar .search-input-wrapper {
+    flex: 2; /* Takes more space */
+    min-width: 280px;
+}
+   .results-filter-bart{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .search-input-wrapper:nth-child(1){
+      display: none;
+    }
+    
+
+    .results-filter-bar .filter-btn {
+    padding: 12px 25px;
+    min-width: 150px;
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 8px;
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+
+ 
+ .select-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 5px;
+
+}
+
+}
+
+@media (max-width: 480px) {
+    .results-filter-bart{
+
+    }
+}
+.select-wrapper label{
+  font-size: 1rem;
+}
+.results-filter-bar .select-wrapper {
+    flex: 1;
+    min-width: 180px;
+}
+.results-filter-bar .filter-btn {
+    padding: 12px 25px;
+    min-width: 150px;
+    font-size: 1em;
+    font-weight: 600;
+    border-radius: 8px;
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.results-filter-bar .filter-btn:hover {
+    background: linear-gradient(to right, #007bff, #0056b3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+}
+.results-filter-bar input[type="text"],
+.results-filter-bar select {
+    width: 100%;
+    padding: 12px 18px;
+    border: 1px solid #c0c0c0;
+    border-radius: 8px;
+    font-size: 0.95em;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; /* Remove default arrow for select */
+    cursor: pointer;
+}
+</style>
+
+      {# ======= Barre de filtre ======= #}
+  <form method="GET" class="results-filter-bar" id="filterForm" style="border: 1px solid hsl(220deg 100% 50% / 30%);">
+        <div class="search-input-wrapper">
+          <label for="searchSchool">Rechercher</label>
+          <input type="text" id="searchSchool" name="search" placeholder="Rechercher par nom, ville, type d'école..." aria-label="Rechercher une école" value="{{ current_search }}" style="border: 1px solid hsl(220deg 100% 50% / 30%);">
+        </div>
+
+        <div class="select-wrapper">
+          <label for="filterCity">Ville</label>
+          <select id="filterCity" name="city" aria-label="Filtrer par ville" style="border: 1px solid hsl(220deg 100% 50% / 30%);">
+            <option value="">Toutes les villes</option>
+            {% if not all_cities %}
+              <option value="" disabled>Aucune ville disponible</option>
+            {% else %}
+              {% for city_name in all_cities %}
+                <option value="{{ city_name }}" {% if current_city == city_name %}selected{% endif %}>{{ city_name }}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+        </div>
+
+        <div class="select-wrapper">
+          <label for="filterType">Type</label>
+          <select id="filterType" name="type" aria-label="Filtrer par type d'école" style="border: 1px solid hsl(220deg 100% 50% / 30%);">
+            <option value="">Tous les types</option>
+            {% if not all_types %}
+              <option value="" disabled>Aucun type disponible</option>
+            {% else %}
+              {% for type_obj in all_types %}
+                <option value="{{ type_obj.nom }}" {% if current_type == type_obj.nom %}selected{% endif %}>{{ type_obj.nom }}</option>
+              {% endfor %}
+            {% endif %}
+          </select>
+        </div>
+
+        <button type="submit" class="filter-btn">
+          <i class="fa-solid fa-filter"></i><span id="applique_filter">Appliquer les filtres</span> 
+        </button>
+      </form>
+
+      {# ======= Résultats & pagination ======= #}
+      <div class="results-info" style="align-items: center; display: flex;flex-direction: row;justify-content: space-between;" >
+        <div class="results-count-badge" style="display: flex;align-items: center;">
+          <span style="margin-right: 5px;">{{ total_ecoles }}</span>écoles trouvées
+        </div>
+        <p class="pagination-info">
+          Page {{ page_obj.number }} sur {{ paginator.num_pages }}
+        </p>
+      </div>
+<style>
+  .schools-grid{
+    display:grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 30px;
+  }
+
+  
+/* ================== Responsive Adjustments for School Page ================== */
+@media (max-width: 992px) {
+    .schools-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .results-filter-bar {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .results-filter-bar .search-input-wrapper,
+    .results-filter-bar .select-wrapper,
+    .results-filter-bar .filter-btn {
+        width: 100%;
+        min-width: auto;
+    }
+    .school-card {
+        max-width: 100%;
+        margin: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-header h2 {
+        font-size: 1.5em;
+    }
+    .section-header p {
+        font-size: 0.95em;
+    }
+    .schools-list-section {
+        padding: 30px 0;
+    }
+    .schools-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .school-card {
+        max-width: 100%;
+        margin: 0 auto;
+    }
+    .results-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .pagination-info {
+        align-self: flex-end;
+    }
+    .pagination {
+        gap: 6px;
+    }
+    .pagination .page-link,
+    .pagination .prev-next {
+        min-width: 30px;
+        height: 30px;
+        font-size: 0.85em;
+    }
+    .card-image-wrapper img {
+        width: 100%;
+        height: auto;
+        max-height: 180px;
+        object-fit: cover;
+    }
+    .card-content h3,
+    .card-content p {
+        font-size: 0.9em !important;
+    }
+    .card-footer span,
+    .card-footer button {
+        font-size: 0.9em !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .results-filter-bar input[type="text"],
+    .results-filter-bar select {
+        padding: 8px 10px;
+        font-size: 0.85em;
+    }
+    .schools-list-section {
+        padding: 10px 0;
+    }
+    .school-card {
+        padding: 10px;
+    }
+    .card-image-wrapper img {
+        max-height: 120px;
+    }
+    .card-content h3,
+    .card-content p {
+        font-size: 0.8em !important;
+    }
+    .card-footer span,
+    .card-footer button {
+        font-size: 0.8em !important;
+    }
+    .pagination {
+        gap: 4px;
+    }
+}
+</style>
+      {# ======= Grille d'écoles ======= #}
+      <div style="display: flex;flex-direction: column;align-items: center;">
+        <div class="schools-grid"  >
+          {% for ecole in ecoles %}
+          <div class="school-card"
+               onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.3)'"
+               onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)'">
+
+            <div class="card-image-wrapper">
+              <img src="{{ ecole.images.first.image_url|default:'https://images.unsplash.com/20/cambridge.JPG?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dW5pdmVyc2l0JUMzJUE5JTIwb3hmb3JkfGVufDB8fDB8fHww' }}"
+                   alt="Image de l'école {{ ecole.nom }}">
+              <span class="badge type-private" style="position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: var(--primary-blue);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-size: 0.5em;
+    font-weight: 600;
+ z-index:0;
+    white-space: nowrap;">{{ ecole.type_ecole }}</span>
+
+              <form action="{% url 'ecoles:toggle_favoris' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="EcoleId" value="{{ ecole.identifiant }}">
+                <button class="favorite-btn" type="submit" style="position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 8px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+ z-index:0;">
+                  {% if ecole.is_favorite %}
+                    <i class="fas fa-heart"></i>
+                  {% else %}
+                    <i class="far fa-heart"></i>
+                  {% endif %}
+                </button>
+              </form>
+
+              <div  style="position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.6em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+ z-index:0;">
+                <i class="fas fa-star" aria-hidden="true" style="color: var(--star-yellow);"></i>{{ ecole.notation|default:'N/A' }}
+              </div>
+            </div>
+
+            <div class="card-content">
+              <h3 style="font-size: 0.6rem;">{{ ecole.nom|truncatechars:60|safe }}</h3>
+              <p style="font-size: 0.6rem;" class="location"><i class="fas fa-map-marker-alt"></i> {{ ecole.emplacement|truncatechars:60|safe }}</p>
+              <p style="font-size: 0.6rem;" class="description">{{ ecole.description|truncatechars:80|safe }}</p>
+              <style>
+.school-card .btn-sm:hover {
+    background:linear-gradient(to right, #007bff, #003d80); 
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+              </style>
+              <div class="card-footer">
+                <span style="font-size: 0.6rem;font-weight: bold;color: #28a745;">{{ ecole.admission }}</span>
+                <button style="font-size: 0.6em;
+                color: #fff;
+                padding: 8px 18px;
+    
+    
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    background: linear-gradient(to right, #007bff, #0056b3);"
+                 class="btn-smv view-details-btn" onclick="openView(this)"
+                        {% if user.is_authenticated %} data-connected="true" {% else %} data-connected="false" {% endif %}
+                        data-school-id="{{ ecole.identifiant }}"
+                        data-school-name="{{ ecole.nom|default:''|escapejs }}"
+                        data-school-images='{% if ecole.images.all %}[{% for image in ecole.images.all %}"{{ image.image_url|default:""|escapejs }}"{% if not forloop.last %},{% endif %}{% endfor %}]{% else %}[]{% endif %}'
+                        data-school-location="{{ ecole.emplacement|default:''|escapejs }}"
+                        data-school-description="{{ ecole.description|default:''|escapejs }}"
+                        data-school-rating="{{ ecole.notation|default:'N/A' }}"
+                        data-is-private="{% if ecole.type_ecole.nom|lower == 'privé' %}true{% else %}false{% endif %}"
+                        data-school-address="{{ ecole.adresse|default:''|escapejs }}"
+                        data-latitude="{{ ecole.latitude|default:'' }}"
+                        data-longitude="{{ ecole.longitude|default:'' }}"
+                        data-school-university="{{ ecole.nom|default:''|escapejs }}"
+                        data-formations='[{% for programme in ecole.programmes_scolaires.all %}
+                          {
+                            "identifiant_id": "{{ programme.identifiant|default:""|escapejs }}",
+                            "name": "{{ programme.nom|default:""|escapejs }}",
+                            "degree": "{{ programme.type_de_degre|default:""|escapejs }}",
+                            "description": "{{ programme.description|default:""|escapejs }}",
+                            "duration": "{{ programme.duree|default:""|escapejs }}",
+                            "price": "{% if programme.cout_min and programme.cout_max %}{{ programme.cout_min }} - {{ programme.cout_max }} {{ programme.devise|default:""|escapejs }}{% elif programme.cout_min %}{{ programme.cout_min }} {{ programme.devise|default:""|escapejs }}{% else %}N/A{% endif %}"
+                          }{% if not forloop.last %},{% endif %}
+                        {% endfor %}]'
+                        data-is-favorited="{{ ecole.is_favorite|yesno:'true,false' }}">
+                  Voir détails
+                </button>
+              </div>
+            </div>
+          </div>
+          {% empty %}
+            <p>Aucun établissement trouvé correspondant à vos critères.</p>
+          {% endfor %}
+        </div>
+
+        {# ======= Pagination ======= #}
+        <div class="pagination">
+          {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}{% if search_keyword %}&q={{ search_keyword }}{% endif %}{% if selected_city %}&city={{ selected_city }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}" class="prev-next">
+              <i class="fas fa-chevron-left"></i> Previous
+            </a>
+          {% else %}
+            <span class="prev-next disabled"><i class="fas fa-chevron-left"></i> Previous</span>
+          {% endif %}
+
+          {% for num in paginator.page_range %}
+            {% if page_obj.number == num %}
+              <span class="page-link active">{{ num }}</span>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+              <a href="?page={{ num }}{% if search_keyword %}&q={{ search_keyword }}{% endif %}{% if selected_city %}&city={{ selected_city }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}" class="page-link">{{ num }}</a>
+            {% elif num == page_obj.number|add:'-3' or num == page_obj.number|add:'3' %}
+              <span>...</span>
+            {% endif %}
+          {% endfor %}
+
+          {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if search_keyword %}&q={{ search_keyword }}{% endif %}{% if selected_city %}&city={{ selected_city }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}" class="prev-next">
+              Next <i class="fas fa-chevron-right"></i>
+            </a>
+          {% else %}
+            <span class="prev-next disabled">Next <i class="fas fa-chevron-right"></i></span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{# ---------- JS inline (sécurité champ recherche) ---------- #}
+<script>
+  document.getElementById("searchInput").addEventListener("keypress", function(e) {
+    const blocked = ['<', '>', '{', '}', ';'];
+    if (blocked.includes(e.key)) {
+        e.preventDefault();
+    }
+  });
+</script>
+{# ============================== #}
+{#         MODAL INCLUSIONS      #}
+{# ============================== #}
+{% include 'favoris/voir_details.html' %}
+{% include 'favoris/faire_demande.html' %}
+
+{% endblock %}

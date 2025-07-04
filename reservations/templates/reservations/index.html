@@ -1,0 +1,60 @@
+
+<div style="padding: 12px; display: flex; flex-direction: row; align-items: center; gap: 10px; font-family: sans-serif;">
+    <span><i style="font-size: 30px; color: hsl(220 100% 65%);" class="far fa-heart"></i></span>
+    <div style="display: flex; flex-direction: column; ">
+        <h1 style="margin: 0; font-size: 24px; color: black;">Mes Demandes</h1>
+        <span style="font-size: 14px; color: #777;">{{total_d}} demandes ajoutés</span>
+    </div>
+</div>
+
+<div style="padding:0px 40px;">
+    <div style="background-color: #eef2f8; display: flex; flex-direction: row; align-items: center; justify-content: space-between; border-radius: 8px; padding: 5px; gap: 5px;">
+    <a href="{% url 'preinscrit_view' %}" id="b1" style="flex: 1; text-align: center; padding: 5px 0; border-radius: 6px; text-decoration: none; color: #333; font-weight: 600; font-size: 16px; display: flex; justify-content: center; align-items: center; gap: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+        <i class="fas fa-plus"></i> Pré-inscriptions ({{total_preinscriptions}})
+    </a>
+    <a href="{% url 'logement_view' %}" id="b2" style="flex: 1; text-align: center; padding: 5px 0; border-radius: 6px; text-decoration: none; color: #777; font-weight: 600; font-size: 16px; display: flex; justify-content: center; align-items: center; gap: 8px;">
+        <i class="fas fa-plus"></i> Visites de logements ({{total_demande}})
+    </a>
+</div>
+</div>
+
+
+
+{% if active_tab == 'logement'%}
+<style>
+#reserveId::after {
+    width: 100%;
+}
+#reserveId{
+        display: flex;
+    }
+#reserveId{
+    color: var(--primary-blue);
+}
+#b2{
+  background-color: white;
+}
+#b1{
+  background-color: transparent;
+}
+</style>
+{% else %}
+<style>
+#reserveId::after {
+    width: 100%;
+}
+#reserveId{
+        display: flex;
+    }
+#reserveId{
+    color: var(--primary-blue);
+}
+#b1{
+  background-color: white;
+}
+#b2{
+  background-color: transparent;
+}
+</style>
+{% endif %}
+

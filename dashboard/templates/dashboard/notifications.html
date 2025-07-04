@@ -1,0 +1,110 @@
+{% extends 'dashboard/base_dash_template.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/dashboard/style_notifications.css' %}">
+{% endblock %}
+{% block content %}
+<div class="header-content">
+    <h1>Centre de Notifications</h1>
+    <p>Gérer toutes vos notifications en temps réel</p>
+</div>
+<div class="notification-center">
+    <div class="notifications-section">
+        <div class="section-header">
+            <div class="notifications-count">
+                <span class="icon-bell"><i class="fa-solid fa-bell"></i></span>Notifications <span class="count">4</span>
+            </div>
+            <button class="mark-all-read-button"><span><i class="fa-solid fa-check"></i></span> Marquer tout comme lu</button>
+        </div>
+        <p class="section-description">Notifications en temps réel de votre plateforme</p>
+
+        <div class="notification-list">
+            <div class="notification-item green-border">
+                <div class="notification-icon">
+                    <span class="icon-calendar"><i class="fa-solid fa-calendar-days"></i></span>
+                </div>
+                <div class="notification-details">
+                    <h2 class="notification-title">Nouvelle réservation de visite</h2>
+                    <p class="notification-description">Une nouvelle réservation de visite a été créée pour Studio Luxueux à Casablanca</p>
+                    <p class="notification-time">il y a environ 12 heures</p>
+                </div>
+                <div class="notification-read-indicator">
+                    <span>•</span>
+                </div>
+            </div>
+
+            <div class="notification-item green-border">
+                <div class="notification-icon">
+                    <span class="icon-calendar"><i class="fa-solid fa-calendar-days"></i></span>
+                </div>
+                <div class="notification-details">
+                    <h2 class="notification-title">Nouvelle réservation de visite</h2>
+                    <p class="notification-description">Une nouvelle réservation de visite a été créée pour Studio Luxueux à Casablanca</p>
+                    <p class="notification-time">il y a environ 12 heures</p>
+                </div>
+                <div class="notification-read-indicator">
+                    <span>•</span>
+                </div>
+            </div>
+
+            <div class="notification-item green-border">
+                <div class="notification-icon">
+                    <span class="icon-calendar"><i class="fa-solid fa-calendar-days"></i></span>
+                </div>
+                <div class="notification-details">
+                    <h2 class="notification-title">Nouvelle réservation de visite</h2>
+                    <p class="notification-description">Une nouvelle réservation de visite a été créée pour Studio Luxueux à Casablanca</p>
+                    <p class="notification-time">il y a environ 12 heures</p>
+                </div>
+                <div class="notification-read-indicator">
+                    <span>•</span>
+                </div>
+            </div>
+
+            <div class="notification-item green-border">
+                <div class="notification-icon">
+                    <span class="icon-calendar"><i class="fa-solid fa-calendar-days"></i></span>
+                </div>
+                <div class="notification-details">
+                    <h2 class="notification-title">Nouvelle réservation de visite</h2>
+                    <p class="notification-description">Une nouvelle réservation de visite a été créée pour Studio Luxueux à Casablanca</p>
+                    <p class="notification-time">il y a environ 12 heures</p>
+                </div>
+                <div class="notification-read-indicator">
+                    <span>•</span>
+                </div>
+            </div>
+
+            <div class="notification-item blue-border">
+                <div class="notification-icon">
+                    <span class="icon-document"><i class="fa-solid fa-file"></i></span>
+                </div>
+                <div class="notification-details">
+                    <h2 class="notification-title">Nouvelle pré-inscription</h2>
+                    <p class="notification-description">Une nouvelle pré-inscription a été soumise par farya Freddie JOËL</p>
+                    <p class="notification-time">il y a environ 14 heures</p>
+                </div>
+                <div class="notification-read-indicator">
+                    <span>•</span>
+                </div>
+            </div>
+
+            
+
+            <div class="notification-item green-border">
+                <div class="notification-icon">
+                    <span class="icon-calendar"><i class="fa-solid fa-calendar-days"></i></span>
+                </div>
+                <div class="notification-details">
+                    <h2 class="notification-title">Nouvelle réservation de visite</h2>
+                    <p class="notification-description">Une nouvelle réservation de visite a été créée pour Studio Lumineux à Fès</p>
+                    <p class="notification-time">il y a environ 12 heures</p>
+                </div>
+                <div class="notification-read-indicator">
+                    <span>•</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

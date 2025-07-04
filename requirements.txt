@@ -1,0 +1,11 @@
+Django
+python-dotenv
+google-api-python-client
+google-auth
+google-auth-oauthlib
+google-generativeai
+djangorestframework
+djangorestframework_simplejwt
+asgiref
+sqlparse
+tzdata

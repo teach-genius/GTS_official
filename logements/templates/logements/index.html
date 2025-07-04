@@ -1,0 +1,398 @@
+{% extends 'base_template.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/logement/style.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<style>
+   
+@media (max-width: 992px) {
+    #search_by_descript{
+        display: none;
+    }
+    .housing-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .housing-filter-box {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .housing-filter-box .filter-btn {
+        width: 100%;
+    }
+    .housing-filter-box input,
+    .housing-filter-box select,
+    .housing-filter-box .filter-btn {
+        padding: 12px 18px;
+        font-size: 0.95em;
+    }
+    .housing-card {
+        max-width: 100%;
+        margin: 0;
+    }
+    .results-count-badge,
+    .pagination-info {
+        font-size: 1em;
+    }
+    .pagination {
+        gap: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    #search_by_descript{
+        display: none;
+    }
+    .housing-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+    }
+    .housing-filter-box {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        width: 100% !important;
+        align-items: stretch !important;
+    }
+    .housing-filter-box .input-group,
+    .housing-filter-box .filter-btn {
+        width: 100% !important;
+        min-width: 0 !important;
+        margin-bottom: 8px !important;
+    }
+    .housing-filter-box label {
+        font-size: 0.95em !important;
+    }
+    .housing-filter-box input,
+    .housing-filter-box select {
+        font-size: 1em !important;
+        padding: 10px 12px !important;
+    }
+    .housing-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+    }
+    .card-content, .features-list, .amenities {
+        font-size: 0.95em !important;
+    }
+    .card-footer span, .card-footer button {
+        font-size: 0.95em !important;
+    }
+    .card-image-wrapper img {
+        max-height: 180px !important;
+    }
+    .results-count-badge,
+    .pagination-info {
+        font-size: 0.95em;
+    }
+    .pagination {
+        gap: 6px;
+    }
+    .pagination .page-link,
+    .pagination .prev-next {
+        min-width: 30px;
+        height: 30px;
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 480px) {
+    #search_by_descript{
+        display: none;
+    }
+    .housing-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+    }
+    .housing-filter-box {
+        gap: 6px !important;
+        padding: 6px !important;
+    }
+    .housing-filter-box .input-group,
+    .housing-filter-box .filter-btn {
+        margin-bottom: 4px !important;
+    }
+    .housing-filter-box label {
+        font-size: 0.9em !important;
+    }
+    .housing-filter-box input,
+    .housing-filter-box select {
+        font-size: 0.95em !important;
+        padding: 8px 8px !important;
+    }
+    .housing-card {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        box-sizing: border-box !important;
+        padding: 8px !important;
+    }
+    .card-content, .features-list, .amenities {
+        font-size: 0.9em !important;
+    }
+    .card-footer span, .card-footer button {
+        font-size: 0.9em !important;
+    }
+    .card-image-wrapper img {
+        max-height: 120px !important;
+    }
+    .pagination {
+        gap: 4px;
+    }
+    
+}
+
+</style>
+
+<div>
+    <section style="margin-top: 80px;margin-bottom: 30px;">
+        <div style="padding: 0px 30px;">
+            <form method="GET" action="{% url 'logements:logements' %}" class="housing-filter-box"
+                style="border: 1px solid hsl(220deg 100% 50% / 30%);">
+                <div class="input-group" id="search_by_descript">
+                    <label for="search-keyword">Rechercher</label>
+                    <input style="border: 1px solid hsl(220deg 100% 50% / 30%);" type="text" id="search-keyword"
+                        name="q" placeholder="Rechercher par titre, description ou équipements..."
+                        value="{{ search_keyword }}">
+                </div>
+                <div class="input-group">
+                    <label for="filter-city">Ville</label>
+                    <select style="border: 1px solid hsl(220deg 100% 50% / 30%);" id="filter-city" name="city">
+                        <option value="">Toutes les villes</option>
+                        {% if not cities_available %}
+                        <option value="" disabled>Aucune ville disponible</option>
+                        {% else %}
+                        {% for city_name in cities_available %}
+                        <option value="{{ city_name }}" {% if city_name == selected_city %}selected{% endif %}>
+                            {{ city_name }}
+                        </option>
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="filter-type">Type</label>
+                    <select style="border: 1px solid hsl(220deg 100% 50% / 30%);" id="filter-type" name="type">
+                        <option value="">Tous les types</option>
+                        {% if not types_available %}
+                        <option value="" disabled>Aucun type disponible</option>
+                        {% else %}
+                        {% for type_name in types_available %}
+                        <option value="{{ type_name }}" {% if type_name == selected_type %}selected{% endif %}>
+                            {{ type_name }}
+                        </option>
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+                <button type="submit" class="filter-btn">
+                    <i class="fa-solid fa-filter"></i>Appliquer les filtres
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <section class="housing-results-section">
+        <div style="padding: 0px 30px;">
+            <div  style=" margin-bottom: 30px; display: flex;flex-direction: row;justify-content: space-between;" >
+                <div class="results-count-badge">
+                    <span style="margin-right: 5px;">{{ total_logements_count }}</span> logements trouvés
+                </div>
+                <p class="pagination-info">
+                    Page {{ page_obj.number }} sur {{ paginator.num_pages }}
+                </p>
+            </div>
+<style>
+    .housing-grid{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 30px;
+    justify-content: center;
+}
+</style>
+
+            <div class="housing-grid" >
+                {% for logement in logements %}
+                <div class="housing-card">
+                    <div class="card-image-wrapper">
+                        {% if logement.images.first %}
+                        <img src="{{ logement.images.first.image_url }}" alt="{{ logement.title }}">
+                        {% else %}
+                        <img src="https://via.placeholder.com/600x400?text=Image+non+disponible" alt="Image par défaut">
+                        {% endif %}
+                        <span style="font-size: 0.6em;" class="badge type-{{ logement.logement_type.name|lower }}">{{ logement.logement_type.name }}</span>
+                        
+                            <style>
+                                .housing-card .favorite-btn:hover {
+    background-color: #ffe6e6;
+}
+
+
+                            </style>
+                        <form action="{% url 'logements:add_to_fave' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="logementId" value="{{ logement.identifiant }}">
+                            <button style="
+    border-radius: 8px;color: #ff6b6b; 
+    position: absolute;
+    font-size: 1.1em;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 8px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;" type="submit">{% if logement.is_favorite %}<i class="fas fa-heart"></i>{% else %}<i
+                                    class="far fa-heart"></i>{% endif %}</button>
+                        </form>
+                        {% if logement.rating %}
+                        <span class="rating" style="font-size: 0.6em;"><i class="fas fa-star"></i> {{logement.rating|floatformat:1 }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-content">
+                        <h3 style="font-size: 0.8em;">{{ logement.title|truncatechars:25 }}</h3>
+                        <p class="location" style="font-size: 0.6em;"><i class="fas fa-map-marker-alt"></i> {{ logement.city }}</p>
+
+                        <p class="description" style="font-size: 0.6em;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    flex-grow: 1;
+    line-height: 1.5;">{{ logement.description|truncatechars:100 }}</p>
+                        <ul class="features-list" style="font-size: 0.6em;">
+                            {% if logement.surface_area %}
+                            <li><i class="fas fa-ruler-combined"></i> {{ logement.surface_area|floatformat:0 }}m²</li>
+                            {% endif %}
+                            {% if logement.num_bedrooms is not None %}
+                            <li><i class="fas fa-bed"></i> {{ logement.num_bedrooms }} ch.</li>
+                            {% endif %}
+                            {% if logement.num_bathrooms is not None %}
+                            <li><i class="fas fa-bath"></i> {{ logement.num_bathrooms }} s.b.</li>
+                            {% endif %}
+                        </ul>
+                        <div class="amenities" style="font-size: 0.6em;">
+                            {% for amenity in logement.amenities.all|slice:":3" %}
+                            <span class="amenity-tag">{{ amenity.name }}</span>
+                            {% empty %}
+                            <span class="amenity-tag">Aucun équipement</span>
+                            {% endfor %}
+                            {% if logement.amenities.count > 3 %}
+                            <span class="amenity-tag">+{{ logement.amenities.count|add:"-3" }}</span>
+                            {% endif %}
+                        </div>
+                        <style>
+                            .housing-card .btn-sm:hover {
+                                background: linear-gradient(to right, var(--secondary-blue), #003d80);
+                                transform: translateY(-2px);
+                                box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+                            }
+
+
+                            .housing-card .price {
+                                font-size: 1.1em;
+                                font-weight: 700;
+                                color: var(--primary-blue);
+                            }
+
+                            .housing-card .price small {
+                                font-size: 0.8em;
+                                font-weight: 400;
+                                color: var(--text-medium);
+                            }
+                        </style>
+                        <div class="card-footer">
+                            <span class="price">{{ logement.price_per_month|floatformat:0 }} <small>{{ logement.currency }}/mois</small></span>
+                            <button style="font-size: 0.6em;
+                color: #fff;
+                padding: 8px 18px;
+    
+    
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    background: linear-gradient(to right, #007bff, #0056b3);" onclick="openView_logement(this)"
+                                class="btn-sm view-details-btn" data-logement-id="{{ logement.identifiant }}"
+                                data-logement-name="{{ logement.title|escapejs }}"
+                                data-logement-images='{% if logement.images.all %}[{% for image in logement.images.all %}"{{ image.image_url|escapejs }}"{% if not forloop.last %},{% endif %}{% endfor %}]{% else %}[]{% endif %}'
+                                data-logement-type="{{ logement.logement_type.name|escapejs }}"
+                                data-logement-description="{{ logement.description|escapejs }}"
+                                data-logement-rating="{{ logement.rating|floatformat:1 }}"
+                                data-logement-localisation="{{ logement.city|escapejs }}"
+                                data-logement-details='{"surface": "{% if logement.surface_area %}{{ logement.surface_area|floatformat:0 }}m²{% else %}N/A{% endif %}", "pieces": "{% if logement.num_bedrooms is not None %}{{ logement.num_bedrooms }} ch.{% else %}N/A{% endif %}", "bains": "{% if logement.num_bathrooms is not None %}{{ logement.num_bathrooms }} s.b.{% else %}N/A{% endif %}", "prix": "{{ logement.price_per_month|floatformat:0 }} {{ logement.currency }}"}'
+                                data-logement-equipement='{% if logement.amenities.all %}[{% for amenity in logement.amenities.all %}"{{ amenity.name|escapejs }}"{% if not forloop.last %},{% endif %}{% endfor %}]{% else %}[]{% endif %}'
+                                data-is-favorised="{{ logement.is_favorite|yesno:'true,false' }}">Voir détails</button>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p style="text-align: center;">Aucun logement trouvé correspondant à vos critères.</p>
+                {% endfor %}
+            </div>
+
+
+
+
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}{% if search_keyword %}&q={{ search_keyword }}{% endif %}{% if selected_city %}&city={{ selected_city }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}"
+                    class="prev-next">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </a>
+                {% else %}
+                <span class="prev-next disabled"><i class="fas fa-chevron-left"></i> Previous</span>
+                {% endif %}
+
+                {% for num in paginator.page_range %}
+                {% if page_obj.number == num %}
+                <span class="page-link active">{{ num }}</span>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a
+                    href="?page={{ num }}{% if search_keyword %}&q={{ search_keyword }}{% endif %}{% if selected_city %}&city={{ selected_city }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}"
+                    class="page-link">{{ num }}</a>
+                    {% elif num == page_obj.number|add:'-3' or num == page_obj.number|add:'3' %}
+                    <span>...</span>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if search_keyword %}&q={{ search_keyword }}{% endif %}{% if selected_city %}&city={{ selected_city }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}"
+                        class="prev-next">
+                        Next <i class="fas fa-chevron-right"></i>
+                    </a>
+                    {% else %}
+                    <span class="prev-next disabled">Next <i class="fas fa-chevron-right"></i></span>
+                    {% endif %}
+            </div>
+        </div>
+    </section>
+</div>
+
+{% include 'logements/details.html' %}
+
+
+<script src="{% static 'js/logement/scripts.js' %}"></script>
+{% endblock %}

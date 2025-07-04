@@ -1,0 +1,145 @@
+{% extends 'base_template.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+{% block content %}
+<main>
+    <section class="contact-hero-section">
+        <div class="container">
+            <div class="contact-hero-content">
+                <div class="icon-wrapper">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+                <h1>Contactez-nous</h1>
+                <p>Notre équipe d'experts est là pour vous accompagner dans votre projet d'études au Maroc. Posez-nous vos questions, nous vous répondrons rapidement.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-details-section">
+        <div class="container">
+            <div class="contact-cards-grid">
+                <div class="contact-card">
+                    <div class="icon-box">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Support rapide</h3>
+                    <p>Réponse garantie 24h</p>
+                </div>
+                <div class="contact-card">
+                    <div class="icon-box">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Conseils personnalisés</h3>
+                    <p>Accompagnement sur mesure</p>
+                </div>
+                <div class="contact-card">
+                    <div class="icon-box">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Disponibilité étendue</h3>
+                    <p>Service 6 jours sur 7</p>
+                </div>
+            </div>
+
+            <div class="contact-form-and-info-grid">
+                <div class="contact-form-card">
+                    <div class="form-header">
+                        <i class="fas fa-paper-plane"></i>
+                        <h2>Envoyez-nous un message</h2>
+                    </div>
+                    <form class="contact-form" action="{% url 'contact' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">Prénom *</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="Votre prénom" required value="{{ firstName|default:''|escapejs }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Nom *</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Votre nom" required value="{{ lastName|default:''|escapejs }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" placeholder="votre.email@example.com" required value="{{ email|default:''|escapejs }}">
+                            <small>Réponse sous 24h</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Sujet *</label>
+                            <input type="text" id="subject" name="subject" placeholder="Sujet de votre message" required value="{{ subject|default:''|escapejs }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="6" placeholder="Décrivez votre demande en détail..." required>{{ message|default:''|escapejs }}</textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i> Envoyer le message
+                        </button>
+                    </form>
+                </div>
+
+                <div class="contact-info-sidebar">
+                    <div class="info-box">
+                        <div class="icon-circle">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Email</h4>
+                            <p>globalstudent457@gmail.com</p>
+                            <small>Réponse sous 24h</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon-circle">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Téléphone</h4>
+                            <p>+212 0703999601</p>
+                            <small>Lun-Ven 9h-18h</small>
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <div class="icon-circle">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Adresse</h4>
+                            <p>Fès, Maroc</p>
+                            <small>Centre ville</small>
+                        </div>
+                    </div>
+                    <div class="info-box hours-box">
+                        <div class="icon-circle">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h4>Heures d'ouverture</h4>
+                            <p>Lundi - Vendredi <span class="ml-5">9h00 - 18h00</span></p>
+                            <p>Samedi <span class="ml-5">9h00 - 16h00</span></p>
+                            <p>Dimanche <span class="closed">Fermé</span></p>
+                        </div>
+                    </div>
+                    <div class="urgent-help-box">
+                        <div class="icon-circle">
+                            <i class="fas fa-comment-dots"></i>
+                        </div>
+                        <h4>Besoin d'aide urgente ?</h4>
+                        <p>Notre équipe est disponible pour répondre à vos questions les plus pressantes.</p>
+                        <button class="call-now-btn" onclick="support()">
+                            <i class="fas fa-phone"></i> Appeler maintenant
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script>
+    function support() {
+        window.location.href="https://wa.me/2120703999601?text=Bonjour%20je%20souhaite%20plus%20d'informations";
+    }
+</script>
+{% endblock %}

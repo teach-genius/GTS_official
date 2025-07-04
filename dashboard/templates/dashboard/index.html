@@ -1,0 +1,123 @@
+{% extends 'dashboard/base_dash_template.html' %}
+{% load static %}
+{% block content %}
+<section class="stats-grid">
+    <div class="stat-card">
+        <div class="icon-placeholder bg-blue"><i class="fa-solid fa-users"></i></div>
+        <div class="stat-info">
+            <h3>Total Utilisateurs</h3>
+            <p class="stat-value">{{total_utilisateurs}}</p>
+            <p class="stat-description">Utilisateur administrateur</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="icon-placeholder bg-green"><i class="fa-solid fa-school"></i></div>
+        <div class="stat-info">
+            <h3>Établissements</h3>
+            <p class="stat-value">{{etablissements}}</p>
+            <p class="stat-description">Actif, en attente</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="icon-placeholder bg-purple"><i class="fa-solid fa-house"></i></div>
+        <div class="stat-info">
+            <h3>Logements</h3>
+            <p class="stat-value">{{logement}}</p>
+            <p class="stat-description">Non disponible</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="icon-placeholder bg-orange"><i class="fa-solid fa-file-invoice"></i></div>
+        <div class="stat-info">
+            <h3>Pré-inscriptions</h3>
+            <p class="stat-value">{{preinscription}}</p>
+            <p class="stat-description">En attente</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="icon-placeholder bg-blue-light"><i class="fa-solid fa-calendar"></i></div>
+        <div class="stat-info">
+            <h3>Réservations</h3>
+            <p class="stat-value">{{visites}}</p>
+            <p class="stat-description">En attente</p>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="icon-placeholder bg-pink"><i class="fa-solid fa-plus"></i></div>
+        <div class="stat-info">
+            <h3>Notifications</h3>
+            <p class="stat-value">0</p>
+            <p class="stat-description">Actions requises</p>
+        </div>
+    </div>
+</section>
+
+<section class="quick-actions">
+    <h2>Actions Rapides</h2>
+    <p>Accès rapide aux fonctionnalités principales de votre plateforme</p>
+    <div class="action-buttons-grid">
+        <div class="action-button-card" onclick="handleActionCardClick('{% url 'preinscription' %}');">
+            <i class="fa-solid fa-file-invoice"></i>
+            <h3>Pré-inscriptions</h3>
+            <p>Gérer les demandes</p>
+        </div>
+        <div class="action-button-card" onclick="handleActionCardClick('{% url 'reservation' %}');">
+            <i class="fa-solid fa-calendar"></i>
+            <h3>Réservations</h3>
+            <p>Gérer les ordres</p>
+        </div>
+        <div class="action-button-card" onclick="handleActionCardClick('{% url 'etablissement' %}');">
+            <i class="fa-solid fa-school"></i>
+            <h3>Ajouter École</h3>
+            <p>Nouvel établissement</p>
+        </div>
+        <div class="action-button-card" onclick="handleActionCardClick('{% url 'logements_dash' %}');">
+            <i class="fa-solid fa-house"></i>
+            <h3>Ajouter logement</h3>
+            <p>Nouvelle propriété</p>
+        </div>
+        <div class="action-button-card" onclick="handleActionCardClick('{% url 'statistique' %}');">
+            <i class="fa-solid fa-square-poll-vertical"></i>
+            <h3>Statistiques</h3>
+            <p>Voir les rapports</p>
+        </div>
+        <div class="action-button-card" onclick="handleActionCardClick('{% url 'utilisateurs' %}');">
+            <i class="fa-solid fa-users"></i>
+            <h3>Utilisateurs</h3>
+            <p>Gérer les comptes</p>
+        </div>
+        <div class="action-button-card" onclick="handleActionCardClick('{% url 'parametre' %}');">
+            <i class="fa-solid fa-gears"></i>
+            <h3>Paramètres</h3>
+            <p>Configuration</p>
+        </div>
+        <div class="action-button-card" onclick="handleActionCardClick('{% url 'notifications' %}');">
+            <i class="fa-solid fa-plus"></i>
+            <h3>Notifications</h3>
+            <p>Centre de notifications</p>
+        </div>
+    </div>
+    <script>
+function handleActionCardClick(url) {
+  window.location.href = url;
+}
+    </script>
+</section>
+
+<section class="bottom-sections">
+    <div class="notifications-panel">
+        <h2>Notifications</h2>
+        <p>Notifications liées aux rapports de votre plateforme</p>
+        <div class="empty-state">
+            <p>Aucune notification</p>
+        </div>
+    </div>
+    <div class="recent-activity-panel" >
+        <h2>Activité Récente</h2>
+        <p>Dernières activités sur la plateforme</p>
+        <div class="empty-state">
+            <p>Aucune activité récente</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

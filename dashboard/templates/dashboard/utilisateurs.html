@@ -1,0 +1,72 @@
+{% extends 'dashboard/base_dash_template.html' %}
+{% load static %}
+{% block content %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/dashboard/style_utilisteurs.css' %}">
+{% endblock %}
+<div class="user-management-header">
+    <div class="header-content">
+        <h1>Gestion des utilisateurs</h1>
+        <p>Gérer tous les comptes utilisateurs</p>
+    </div>
+    <a href="/add-user" class="add-user-button">
+        <i class="fa-solid fa-plus"></i> Ajouter un utilisateur
+    </a>
+</div>
+<div class="search-card-container">
+    <div class="search-input-wrapper">
+        <i aria-hidden="true" class="fa-solid fa-magnifying-glass search-icon"></i>
+        <label for="email-search" class="visually-hidden">Rechercher par email</label>
+        <input type="search" id="email-search" placeholder="Rechercher par email..." class="search-input">
+    </div>
+</div>
+
+<div class="user-list-section">
+    <div class="section-header">
+        <h2><i class="fa-solid fa-users"></i> Utilisateurs (<span id="userCount">{{users.count}}</span>)</h2>
+    </div>
+
+    <div class="user-cards-container">
+        {% for user in users %} {# Changed from user_list to users to match the context variable passed from the view #}
+        <div class="user-card">
+            <div class="user-details-left">
+                <div class="user-icon-wrapper">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="user-info">
+                    <div class="user-main-details">
+                        <span class="user-email">{{ user.username }} - {{ user.email }}</span>
+                        {# The role is hardcoded as 'Client'. If you have a dynamic role, you'd fetch it from 'user'
+                        object #}
+                        <span class="user-role role-admin">Client</span>
+                        <span
+                            class="user-status {% if user.is_active %}status-active{% else %}status-inactive{% endif %}">
+                            {% if user.is_active %}Actif{% else %}Inactif{% endif %}
+                        </span>
+                    </div>
+                    <div class="user-meta-details">
+                        {# Using |date:"DATE_FORMAT" filter for better date display #}
+                        <span class="user-joined">Inscrit le : {{ user.date_joined|date:"d M Y H:i" }}</span>
+                        <span class="meta-separator">•</span>
+                        <span class="user-last-login">Dernière connexion : {{ user.last_login|date:"d M Y H:i" }}</span>
+                    </div>
+                    <p class="user-id">ID : {{ user.id }}</p>
+                </div>
+            </div>
+            <div class="user-actions">
+                {# Consider using a data attribute for the user ID for JavaScript to pick up, instead of hardcoding
+                email in aria-label #}
+                <button class="delete-user-button" aria-label="Supprimer l'utilisateur {{ user.email }}"
+                    data-user-id="{{ user.id }}">
+                    <i class="fa-solid fa-trash-can"></i>
+                </button>
+            </div>
+        </div>
+        {% empty %}
+        {# Display this if there are no users #}
+        <p>Aucun utilisateur trouvé.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

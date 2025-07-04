@@ -1,0 +1,149 @@
+{% extends 'dashboard/base_dash_template.html' %}
+{% load static %}
+{% block content %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/dashboard/style_parametre.css' %}">
+{% endblock %}
+<div class="settings-page">
+    <div class="settings-header">
+        <div>
+            <h1>Paramètres Système</h1>
+            <p>Configurer les paramètres de votre plateforme</p>
+        </div>
+        <button class="save-button">
+            <i class="fas fa-save"></i>
+            Sauvegarder
+        </button>
+    </div>
+
+    <div class="settings-grid">
+        <div class="left-column">
+            <div class="settings-section general-settings">
+                <div class="settings-section-header">
+                    <i class="fas fa-cogs"></i>
+                    <div>
+                        <h2>Paramètres Généraux</h2>
+                        <p>Configuration générale de la plateforme</p>
+                    </div>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="site-name">Nom du site</label>
+                        <input type="text" id="site-name" value="GTS Platform">
+                    </div>
+                    <div class="form-group">
+                        <label for="site-description">Description du site</label>
+                        <textarea id="site-description">Plateforme de gestion des étudiants et logements</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">E-mail de contact</label>
+                        <input type="email" id="contact-email" value="contact@gts.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="support-email">E-mail de support</label>
+                        <input type="email" id="support-email" value="support@gts.com">
+                    </div>
+                </form>
+            </div>
+
+            <div class="settings-section security-settings">
+                <div class="settings-section-header">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <h2>Sécurité</h2>
+                        <p>Paramètres de sécurité et d'accès</p>
+                    </div>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="session-timeout">Délai d'expiration de la session (minutes)</label>
+                        <input type="number" id="session-timeout" value="60">
+                    </div>
+                    <div class="form-group">
+                        <label for="max-file-size">Taille maximale des fichiers (Mo)</label>
+                        <div class="input-with-stepper">
+                            <input type="number" id="max-file-size" value="10">
+                            <div class="stepper-buttons">
+                                <button type="button" onclick="document.getElementById('max-file-size').stepUp()"><i class="fas fa-caret-up"></i></button>
+                                <button type="button" onclick="document.getElementById('max-file-size').stepDown()"><i class="fas fa-caret-down"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="toggle-switch-container">
+                        <label for="maintenance-mode">Mode de maintenance</label>
+                        <label class="switch">
+                            <input type="checkbox" id="maintenance-mode">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p class="toggle-description">Activer le mode maintenance</p>
+                </form>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="settings-section notifications-settings">
+                <div class="settings-section-header">
+                    <i class="fas fa-bell"></i>
+                    <div>
+                        <h2>Notifications</h2>
+                        <p>Configure le système de notifications</p>
+                    </div>
+                </div>
+                <form>
+                    <div class="toggle-switch-container">
+                        <label for="email-notifications">Notifications par e-mail</label>
+                        <label class="switch">
+                            <input type="checkbox" id="email-notifications" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p class="toggle-description">Recevoir les notifications par email</p>
+
+                    <div class="toggle-switch-container">
+                        <label for="sms-notifications">Notifications SMS</label>
+                        <label class="switch">
+                            <input type="checkbox" id="sms-notifications">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p class="toggle-description">Recevoir les notifications par SMS</p>
+
+                    <div class="toggle-switch-container">
+                        <label for="auto-approve-requests">Approbation automatique</label>
+                        <label class="switch">
+                            <input type="checkbox" id="auto-approve-requests">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <p class="toggle-description">Approuver automatiquement les demandes</p>
+                </form>
+            </div>
+
+            <div class="settings-section database-settings">
+                <div class="settings-section-header">
+                    <i class="fas fa-database"></i>
+                    <div>
+                        <h2>Base de données</h2>
+                        <p>Outils de maintenance de la base de données</p>
+                    </div>
+                </div>
+                <div class="database-actions">
+                    <button class="action-button">
+                        Optimiser la base de données
+                    </button>
+                    <button class="action-button">
+                        Nettoyer les journaux anciens
+                    </button>
+                    <button class="action-button">
+                        Exporter les données
+                    </button>
+                    <button class="action-button red">
+                        Réinitialiser les statistiques
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends 'dashboard/base_dash_template.html' %}
+{% load static %}
+{% block content %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/dashboard/style_statistique.css' %}">
+{% endblock %}
+<div class="statistics-page">
+    <div class="statistics-header">
+        <h1>Statistiques et analyses</h1>
+        <p>Analysez les performances de votre plateforme</p>
+    </div>
+
+    <div class="info-cards-grid">
+        <div class="info-card">
+            <div class="icon-wrapper bg-blue">
+                <i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="info-content">
+                <h3>pré-inscriptions</h3>
+                <p class="main-value">1</p>
+                <p class="sub-text"><i class="fas fa-arrow-up" style="color: #28a745;"></i> 1 mois ça</p>
+            </div>
+            <i class="top-right-icon fa-solid fa-chart-line"></i>
+        </div>
+        <div class="info-card">
+            <div class="icon-wrapper bg-green">
+                <i class="fa-solid fa-calendar-check"></i></div>
+            <div class="info-content">
+                <h3>Réservations</h3>
+                <p class="main-value">1</p>
+                <p class="sub-text"><i class="fas fa-arrow-up" style="color: #28a745;"></i> 1 mois ça</p>
+            </div>
+            <i class="top-right-icon fa-solid fa-calendar-alt"></i>
+        </div>
+        <div class="info-card">
+            <div class="icon-wrapper bg-purple">
+                <i class="fa-solid fa-building"></i></div>
+            <div class="info-content">
+                <h3>Établissements</h3>
+                <p class="main-value">19</p>
+                <p class="sub-text">Établissements</p>
+            </div>
+            <i class="top-right-icon fa-solid fa-school"></i>
+        </div>
+        <div class="info-card">
+            <div class="icon-wrapper bg-orange">
+                <i class="fa-solid fa-home"></i></div>
+            <div class="info-content">
+                <h3>Logements</h3>
+                <p class="main-value">0</p>
+                <p class="sub-text">Offres disponibles</p>
+            </div>
+            <i class="top-right-icon fa-solid fa-house"></i>
+        </div>
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-section monthly-evolution">
+            <h2>Évolution Mensuelle</h2>
+            <p>Tendance des 6 derniers mois</p>
+            <div id="monthly-evolution-chart" class="chart-placeholder">
+                <div class="chart-grid-lines"></div>
+
+                <div class="y-axis-label-wrapper">
+                    <span class="y-axis-label">1-</span>
+                    <span class="y-axis-label">0.75-</span>
+                    <span class="y-axis-label">0.5-</span>
+                    <span class="y-axis-label">0.25-</span>
+                    <span class="y-axis-label">0-</span>
+                </div>
+
+                <div class="chart-line-container">
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <polyline fill="none" stroke="#007bff" stroke-width="2"
+                                  points="
+                                    0,80   20,80  40,80  60,80  80,20  95,5   "/>
+                    </svg>
+                    <div class="data-point point-jan" style="top: calc(80% + 15px); left: calc(0% + 40px + 10%);"></div>
+                    <div class="data-point point-feb" style="top: calc(80% + 15px); left: calc(0% + 40px + 26%);"></div>
+                    <div class="data-point point-mar" style="top: calc(80% + 15px); left: calc(0% + 40px + 42%);"></div>
+                    <div class="data-point point-apr" style="top: calc(80% + 15px); left: calc(0% + 40px + 58%);"></div>
+                    <div class="data-point point-may" style="top: calc(20% + 15px); left: calc(0% + 40px + 74%);"></div>
+                    <div class="data-point point-jun" style="top: calc(5% + 15px); left: calc(0% + 40px + 90%);"></div>
+                </div>
+
+                <div class="x-axis-label-wrapper">
+                    <span class="x-axis-label">Jan.</span>
+                    <span class="x-axis-label">Fév.</span>
+                    <span class="x-axis-label">Mars</span>
+                    <span class="x-axis-label">Avril</span>
+                    <span class="x-axis-label">Mai</span>
+                    <span class="x-axis-label">Juin</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-section demand-status">
+            <h2>Statut des demandes</h2>
+            <p>Répartition des pré-inscriptions</p>
+            <div class="chart-placeholder">
+                <div class="pie-chart-container">
+                    <div class="pie-slice yellow" style="clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 0%, 50% 50%);"></div>
+                    <div style="position: absolute; color: #333; font-size: 1.1em; font-weight: bold;"></div>
+                </div>
+                <ul class="pie-legend">
+                    <li><span class="color-box yellow"></span> En attente 100%</li>
+                    <li><span class="color-box red"></span> Rejetés 0%</li>
+                    <li><span class="color-box green"></span> Approuvés 0%</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-grid">
+        <div class="chart-section establishment-types">
+            <h2>Types d'Établissements</h2>
+            <p>Répartition par type d'école</p>
+            <div class="chart-placeholder">
+                <div class="bar-chart-container">
+                    <div class="bar private-school" style="height: 150px;">
+                        <span class="bar-value">19</span>
+                        <span class="bar-label">Privé</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-section top-cities-housing">
+            <h2>Top Villes - Logements</h2>
+            <p>Répartition géographique des logements</p>
+            <div class="chart-placeholder">
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

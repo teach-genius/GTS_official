@@ -1,0 +1,138 @@
+
+.registration-container {
+    background-color: #f5f8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.registration-box {
+    border:1px solid hsl(214.3 31.8% 91.4%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px; 
+    box-sizing: border-box;
+    margin: 20px;
+}
+
+.registration-box h2 {
+    text-align: center;
+    color: black;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: black;
+    font-weight: 500;
+}
+
+.input-wrapper {
+    margin-bottom: 15px; /* Space between Prénom and Nom fields */
+}
+
+.name-group {
+    display: flex;
+    gap: 20px; /* Space between Prénom and Nom input fields */
+}
+
+.name-group .input-wrapper {
+    flex: 1; /* Make both input wrappers take equal space */
+    margin-bottom: 0; /* Remove extra margin from individual wrappers in name-group */
+}
+
+.icon-input {
+    position: relative;
+}
+
+.icon-input input {
+    width: 100%;
+    padding: 12px 12px 12px 40px; /* Adjust left padding for icon */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.icon-input input:focus {
+    border-color: #007bff;
+}
+
+.icon-input i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+    font-size: 18px;
+}
+
+.password-input .show-password {
+    right: 15px;
+    left: auto; /* Override left positioning for the eye icon */
+    cursor: pointer;
+}
+
+.btn-register {
+    width: 100%;
+    padding: 15px;
+    background-color: hsl(220 100% 50%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-register:hover {
+    background-color: #0056b3;
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #007bff;
+    text-decoration: none;
+    
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .registration-box {
+        padding: 30px 20px;
+        margin: 0 15px;
+    }
+
+    .name-group {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .name-group .input-wrapper {
+        margin-bottom: 15px;
+    }
+}

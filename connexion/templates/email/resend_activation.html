@@ -1,0 +1,98 @@
+{% extends 'base_template.html' %}
+
+{# ============================== #}
+{#            CSS STYLES         #}
+{# ============================== #}
+{% block css %}
+<style>
+  .resend-form {
+    max-width: 400px;
+    margin: 40px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .resend-form label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #222;
+  }
+
+  .resend-form input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 1.8px solid #ccc;
+    border-radius: 7px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .resend-form input[type="email"]:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 8px rgba(0,123,255,0.3);
+  }
+
+  .resend-form .error-message {
+    background-color: #ffe0e0;
+    color: #d32f2f;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #d32f2f;
+  }
+
+  .resend-form button {
+    width: 100%;
+    padding: 14px;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 7px;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+  }
+
+  .resend-form button:hover {
+    background-color: #0056b3;
+  }
+</style>
+{% endblock %}
+
+{# ============================== #}
+{#         HTML CONTENT           #}
+{# ============================== #}
+{% block content %}
+<form method="POST" action="{% url 'resend_activation_link' %}" class="resend-form">
+  {% csrf_token %}
+
+  <label for="email">Votre adresse email</label>
+
+  <input
+    type="email"
+    id="email"
+    name="email"
+    required
+    placeholder="exemple@domaine.com"
+  />
+
+  <p class="error-message">
+    Compte existant non activé. Vérifiez vos emails ou demandez un nouveau lien.
+  </p>
+
+  <button type="submit">
+    Renvoyer le lien de confirmation
+  </button>
+</form>
+{% endblock %}
+
+

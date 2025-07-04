@@ -1,0 +1,4 @@
+# Fichiers secrets
+*.json
+*.env
+warnings/*.json

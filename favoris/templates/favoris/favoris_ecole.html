@@ -1,0 +1,78 @@
+{% extends 'base_template.html' %}
+{% load static %}
+{% block content %}
+<div style="padding: 20px;">
+    {% include 'favoris/index.html' %}
+    <div style=" padding:40px;display: grid;grid-template-columns: repeat(3, 1fr);gap: 10px;">
+        {% for favoris in mes_ecoles %}
+        <div>
+            <div
+                style="border: 1px solid hsl(220deg 100% 50% / 30%); border-radius: 8px; overflow: hidden; font-family: sans-serif; width: 350px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <div style="position: relative; height: 200px; overflow: hidden;">
+                    <img src="{{ favoris.identifiant_ecole.images.first.image_url }}"
+                        alt="{{ favoris.identifiant_ecole.title }}"
+                        style="width: 100%; height: 100%; object-fit: cover;">
+                    <div
+                        style="position: absolute; top: 10px; left: 10px; background-color: rgba(0,0,0,0.6); color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px;">
+                        <div>{{favoris.identifiant_ecole.type_ecole.nom}}</div>
+                    </div>
+                    <div style="position: absolute; top: 10px; right: 10px;">
+                        <form action="{% url 'ecoles:toggle_favoris' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" id="EcoleId" name="EcoleId"
+                                value="{{favoris.identifiant_ecole.identifiant}}">
+                            <button type="submit"
+                                style="background-color: #ff4d4f; border: none; border-radius: 12px; width: 36px; height: 36px; display: flex; justify-content: center; align-items: center; cursor: pointer; padding: 0;"><span><i
+                                        class="fa-solid fa-trash" style="color: white;"></i></span></button>
+                        </form>
+                    </div>
+                </div>
+                <div style="padding: 16px;">
+                    <h3 style="margin-top: 0; margin-bottom: 8px; font-size: 18px; color: #333;">
+                        {{favoris.identifiant_ecole.nom|truncatechars:25 }}</h3>
+                    <div style="display: flex; align-items: center; margin-bottom: 8px; color: #777; font-size: 14px;">
+                        <i class="fa-solid fa-location-dot"
+                            style="margin-right: 5px;"></i><span>{{favoris.identifiant_ecole.ville}}</span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                        <div style="display: flex; align-items: center; color: #f9b115; font-size: 14px;"><i
+                                class="fa-solid fa-star"
+                                style="margin-right: 5px;"></i><span>{{favoris.identifiant_ecole.notation}}</span></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; gap: 10px;">
+                        <button onclick="openView(this)" {% if user.is_authenticated %} data-connected="true" {% else %}
+                            data-connected="false" {% endif %}
+                            data-school-id="{{ favoris.identifiant_ecole.identifiant }}"
+                            data-school-name="{{ favoris.identifiant_ecole.nom|default:''|escapejs }}"
+                            data-school-images='{% if favoris.identifiant_ecole.images.all %}[{% for image in favoris.identifiant_ecole.images.all %}"{{ image.image_url|default:""|escapejs }}"{% if not forloop.last %},{% endif %}{% endfor %}]{% else %}[]{% endif %}'
+                            data-school-location="{{ favoris.identifiant_ecole.emplacement|default:''|escapejs }}"
+                            data-school-description="{{ favoris.identifiant_ecole.description|default:''|escapejs }}"
+                            data-school-rating="{{ favoris.identifiant_ecole.notation|default:'N/A' }}"
+                            data-is-private="{% if favoris.identifiant_ecole.type_ecole.nom|lower == 'privé' %}true{% else %}false{% endif %}"
+                            data-school-address="{{ favoris.identifiant_ecole.adresse|default:''|escapejs }}"
+                            data-latitude="{{ favoris.identifiant_ecole.latitude|default:'' }}"
+                            data-longitude="{{ favoris.identifiant_ecole.longitude|default:'' }}"
+                            data-school-university="{{ favoris.identifiant_ecole.nom|default:''|escapejs }}"
+                            data-formations='[{% for programme in favoris.identifiant_ecole.programmes_scolaires.all %}{"name": "{{ programme.nom|default:""|escapejs }}","identifiant_id":"{{ programme.identifiant|default:""|escapejs }}", "degree": "{{ programme.type_de_degre|default:""|escapejs }}", "description": "{{ programme.description|default:""|escapejs }}", "duration": "{{ programme.duree|default:""|escapejs }}", "price": "{% if programme.cout_min and programme.cout_max %}{{ programme.cout_min }} - {{ programme.cout_max }} {{ programme.devise|default:""|escapejs }}{% elif programme.cout_min %}{{ programme.cout_min }} {{ programme.devise|default:""|escapejs }}{% else %}N/A{% endif %}"}{% if not forloop.last %},{% endif %}{% endfor %}]'
+                            data-is-favorited="true"
+                            style="flex: 1; background-color: white; color: #007bff; border: 1px solid #007bff; padding: 10px 15px; border-radius: 5px; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 14px;">
+                            <span><i class="fa-solid fa-eye" style="margin-right: 8px;"></i></span>Détails
+                        </button>
+                        <button onclick="opendemande(this)"
+                            style="flex: 1; background-color: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; display: flex; justify-content: center; align-items: center; font-size: 14px;">
+                            <span><i class="fa-solid fa-file-lines" style="margin-right: 8px;"></i></span>Postuler
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- limite modal -->
+{% include 'favoris/voir_details.html' %}
+<!-- limite modale -->
+{% include 'favoris/faire_demande.html' %}
+
+
+{% endblock %}

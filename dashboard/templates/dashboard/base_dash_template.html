@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord - Administration GTS</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% block css %}{% endblock %}
+    </head>
+   
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h3>Administration GTS</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"><a href="{% url 'dashboard' %}"><i class="fa-solid fa-grip-vertical"></i>Tableau de Bord</a></li>
+                    <li class="{% if request.resolver_match.url_name == 'notifications' %}active{% endif %}"><a href="{% url 'notifications' %}"><i class="fa-solid fa-bell"></i>Notifications</a></li>
+                    <li class="{% if request.resolver_match.url_name == 'preinscription' %}active{% endif %}"><a href="{% url 'preinscription' %}"><i class="fa-solid fa-file-lines"></i>Pré-inscriptions</a></li>
+                    <li class="{% if request.resolver_match.url_name == 'reservation' %}active{% endif %}"><a href="{% url 'reservation' %}"><i class="fa-solid fa-calendar-days"></i>Réservations</a></li>
+                    <li class="{% if request.resolver_match.url_name == 'etablissement' %}active{% endif %}"><a href="{% url 'etablissement' %}"><i class="fa-solid fa-school"></i>Établissements</a></li>
+                    <li class="{% if request.resolver_match.url_name == 'logements_dash' %}active{% endif %}"><a href="{% url 'logements_dash' %}"><i class="fa-solid fa-house"></i>Logements</a></li>
+                    <li class="{% if request.resolver_match.url_name == 'utilisateurs' %}active{% endif %}"><a href="{% url 'utilisateurs' %}"><i class="fa-solid fa-users"></i>Utilisateurs</a></li>
+                    <li class="{% if request.resolver_match.url_name == 'statistique' %}active{% endif %}"><a href="{% url 'statistique' %}"><i class="fa-solid fa-square-poll-vertical"></i>Statistiques</a></li>
+                    <li class="{% if request.resolver_match.url_name == 'parametre' %}active{% endif %}"><a href="{% url 'parametre' %}"><i class="fa-solid fa-gear"></i>Paramètres</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <div>
+                    <h1>Tableau de Bord</h1>
+                    <p>Vue d'ensemble de votre plateforme GTS</p>
+                </div>
+                <div class="header-right">
+                    <span><i class="fas fa-bell"></i></span>
+                    <span class="user-info">
+                        <i class="fas fa-user-circle"></i> Admin
+                    </span>
+                </div>
+            </header>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+</body>
+</html>

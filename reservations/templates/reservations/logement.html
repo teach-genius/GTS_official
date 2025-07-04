@@ -1,0 +1,221 @@
+{% extends 'base_template.html' %}
+{% load static %}
+
+{% block content %}
+<div style="padding: 20px;">
+    {% include 'reservations/index.html' %}
+    <div style="height: 580px; padding:40px; display: flex;flex-direction: column;align-items: center;width: 100%; overflow-y: auto;gap: 10px;">
+        {% for visite in mes_logements %}
+        <div class="card-container">
+            <div class="header-section">
+                <h1 class="title">{{visite.logement.title}}</h1>
+                <div class="status-tag">
+                    <i class="fas fa-clock"></i>{{visite.status}}
+                </div>
+            </div>
+            <div class="location">
+                <i class="fas fa-map-marker-alt"></i>{{visite.logement.address}}
+            </div>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="icon-text">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span class="label">Date :</span> {{visite.requested_date}}
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="icon-text">
+                        <i class="fas fa-clock"></i>
+                        <span class="label">Heure :</span> {{visite.requested_time}}
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="icon-text">
+                        <i class="fas fa-phone"></i>
+                        {{visite.phone}}
+                    </div>
+                </div>
+                <div class="detail-item requested-on">
+                    Demandé le {{visite.created_at}}
+                </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    <style>
+        .card-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 10px 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Header section containing title and status tag */
+        .header-section {
+            display: flex;
+            /* Use flexbox for horizontal alignment */
+            justify-content: space-between;
+            /* Space out title and status tag */
+            align-items: center;
+            /* Vertically align items in the middle */
+            margin-bottom: 15px;
+            /* Space below the header */
+        }
+
+        /* Title styling */
+        .title {
+            font-size: 24px;
+            color: #007bff;
+            /* Blue color similar to the image */
+            margin: 0;
+            /* Remove default margin */
+            font-weight: 600;
+            /* Semi-bold font weight */
+        }
+
+        /* Status tag (e.g., "En attente") */
+        .status-tag {
+            background-color:  #e6a700;
+            color: white;
+            padding: 2px 7px;
+            /* Inner spacing */
+            border-radius: 20px;
+            /* Pill shape */
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            /* Use flexbox for icon and text alignment */
+            align-items: center;
+            gap: 6px;
+            /* Space between icon and text */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow */
+            border: 1px solid #f8e7b9;
+            /* Slightly darker border for definition */
+        }
+
+        .status-tag i {
+            font-size: 14px;
+            /* Icon size */
+        }
+
+        /* Location text and icon */
+        .location {
+            color: #6c757d;
+            /* Grey text color */
+            font-size: 16px;
+            margin-bottom: 25px;
+            /* Space below location */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            /* Space between icon and text */
+        }
+
+        .location i {
+            color: #8c8c8c;
+            /* Slightly darker icon color */
+        }
+
+        /* Grid for details (date, time, phone, requested on) */
+        .details-grid {
+            display: grid;
+            /* Enable CSS Grid layout */
+            grid-template-columns: 1fr 1fr;
+            /* Two columns of equal width */
+            gap: 20px;
+            /* Space between grid items */
+        }
+
+        /* Individual detail items (date, time, phone) */
+        .detail-item {
+            background-color: #f8fafd;
+            padding: 10px 12px;
+            border-radius: 10px;
+            color: #343a40;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Container for icon and text within detail items */
+        .detail-item .icon-text {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+        }
+
+        /* Icons within detail items */
+        .detail-item i {
+            color: #007bff;
+            /* Blue color for icons */
+            font-size: 20px;
+            /* Icon size */
+        }
+
+        /* Label for detail items (e.g., "Date :") */
+        .detail-item .label {
+            font-weight: 500;
+            /* Medium font weight */
+            color: #555;
+            /* Slightly darker label color */
+        }
+
+        /* Specific styling for the "Demandé le" item */
+        .requested-on {
+            grid-column: span 2;
+            /* Make this item span both columns in the grid */
+            justify-content: flex-end;
+            /* Align text to the right within its container */
+            font-size: 14px;
+            color: #8c8c8c;
+            /* Grey text color */
+            background-color: transparent;
+            /* No background for this specific item */
+            padding: 0;
+            /* No padding as it's just text */
+            box-shadow: none;
+            /* No shadow for this item */
+        }
+
+        /* Responsive adjustments for smaller screens (e.g., mobile) */
+        @media (max-width: 600px) {
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            .requested-on {
+                grid-column: span 1;
+                justify-content: flex-start;
+                font-size: 13px;
+            }
+            .header-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .title {
+                font-size: 18px;
+            }
+            .status-tag {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+            .card-container {
+                padding: 10px;
+            }
+            .detail-item {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</div>
+{% endblock %}

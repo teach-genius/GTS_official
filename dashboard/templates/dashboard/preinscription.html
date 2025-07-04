@@ -1,0 +1,48 @@
+{% extends 'dashboard/base_dash_template.html' %}
+{% load static %}
+{% block content %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/dashboard/style_preinscription.css' %}">
+{% endblock %}
+<div class="info-s">
+    <h1>Gestion des pré-inscriptions</h1>
+    <p>Gérer toutes les demandes de pré-inscription</p>
+</div>
+<div class="search-bar">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" placeholder="Rechercher par nom ou email...">
+    <select>
+        <option>Tous les statuts</option>
+        </select>
+</div>
+<div class="main-container">
+
+    <div class="reservations-header">
+        <i class="fa-regular fa-clock"></i> <span>Pré-inscriptions ({{preinscription.count}})</span>
+    </div>
+
+    <div class="preinscriptios_contenaire" style="display: flex;flex-direction: column;overflow-y: auto;height: 65vh;gap: 10px;">
+        {% for preins in preinscription.all %}
+        <div class="reservation-card">
+            <div class="reservation-details">
+                <span class="name"> {{preins.nom_etudiant}}<span class="status-tag">{{preins.statut}}</span></span>
+                <strong>Courriel :</strong> <span>{{preins.email_de_l_etudiant}}</span>
+                <strong>École :</strong> <span>{{preins.identifiant_ecole.nom}}</span>
+                <strong>Ville :</strong> <span>{{preins.ville}}</span>
+                <strong>Soumis :</strong> <span>{{preins.cree_a}}</span>
+            </div>
+    
+            <div class="reservation-actions">
+                <ul>
+                    <li><button class="view-btn"><i class="fa-solid fa-eye"></i>Voir</button></li>
+                    <li><button class="confirm-btn"><i class="fa-solid fa-check"></i>Approuver</button></li>
+                    <li><button class="cancel-btn"><i class="fa-solid fa-xmark"></i>Rejeter</button></li>
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

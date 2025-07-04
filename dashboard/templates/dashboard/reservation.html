@@ -1,0 +1,54 @@
+{% extends 'dashboard/base_dash_template.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/dashboard/style_reservation.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="info-s">
+    <h1>Réservations de Visites</h1>
+    <p>Gérer toutes les réservations de visites de logements</p>
+</div>
+
+<div class="search-bar">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" placeholder="Rechercher par logement ou ville...">
+    <select>
+        <option>Tous les statuts</option>
+    </select>
+</div>
+
+<div class="container">
+    <div class="reservations-header">
+        <i class="fa-solid fa-calendar"></i>
+        <span>Réservations ({{ dVisite.count }})</span>
+    </div>
+
+    <div class="reservation-contenaire" style="display: flex; flex-direction: column; height: 65vh; overflow-y: auto; gap: 10px;">
+        {% for demande in dVisite %}
+        <div class="reservation-card">
+            <div class="reservation-details">
+                <ul>
+                    <li>{{ demande.logement.title }} <span class="status-tag">{{ demande.status }}</span></li>
+                    <li>Lieu : {{ demande.logement.city }}, {{ demande.logement.address }}</li>
+                    <li>Date/Heure : {{ demande.requested_date }} à {{ demande.requested_time }}</li>
+                    <li>Contact : {{ demande.phone }}</li>
+                    <li>Créé : {{ demande.created_at }}</li>
+                </ul>
+            </div>
+
+            <div class="reservation-actions">
+                <ul>
+                    <li><button class="view-btn"><i class="fa-solid fa-eye"></i> Voir</button></li>
+                    <li><button class="confirm-btn"><i class="fa-solid fa-check"></i> Confirmer</button></li>
+                    <li><button class="cancel-btn"><i class="fa-solid fa-xmark"></i> Annuler</button></li>
+                </ul>
+            </div>
+        </div>
+        {% empty %}
+        <p>Aucune réservation trouvée.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

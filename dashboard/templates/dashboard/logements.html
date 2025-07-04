@@ -1,0 +1,251 @@
+{% extends 'dashboard/base_dash_template.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/dashboard/style_logements.css' %}">
+{% endblock %}
+{% block content %}
+<div class="accommodations-page">
+    <div class="accommodations-header">
+        <h1>Gestion des Logements</h1>
+        <button class="add-button">
+            <i class="fas fa-plus"></i>
+            Ajouter un Logement
+        </button>
+    </div>
+
+    <div class="filter-section">
+        <label for="search">Rechercher</label>
+        <input type="text" id="search" placeholder="Rechercher par titre, description...">
+
+        <label for="city">Ville</label>
+        <select id="city">
+            <option value="">Toutes les villes</option>
+            <option value="casablanca">Casablanca</option>
+            </select>
+
+        <label for="type">Type</label>
+        <select id="type">
+            <option value="">Tous les types</option>
+            <option value="villa">Villa</option>
+            <option value="maison">Maison</option>
+            <option value="appartement">Appartement</option>
+            <option value="studio">Studio</option>
+            </select>
+
+        <button class="filter-button">
+            <i class="fas fa-search"></i>
+            Filtrer
+        </button>
+    </div>
+
+    <div class="results-summary"> {# Corrected class name from results-summary_ to results-summary #}
+        <span class="count-badge">200 Logements trouvés</span> {# Changed "Écoles" to "Logements" for consistency #}
+        <span class="pagination-info">Page 1 sur 10</span>
+    </div>
+
+    <div class="accommodation-cards-grid">
+        <div class="housing-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFpc29ufGVufDB8fDB8fHww" alt="Résidence Cosy à Casablanca">
+                <span class="badge type-appartement">Appartement</span>
+                <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+            </div>
+            <div class="card-content">
+                <h3>Résidence Cosy à Casablanca</h3>
+                <p class="location"><i class="fas fa-map-marker-alt"></i> Casablanca</p>
+                <p class="description">Design contemporain dans un quartier dynamique</p>
+                <ul class="features-list">
+                    <li><i class="fas fa-ruler-combined"></i> 90m²</li>
+                    <li><i class="fas fa-bed"></i> 2 ch.</li>
+                    <li><i class="fas fa-bath"></i> 1 s.b.</li>
+                </ul>
+                <div class="amenities">
+                    <span class="amenity-tag">Wifi</span>
+                    <span class="amenity-tag">Climatisation</span>
+                    <span class="amenity-tag">Jardin</span>
+                    <span class="amenity-tag">Internet haut débit</span>
+                    <span class="amenity-tag">+4</span>
+                </div>
+                <div class="card-footer">
+                    <span class="price">5067 <small>DH/mois</small></span>
+                    <a href="#" class="btn-sm" {# Removed btn-primary as it's not defined and btn-sm has full styling #}
+                       onclick='populateModal(
+                                "Résidence Cosy à Casablanca",
+                                ["https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFpc29ufGVufDB8fDB8fHww", "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWFpc29ufGVufDB8fDB8fHww", "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWFpc29ufGVufDB8fDB8fHww"],
+                                "Appartement",
+                                "4.9",
+                                "Casablanca, Casablanca",
+                                "90m² • 3 pièces",
+                                "5067 DH/mois",
+                                "Design contemporain dans un quartier dynamique",
+                                "1km",
+                                ["Wifi", "Climatisation", "Jardin", "Internet haut débit", "Four", "Réfrigérateur", "Balcon", "Ascenseur"]
+                            );'>Voir détails</a>
+                </div>
+            </div>
+        </div>
+
+        {# You would dynamically add more 'housing-card' blocks here based on your data #}
+        {# Example from previous response (simplified to fit new card structure): #}
+    
+        
+
+        <div class="housing-card">
+            <div class="card-image-wrapper">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Studio Confortable à Casablanca">
+                <span class="badge type-studio">Studio</span>
+                <button class="favorite-btn"><i class="far fa-heart"></i></button>
+                <span class="rating"><i class="fas fa-star"></i> 4.6</span>
+            </div>
+            <div class="card-content">
+                <h3>Studio Confortable à Casablanca</h3>
+                <p class="location"><i class="fas fa-map-marker-alt"></i> Casablanca</p>
+                <p class="description">Logement récemment rénové avec équipements modernes</p>
+                <ul class="features-list">
+                    <li><i class="fas fa-ruler-combined"></i> 30m²</li>
+                    <li><i class="fas fa-bed"></i> 1 ch.</li>
+                    <li><i class="fas fa-bath"></i> 1 s.b.</li>
+                </ul>
+                <div class="amenities">
+                    <span class="amenity-tag">Wifi</span>
+                    <span class="amenity-tag">Climatisation</span>
+                    <span class="amenity-tag">Lave-vaisselle</span>
+                    <span class="amenity-tag">+3</span>
+                </div>
+                <div class="card-footer">
+                    <span class="price">2020 <small>DH/mois</small></span>
+                    <a href="#" class="btn-sm"
+                       onclick='populateModal(
+                           "Studio Confortable à Casablanca",
+                           ["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8bWFpc29ufGVufDB8fDB8fHww"],
+                           "Studio", "4.6", "Casablanca, Casablanca", "30m² • 1 pièce", "2020 DH/mois",
+                           "Logement récemment rénové avec équipements modernes",
+                           "0.5km",
+                           ["Wifi", "Climatisation", "Lave-vaisselle", "Meublé", "Four"]
+                       );'>Voir détails</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="pagination">
+        <button>&lt; Previous</button>
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>4</button>
+        <button>5</button>
+        <button>Next &gt;</button>
+    </div>
+</div>
+
+{# Modèle de la modale (vous devrez le placer dans votre base_dash_template.html ou ici si c'est spécifique à cette page) #}
+<div id="housingModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="modal-body">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <span class="modal-badge" id="modalBadge"></span>
+            </div>
+            <div class="modal-image-gallery">
+                <img id="modalImage" src="" alt="Housing Image">
+                <div class="modal-thumbnail-gallery" id="modalThumbnails">
+                    {# Thumbnails will be populated by JS #}
+                </div>
+            </div>
+            <div class="modal-details">
+                <div class="modal-rating"><i class="fas fa-star"></i> <span id="modalRating"></span></div>
+                <div class="modal-info-grid">
+                    <div><strong><i class="fas fa-map-marker-alt"></i> Emplacement:</strong> <span id="modalLocation"></span></div>
+                    <div><strong><i class="fas fa-ruler-combined"></i> Superficie:</strong> <span id="modalArea"></span></div>
+                    <div><strong><i class="fas fa-dollar-sign"></i> Prix:</strong> <span id="modalPrice"></span></div>
+                    <div><strong><i class="fas fa-route"></i> Distance de l'université:</strong> <span id="modalDistance"></span></div>
+                </div>
+                <p class="modal-description" id="modalDescription"></p>
+                <h3>Équipements</h3>
+                <div class="modal-amenities-list" id="modalAmenities">
+                    {# Amenities will be populated by JS #}
+                </div>
+                <button class="modal-reserve-button">Connectez-vous pour réserver une visite</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // JavaScript for Modal functionality
+    const modal = document.getElementById('housingModal');
+    const closeButton = document.querySelector('.modal .close-button');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBadge = document.getElementById('modalBadge');
+    const modalImage = document.getElementById('modalImage');
+    const modalThumbnails = document.getElementById('modalThumbnails');
+    const modalRating = document.getElementById('modalRating');
+    const modalLocation = document.getElementById('modalLocation');
+    const modalArea = document.getElementById('modalArea');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalDistance = document.getElementById('modalDistance');
+    const modalAmenities = document.getElementById('modalAmenities');
+
+    function populateModal(title, images, type, rating, location, area, price, description, distance, amenities) {
+        modalTitle.textContent = title;
+        modalBadge.textContent = type;
+        // Apply type-specific background color to modal badge
+        modalBadge.className = 'modal-badge'; // Reset class
+        if (type === 'Villa') modalBadge.classList.add('type-villa');
+        else if (type === 'Maison') modalBadge.classList.add('type-maison');
+        else if (type === 'Studio') modalBadge.classList.add('type-studio');
+        else if (type === 'Appartement') modalBadge.classList.add('type-appartement');
+
+        modalImage.src = images[0]; // Set main image
+        modalRating.textContent = rating;
+        modalLocation.textContent = location;
+        modalArea.textContent = area;
+        modalPrice.textContent = price;
+        modalDescription.textContent = description;
+        modalDistance.textContent = distance;
+
+        // Populate thumbnails
+        modalThumbnails.innerHTML = ''; // Clear previous thumbnails
+        images.forEach(imgSrc => {
+            const thumb = document.createElement('img');
+            thumb.src = imgSrc;
+            thumb.alt = 'Thumbnail';
+            thumb.classList.add('modal-thumbnail');
+            thumb.onclick = () => modalImage.src = imgSrc; // Change main image on thumbnail click
+            modalThumbnails.appendChild(thumb);
+        });
+
+        // Populate amenities
+        modalAmenities.innerHTML = ''; // Clear previous amenities
+        amenities.forEach(amenity => {
+            const amenityTag = document.createElement('span');
+            amenityTag.classList.add('amenity-tag');
+            amenityTag.textContent = amenity;
+            modalAmenities.appendChild(amenityTag);
+        });
+
+        modal.style.display = 'block'; // Show the modal
+        document.body.classList.add('modal-open'); // Add class to body to prevent scrolling
+    }
+
+    // Close the modal when the close button is clicked
+    closeButton.onclick = function() {
+        modal.style.display = 'none';
+        document.body.classList.remove('modal-open');
+    }
+
+    // Close the modal when clicking outside of the modal content
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }
+    }
+</script>
+
+{% endblock %}

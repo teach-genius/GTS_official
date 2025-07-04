@@ -1,0 +1,623 @@
+:root {
+    --primary-blue: #007bff;
+    --secondary-blue: #0056b3;
+    --text-dark: #333;
+    --text-medium: #555;
+    --text-light: #777;
+    --star-yellow: #ffc107;
+  }
+  
+  .accommodations-page {
+    padding: 30px;
+    background-color: #f0f2f5;
+    min-height: calc(100vh - 60px);
+  }
+  
+  .accommodations-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .accommodations-header h1 {
+    font-size: 1.8em;
+    color: var(--text-dark);
+  }
+  
+  .accommodations-header .add-button {
+    background-color: var(--primary-blue);
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+  }
+  
+  .accommodations-header .add-button i {
+    margin-right: 5px;
+  }
+  
+  .filter-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  .filter-section label {
+    font-size: 0.9em;
+    color: var(--text-medium);
+    margin-right: 5px;
+  }
+  
+  .filter-section select,
+  .filter-section input[type="text"] {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    color: var(--text-dark);
+  }
+  
+  .filter-section .filter-button {
+    background-color: var(--primary-blue);
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .accommodation-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  
+  .housing-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  .housing-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .housing-card .card-image-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 200px;
+  }
+  
+  .housing-card .card-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .housing-card .badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: var(--primary-blue);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    font-weight: 600;
+    z-index: 10;
+    white-space: nowrap;
+  }
+  
+  .housing-card .badge.type-villa {
+    background-color: #28a745;
+  }
+  
+  .housing-card .badge.type-maison {
+    background-color: #fd7e14;
+  }
+  
+  .housing-card .badge.type-studio {
+    background-color: #6f42c1;
+  }
+  
+  .housing-card .badge.type-appartement {
+    background-color: #17a2b8;
+  }
+  
+  .housing-card .favorite-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    z-index: 10;
+  }
+  
+  .housing-card .favorite-btn:hover {
+    background-color: #ffe6e6;
+  }
+  
+  .housing-card .favorite-btn i {
+    color: #ff6b6b;
+    font-size: 1.1em;
+  }
+  
+  .housing-card .rating {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    z-index: 10;
+  }
+  
+  .housing-card .rating i {
+    color: var(--star-yellow);
+  }
+  
+  .housing-card .card-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+  
+  .housing-card h3 {
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  
+  .housing-card .location {
+    font-size: 0.9em;
+    color: var(--text-medium);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .housing-card .location i {
+    color: var(--primary-blue);
+  }
+  
+  .housing-card .description {
+    font-size: 0.9em;
+    color: var(--text-light);
+    margin-bottom: 15px;
+    flex-grow: 1;
+    line-height: 1.5;
+  }
+  
+  .housing-card .features-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 15px;
+  }
+  
+  .housing-card .features-list li {
+    font-size: 0.9em;
+    color: var(--text-medium);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+  
+  .housing-card .features-list li i {
+    color: var(--primary-blue);
+  }
+  
+  .housing-card .amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .housing-card .amenity-tag {
+    background-color: #e6f7ff;
+    color: var(--primary-blue);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.75em;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  
+  .housing-card .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+  }
+  
+  .housing-card .price {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--primary-blue);
+  }
+  
+  .housing-card .price small {
+    font-size: 0.6em;
+    font-weight: 400;
+    color: var(--text-medium);
+  }
+  
+  .housing-card .btn-sm {
+    padding: 8px 18px;
+    font-size: 0.9em;
+    border-radius: 6px;
+    background: linear-gradient(to right,
+        var(--primary-blue),
+        var(--secondary-blue));
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .housing-card .btn-sm:hover {
+    background: linear-gradient(to right, var(--secondary-blue), #003d80);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+  }
+  
+  .results-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .results-summary .count-badge {
+    background-color: var(--primary-blue);
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .results-summary .pagination-info {
+    font-size: 0.9em;
+    color: var(--text-light);
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .pagination button.active {
+    background-color: var(--primary-blue);
+    color: #fff;
+    border-color: var(--primary-blue);
+  }
+  
+  @media (max-width: 768px) {
+    .filter-section {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .filter-section label {
+      margin-right: 0;
+      margin-bottom: 5px;
+    }
+  
+    .housing-card .card-content {
+      padding: 15px;
+    }
+  
+    .housing-card h3 {
+      font-size: 1.2em;
+    }
+  
+    .housing-card .price {
+      font-size: 1.3em;
+    }
+  
+    .housing-card .btn-sm {
+      padding: 7px 15px;
+      font-size: 0.85em;
+    }
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    background: white;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .close-button:hover,
+  .close-button:focus {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .modal-body {
+    padding: 20px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+  }
+  
+  .modal-header h2 {
+    font-size: 1.8em;
+    color: var(--text-dark);
+    margin: 0;
+  }
+  
+  .modal-badge {
+    background-color: var(--primary-blue);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+  
+  .modal-badge.type-villa {
+    background-color: #28a745;
+  }
+  
+  .modal-badge.type-maison {
+    background-color: #fd7e14;
+  }
+  
+  .modal-badge.type-studio {
+    background-color: #6f42c1;
+  }
+  
+  .modal-badge.type-appartement {
+    background-color: #17a2b8;
+  }
+  
+  .modal-image-gallery {
+    margin-bottom: 20px;
+  }
+  
+  .modal-image-gallery img#modalImage {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .modal-thumbnail-gallery {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+  }
+  
+  .modal-thumbnail {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease;
+  }
+  
+  .modal-thumbnail:hover {
+    border-color: var(--primary-blue);
+  }
+  
+  .modal-rating {
+    font-size: 1.1em;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .modal-rating i {
+    color: var(--star-yellow);
+  }
+  
+  .modal-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .modal-info-grid div {
+    font-size: 0.95em;
+    color: var(--text-medium);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .modal-info-grid div strong {
+    color: var(--text-dark);
+  }
+  
+  .modal-info-grid div i {
+    color: var(--primary-blue);
+  }
+  
+  .modal-description {
+    font-size: 1em;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  
+  .modal-details h3 {
+    font-size: 1.4em;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+  }
+  
+  .modal-amenities-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .modal-reserve-button {
+    background: linear-gradient(to right, var(--primary-blue), var(--secondary-blue));
+    color: #fff;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+    font-weight: 600;
+  }
+  
+  .modal-reserve-button:hover {
+    background: linear-gradient(to right, var(--secondary-blue), #003d80);
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+  }
+  
+  body.modal-open {
+    overflow: hidden;
+  }
+  
+  @media (max-width: 768px) {
+    .modal-content {
+      width: 95%;
+      margin: 10px auto;
+    }
+  
+    .modal-body {
+      padding: 15px;
+    }
+  
+    .modal-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  
+    .modal-header h2 {
+      font-size: 1.5em;
+    }
+  
+    .modal-info-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .modal-image-gallery img#modalImage {
+      height: 200px;
+    }
+  }

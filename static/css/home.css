@@ -1,0 +1,917 @@
+/* Importation de la police Google Fonts (Poppins est un bon candidat) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    /* Définition des variables de couleur pour la cohérence */
+    --primary-blue: #007bff; /* Bleu distinctif de la marque */
+    --dark-blue: #0056b3;
+    --text-dark: #333;
+    --text-medium: #555;
+    --text-light: #777;
+    --bg-light: #f8f9fa;
+    --border-light: #ddd;
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    --shadow-medium: rgba(0, 0, 0, 0.1);
+    --star-yellow: #ffc107;
+    --header-height: 70px; /* Hauteur de l'en-tête pour le sticky */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: #fff;
+    -webkit-font-smoothing: antialiased; /* Meilleur rendu des polices */
+    scroll-behavior: smooth; /* Défilement doux */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-top: 0;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+a {
+    text-decoration: none;
+    color: inherit; /* Par défaut, les liens héritent la couleur du parent */
+}
+
+/* Styles de base pour les boutons (réutilisables) */
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: #fff;
+    padding: 10px 20px; /* Ajusté pour une meilleure proportion */
+    border: none;
+    border-radius: 6px; /* Rayon légèrement augmenté */
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap; /* Empêche le texte du bouton de se casser sur plusieurs lignes */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Ombre par défaut */
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* Ombre plus prononcée au survol */
+}
+
+.btn-outline-primary {
+    background-color: transparent;
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Ombre par défaut */
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-blue);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Styles pour les icônes Font Awesome */
+
+/* ================== Header Styles ================== */
+header {
+    background-color: #fff;
+    padding: 15px 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Ombre plus visible */
+    position: sticky; /* Rendre l'en-tête fixe */
+    top: 0;
+    z-index: 1000; /* Assurer qu'il est au-dessus des autres éléments */
+    width: 100%;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo a { /* Le lien englobe l'image et le texte */
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo img {
+    height: 50px; /* Taille légèrement plus grande pour le logo */
+    margin-right: 12px; /* Espacement ajusté */
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Aligner le texte en haut */
+    align-items: flex-start; /* Aligner le texte à gauche */
+}
+
+.logo-text span:first-of-type {
+    font-weight: 700; /* Plus gras */
+    font-size: 1.6em; /* Taille plus grande pour "GTS" */
+    color: var(--primary-blue); /* Couleur GTS bleue */
+    line-height: 1; /* Réduit l'espace entre les lignes */
+}
+
+.logo-text span:last-of-type {
+    font-size: 0.85em; /* Plus petit */
+    color: var(--text-medium); /* Gris moyen */
+    line-height: 1; /* Réduit l'espace entre les lignes */
+    margin-top: 2px; /* Petit espace entre les deux lignes de texte */
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.main-nav ul li {
+    margin-left: 35px; /* Plus d'espacement entre les liens */
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: var(--text-dark); /* Couleur de texte par défaut */
+    font-weight: 500;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    position: relative; /* Pour l'effet de soulignement */
+}
+
+.main-nav ul li a:hover,
+.main-nav ul li a.active { /* Style pour le lien actif et au survol */
+    color: var(--primary-blue);
+}
+
+.main-nav ul li a::after { /* Effet de soulignement */
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary-blue);
+    transition: width 0.3s ease;
+}
+
+.main-nav ul li a:hover::after,
+.main-nav ul li a.active::after {
+    width: 100%;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espace entre le bouton de connexion et le menu toggle */
+}
+
+/* Menu Toggle pour Mobile (caché par défaut) */
+.menu-toggle {
+    display: none; /* Caché sur les grands écrans */
+    background: none;
+    border: none;
+    font-size: 1.8em;
+    color: var(--text-dark);
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.menu-toggle:hover {
+    color: var(--primary-blue);
+}
+
+/* ================== Media Queries pour le Responsive Header ================== */
+@media (max-width: 992px) { /* Pour les tablettes et plus petits */
+    .main-nav {
+        display: none; /* Cache la navigation par défaut */
+        flex-direction: column;
+        position: absolute;
+        top: var(--header-height); /* Sous l'en-tête */
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px 0;
+        z-index: 999;
+    }
+
+    .main-nav.active {
+        display: flex; /* Affiche la navigation quand active */
+    }
+
+    .main-nav ul {
+        flex-direction: column;
+        align-items: flex-start; /* Alignement des liens à gauche */
+        width: 100%;
+    }
+
+    .main-nav ul li {
+        margin: 10px 0; /* Espacement vertical pour les liens du menu mobile */
+        width: 100%;
+        padding-left: 20px; /* Indentation pour la lisibilité */
+    }
+
+    .main-nav ul li a {
+        display: block; /* Rendre le lien cliquable sur toute la largeur */
+        padding: 8px 0;
+        font-size: 1.1em;
+    }
+
+    .main-nav ul li a::after { /* Supprimer le soulignement pour le menu mobile ou l'adapter */
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block; /* Affiche le bouton de menu */
+    }
+}
+
+@media (max-width: 768px) {
+    .logo img {
+        height: 45px; /* Ajustement pour les petits écrans */
+    }
+
+    .logo-text span:first-of-type {
+        font-size: 1.4em;
+    }
+
+    .logo-text span:last-of-type {
+        font-size: 0.8em;
+    }
+
+    .header-actions .btn-primary {
+        padding: 8px 15px; /* Plus petit sur mobile */
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    header .container {
+        padding: 0 15px;
+    }
+    .logo img {
+        height: 40px;
+        margin-right: 8px;
+    }
+    .logo-text span:first-of-type {
+        font-size: 1.2em;
+    }
+    .logo-text span:last-of-type {
+        font-size: 0.75em;
+    }
+    .header-actions .btn-primary {
+        display: none; /* Masquer le bouton de connexion sur les très petits écrans */
+    }
+    .menu-toggle {
+        font-size: 1.6em;
+    }
+}
+
+/* Hero Section */
+.hero-section {
+    background-image: url('../imgs/equipe.jpeg');
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 120px 0 80px 0;
+    position: relative;
+    height: 700px;
+    background-position: top center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    
+    
+    
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-section h1 {
+    font-size: 3.2em;
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+
+.hero-section h1 .highlight {
+    background: linear-gradient(to right, #a7d9ff, var(--primary-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    font-weight: 700;
+}
+
+.hero-section p {
+    font-size: 1.1em;
+    margin-bottom: 30px;
+    opacity: 0.95;
+    color: #f0f8ff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Search Box Section*/
+.search-box {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px; /* Moins de padding pour un look plus compact */
+    box-shadow: 0 8px 20px var(--shadow-medium); /* Ombre plus prononcée */
+    display: inline-block;
+    max-width: 700px; /* Limiter la largeur de la boîte de recherche */
+    width: 100%; /* S'assurer qu'elle occupe la largeur disponible */
+}
+
+/* Styles pour les onglets de recherche*/
+.search-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px; /* Espace sous les onglets */
+    background-color: #e8f4ff; /* Couleur de fond des onglets (bleu très clair) */
+    border-radius: 8px; /* Bords arrondis pour l'ensemble des onglets */
+    padding: 5px; /* Padding interne pour les onglets */
+    width: fit-content; /* S'adapte au contenu */
+    margin-left: auto; /* Centre la boîte d'onglets */
+    margin-right: auto; /* Centre la boîte d'onglets */
+}
+
+.tab-button {
+    background-color: transparent;
+    border: none;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-size: 1.05em;
+    color: var(--primary-blue); /* Couleur du texte des onglets inactifs */
+    font-weight: 500;
+    transition: all 0.3s ease; /* Transition pour toutes les propriétés */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px; /* Bords arrondis pour chaque bouton d'onglet */
+}
+
+.tab-button.active {
+    background: linear-gradient(to right, #007bff, #0056b3); /* Dégradé de bleu pour l'onglet actif*/
+    color: #fff; /* Texte blanc pour l'onglet actif*/
+    font-weight: 600; /* Texte plus gras pour l'actif*/
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre pour l'onglet actif*/
+}
+
+.tab-button i {
+    color: inherit; /* L'icône hérite de la couleur du texte parent (donc blanc pour actif, bleu pour inactif) */
+}
+
+/* Styles pour le formulaire de recherche*/
+.search-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.search-form input,
+.search-form select {
+    padding: 12px 18px; /* Padding ajusté pour correspondre à l'image*/
+    border: 1px solid var(--border-light);
+    border-radius: 8px; /* Bords plus arrondis*/
+    font-size: 1em;
+    flex: 1;
+    min-width: 180px;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
+    outline: none; /* Supprime le contour au focus */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-form input:focus,
+.search-form select:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Anneau de focus bleu léger */
+}
+
+.search-form .btn-primary {
+    padding: 12px 25px; /* Padding ajusté pour le bouton*/
+    min-width: 140px; /* Ajuster la largeur minimale*/
+    font-size: 1em;
+    font-weight: 600; /* Plus gras pour le bouton*/
+    border-radius: 8px; /* Bords plus arrondis*/
+    background: linear-gradient(to right, #007bff, #0056b3); /* Dégradé de bleu pour le bouton*/
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2); /* Ombre plus distincte pour le bouton*/
+    transition: all 0.3s ease;
+}
+
+.search-form .btn-primary:hover {
+    background: linear-gradient(to right, #0056b3, #003d80); /* Dégradé plus foncé au survol*/
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3); /* Ombre plus prononcée au survol*/
+}
+
+/* Media Queries pour la réactivité de la search-box*/
+@media (max-width: 768px) {
+    .search-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .search-form input,
+    .search-form select,
+    .search-form .btn-primary {
+        width: 100%;
+        min-width: auto;
+    }
+    .search-tabs {
+        flex-direction: column; /* Empile les onglets verticalement sur les petits écrans */
+        width: 100%; /* Occupe toute la largeur */
+        padding: 5px; /* Ajuste le padding */
+    }
+    .tab-button {
+        width: 100%; /* Chaque onglet prend toute la largeur */
+        justify-content: center; /* Centre le contenu des onglets */
+        margin-bottom: 5px; /* Espace entre les onglets empilés */
+    }
+    .tab-button:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* Intro Text Section "Votre avenir commence ici"*/
+/* Intro Text Section "Votre avenir commence ici" */
+.intro-text-section {
+    padding: 60px 0 40px 0; /* Padding ajusté pour une bonne séparation visuelle */
+    text-align: center;
+    background-color: #fff; /* Fond blanc comme sur l'image */
+}
+
+.intro-text-section h2 {
+    font-size: 2.8em; /* Grande taille pour le titre principal */
+    font-weight: 700; /* Très gras */
+    color: #212529; /* Noir très foncé pour le texte par défaut du titre ("Votre avenir" et "ici") */
+    margin-bottom: 15px; /* Espace entre le titre et le paragraphe */
+    line-height: 1.2; /* Ajuster la hauteur de ligne si le titre se divise */
+}
+
+.intro-text-section h2 .highlight {
+    color: #007bff; /* Bleu vif spécifique pour le texte "commence" comme sur l'image */
+    font-weight: 700; /* S'assurer qu'il reste gras */
+}
+
+.intro-text-section p {
+    font-size: 1.05em; /* Taille de police légèrement plus grande pour une meilleure lisibilité */
+    max-width: 800px; /* Limiter la largeur du paragraphe pour un meilleur confort de lecture */
+    margin: 0 auto; /* Centrer le paragraphe */
+    line-height: 1.6; /* Espacement entre les lignes pour la lisibilité */
+    color: #555; /* Couleur de texte gris moyen pour le paragraphe */
+}
+
+/* Media Queries pour la réactivité */
+@media (max-width: 768px) {
+    .intro-text-section h2 {
+        font-size: 2.2em; /* Réduire la taille du titre sur les tablettes */
+    }
+    .intro-text-section p {
+        font-size: 1em; /* Réduire la taille du paragraphe sur les tablettes */
+        padding: 0 15px; /* Ajouter un peu de padding horizontal */
+    }
+}
+
+@media (max-width: 480px) {
+    .intro-text-section h2 {
+        font-size: 1.8em; /* Réduire davantage la taille du titre sur les mobiles */
+    }
+    .intro-text-section p {
+        font-size: 0.95em; /* Réduire davantage la taille du paragraphe sur les mobiles */
+    }
+    .intro-text-section {
+        padding: 40px 0 30px 0; /* Ajuster le padding sur les petits écrans */
+    }
+}
+
+/* Stats Section*/
+.stats-section {
+    background: linear-gradient(to right, #007bff, #004dff); /* Dégradé de bleu comme sur l'image */
+    padding: 40px 0;
+    text-align: center;
+    color: #fff; /* Texte blanc pour le contraste avec le fond bleu */
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.stat-item {
+    text-align: center;
+    flex: 1;
+    min-width: 150px;
+    padding: 10px;
+}
+
+.stat-item h3 {
+    font-size: 2.2em;
+    color: #fff;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.stat-item p {
+    font-size: 0.9em;
+    color: #f0f8ff; /* Blanc cassé pour les descriptions */
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Media queries pour les écrans plus petits pour empiler les statistiques */
+@media (max-width: 768px) {
+    .stats-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Why Choose Us Section "Pourquoi choisir GTS ?"*/
+.why-choose-us {
+    padding: 80px 0; /* Padding supérieur et inférieur pour cette section */
+    text-align: center;
+    background-color: #fff; /* Fond blanc */
+}
+
+.why-choose-us h2 {
+    font-size: 2.5em; /* Taille de titre ajustée */
+    font-weight: 700; /* Gras */
+    color: #212529; /* Noir très foncé pour le titre */
+    margin-bottom: 10px; /* Moins d'espace en dessous pour le sous-titre */
+}
+
+.why-choose-us p { /* Sous-titre "Votre partenaire de confiance..." */
+    font-size: 1.1em; /* Légèrement plus grand */
+    color: var(--text-medium); /* Gris moyen */
+    margin-bottom: 50px; /* Espace sous le paragraphe avant les fonctionnalités */
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.features-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.feature-item {
+    border: 1px solid hsl(220deg 100% 50% / 30%);
+    flex: 1;
+    max-width: 320px;
+    padding: 35px 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-light);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-medium);
+}
+
+.icon-box {
+    width: 70px;
+    height: 70px;
+    background-color: #e6f7ff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+}
+
+.icon-box i {
+    font-size: 2.8em;
+    color: var(--primary-blue);
+}
+
+.feature-item h3 {
+    font-size: 1.4em;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.feature-item p {
+    font-size: 0.95em;
+    color: var(--text-medium);
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+@media (max-width: 992px) {
+    .features-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .feature-item {
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 576px) {
+    .feature-item {
+        max-width: 100%;
+    }
+}
+
+/* CTA Section*/
+.cta-section {
+    padding: 80px 0; /* Augmenter le padding pour plus d'espace */
+    text-align: center;
+    background-color: #fff; /* Fond blanc */
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Réduire légèrement l'espace entre les boutons */
+    flex-wrap: wrap;
+}
+
+.cta-buttons .btn-outline-primary,
+.cta-buttons .btn-primary {
+    padding: 18px 40px; /* Augmenter le padding pour des boutons plus grands */
+    font-size: 1.1em; /* Taille de police légèrement plus grande */
+    font-weight: 600; /* Maintenir le texte gras */
+    border-radius: 12px; /* Augmenter le rayon de bordure pour des coins plus arrondis */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Ombre par défaut plus prononcée */
+    transition: all 0.3s ease; /* Transition douce pour toutes les propriétés */
+    display: inline-flex; /* Assurer l'alignement icône/texte */
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Espacement entre icône et texte */
+}
+
+/* Style spécifique pour le bouton Découvrir les écoles (btn-outline-primary) */
+.cta-buttons .btn-outline-primary {
+    background-color: #fff; /* Fond blanc pour le bouton outline */
+    color: var(--primary-blue); /* Texte bleu */
+    border: 1px solid #d4e7ff; /* Bordure très légère, presque invisible, bleu clair */
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.08); /* Ombre subtile bleuâtre */
+}
+
+.cta-buttons .btn-outline-primary:hover {
+    background-color: #f0f7ff; /* Légèrement teinté de bleu au survol */
+    color: var(--dark-blue); /* Texte légèrement plus foncé au survol */
+    border-color: var(--primary-blue); /* Bordure bleue au survol */
+    transform: translateY(-3px); /* Effet de soulèvement plus prononcé */
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.15); /* Ombre plus forte au survol */
+}
+
+/* Style spécifique pour le bouton Conseils IA gratuits (btn-primary) */
+.cta-buttons .btn-primary {
+    background: linear-gradient(to right, #007bff, #0056b3); /* Dégradé de bleu */
+    color: #fff; /* Texte blanc */
+    border: none; /* Pas de bordure pour le bouton primary */
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.25); /* Ombre bleue plus distincte */
+}
+
+.cta-buttons .btn-primary:hover {
+    background: linear-gradient(to right, #0056b3, #003d80); /* Dégradé plus foncé au survol */
+    transform: translateY(-3px); /* Effet de soulèvement plus prononcé */
+    box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4); /* Ombre plus forte au survol */
+}
+
+/* Ajustement des icônes dans les boutons CTA */
+.cta-buttons .btn-outline-primary i,
+.cta-buttons .btn-primary i {
+    font-size: 1.2em; /* Taille légèrement plus grande pour les icônes */
+}
+
+/* Media queries pour l'empilement des boutons sur les écrans plus petits */
+@media (max-width: 576px) {
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cta-buttons .btn-primary,
+    .cta-buttons .btn-outline-primary {
+        width: 90%;
+        max-width: 300px; /* Limite la largeur pour les boutons empilés */
+        padding: 16px 30px; /* Ajuster le padding pour mobile */
+    }
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    padding: 80px 0;
+    text-align: center;
+    background-color: var(--bg-light); /* Garde le fond légèrement gris */
+}
+
+.testimonials-section h2 {
+    font-size: 2.5em; /* Taille ajustée pour correspondre à l'image */
+    font-weight: 700; /* Plus gras */
+    color: #212529; /* Couleur très sombre pour le titre principal */
+    margin-bottom: 10px; /* Moins d'espace en dessous pour le sous-titre */
+}
+
+.testimonials-section p { /* C'est le paragraphe "Des milliers d'étudiants nous font confiance" */
+    font-size: 1.1em; /* Légèrement plus grand */
+    color: var(--text-medium); /* Utiliser la couleur gris moyen pour la cohérence */
+    max-width: 700px; /* Permet un peu plus de largeur que le 600px précédent */
+    margin: 0 auto 50px auto; /* Centrage et espace sous le paragraphe */
+}
+
+.testimonials-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px; /* Augmenter l'espace entre les cartes pour correspondre à l'image */
+}
+
+.testimonial-card {
+    background-color: #fff;
+    border: 1px solid hsl(220deg 100% 50% / 30%);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* Ombre plus douce et légèrement plus étalée par défaut */
+    flex: 1;
+    max-width: 380px; /* Augmenter la largeur maximale de la carte pour qu'elle soit plus grande */
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* Ombre beaucoup plus prononcée au survol */
+}
+
+.testimonial-card .stars {
+    color: var(--star-yellow);
+    margin-bottom: 15px;
+    font-size: 1.5em; /* Rendre les étoiles plus grandes comme sur l'image */
+}
+
+.testimonial-card p { /* Texte du témoignage lui-même */
+    font-size: 1.05em; /* Légèrement plus grand et plus lisible */
+    line-height: 1.6;
+    color: var(--text-dark); /* Plus foncé que le text-medium général, pour le contenu */
+    margin-bottom: 20px; /* Plus d'espace sous le texte du témoignage */
+}
+
+.testimonial-card .author {
+    font-weight: 700; /* Rendre le nom de l'auteur plus gras */
+    color: var(--primary-blue); /* Couleur principale bleue */
+    margin-bottom: 5px; /* Plus d'espace sous l'auteur */
+}
+
+.testimonial-card .school {
+    font-size: 0.9em; /* Légèrement plus grand pour la lisibilité de l'école/faculté */
+    color: var(--text-light); /* Couleur plus claire pour la description de l'école */
+    margin-bottom: 0;
+}
+
+/* Media queries pour l'empilement sur les écrans plus petits */
+@media (max-width: 992px) {
+    .testimonials-grid {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px; /* Ajuster l'espace en colonne pour les tablettes */
+    }
+    .testimonial-card {
+        max-width: 80%;
+    }
+}
+@media (max-width: 576px) {
+    .testimonial-card {
+        max-width: 100%;
+        padding: 25px;
+    }
+    .testimonials-section h2 {
+        font-size: 2em;
+    }
+    .testimonials-section p {
+        font-size: 1em;
+        margin-bottom: 30px;
+    }
+}
+
+.text-white {
+    color: white !important;
+}
+.pointer {
+    cursor: pointer !important;
+}
+
+/* ================== Responsive Adjustments for Home Page ================== */
+@media (max-width: 992px) {
+    .stats-grid, .features-grid, .testimonials-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    .cta-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+@media (max-width: 768px) {
+    .stats-grid, .features-grid, .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    .hero-section h1, .intro-text-section h2, .why-choose-us h2, .testimonials-section h2 {
+        font-size: 1.3em;
+    }
+    .hero-section p, .intro-text-section p, .why-choose-us p, .testimonials-section p {
+        font-size: 1em;
+    }
+    .cta-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .container {
+        padding: 0 8px;
+    }
+}
+@media (max-width: 480px) {
+    .hero-section h1, .intro-text-section h2, .why-choose-us h2, .testimonials-section h2 {
+        font-size: 1.1em;
+    }
+    .hero-section p, .intro-text-section p, .why-choose-us p, .testimonials-section p {
+        font-size: 0.95em;
+    }
+    .stats-grid, .features-grid, .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .cta-buttons {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .container {
+        padding: 0 4px;
+    }
+}

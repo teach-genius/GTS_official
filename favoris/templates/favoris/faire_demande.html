@@ -1,0 +1,494 @@
+<!-- limite modale -->
+<div style="display: none; " id="form_demande">
+
+    <div
+        style=" padding-top: 100px;padding-bottom: 30px; overflow-y: auto;justify-content: center;align-items: center; position: fixed;top: 0; left: 0; width: 100%;height: 100%; background-color: rgba(0, 0, 0, 0.5);z-index: 9999px;">
+        <div
+            style="background-color: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); padding: 24px; max-width: 900px; margin: 20px auto; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: relative;">
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px;">
+                <h1 style="margin: 0; font-size: 22px; color: #333; display: flex; align-items: center; gap: 10px;"><i
+                        class="fa fa-file-lines" style="color: #007bff;"></i>Demande de pré-inscription</h1>
+                <button onclick="closedemande()"
+                    style="background: none; border: none; font-size: 24px; color: #888; cursor: pointer;">&times;</button>
+            </div>
+            <p style="font-size: 16px; color: #555; margin-top: -10px; margin-bottom: 20px;" id="ecole_name_demande">
+                École des Hautes Études
+                Commerciales et Informatiques</p>
+
+            <div
+                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; font-size: 14px; color: #666;">
+                <span id="current-step-text">Etape 1 sur 5</span>
+                <span id="current-progress-percent">20%</span>
+            </div>
+            <div style="background-color: #e0e0e0; height: 5px; border-radius: 2.5px; margin-bottom: 25px;">
+                <div id="progress-bar"
+                    style="width: 20%; background-color: #007bff; height: 100%; border-radius: 2.5px;"></div>
+            </div>
+
+            <form id="preinscriptionForm" action="{% url 'ecoles:faire_demande_now' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div id="if1" class="form-section">
+                    <div
+                        style="display: flex; align-items: center; gap: 10px; font-size: 18px; color: #333; font-weight: 600; margin-bottom: 20px;">
+                        <span
+                            style="background-color: #007bff; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; font-size: 16px;"><i
+                                class="fa-solid fa-user"></i></span>
+                        Informations personnelles
+                    </div>
+                    <p style="font-size: 14px; color: #666; margin-bottom: 10px;">Vous êtes*</p>
+                    <ul
+                        style="list-style: none; display: flex; flex-direction: row; gap: 20px; padding: 0; margin-bottom: 30px;">
+                        <li style="display: flex; align-items: center; gap: 5px;"><input type="radio" name="gender"
+                                id="mme" value="mme" style="margin: 0;"> <label for="mme"
+                                style="color: #444;">Mme.</label></li>
+                        <li style="display: flex; align-items: center; gap: 5px;"><input type="radio" name="gender"
+                                id="mlle" value="mlle" style="margin: 0;"> <label for="mlle"
+                                style="color: #444;">Mlle.</label></li>
+                        <li style="display: flex; align-items: center; gap: 5px;"><input type="radio" name="gender"
+                                id="m" value="m" style="margin: 0;"> <label for="m" style="color: #444;">M.</label></li>
+                    </ul>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px;">
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <label for="prenom" style="font-size: 14px; color: #555; font-weight: 500;">Prénom *</label>
+                            <input type="text" name="prenom" placeholder="Prénom"
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; margin-top: -15px;">
+
+                            <label for="email" style="font-size: 14px; color: #555; font-weight: 500;">Email *</label>
+                            <input type="email" name="email" placeholder="exemple@email.com"
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; margin-top: -15px;">
+
+                            <label for="phone" style="font-size: 14px; color: #555; font-weight: 500;">Téléphone</label>
+                            <input type="text" name="telephone" placeholder="+212 600000000"
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; margin-top: -15px;">
+
+                            <label for="pays" style="font-size: 14px; color: #555; font-weight: 500;">Pays *</label>
+                            <input name="pays" placeholder="pays"
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; background-color: white; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23999%22%20d%3D%22M208%2080L128%20160L48%2080Z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 12px; margin-top: -15px;">
+
+                            </input>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <label for="nom" style="font-size: 14px; color: #555; font-weight: 500;">Nom *</label>
+                            <input type="text" name="nom" placeholder="Nom"
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; margin-top: -15px;">
+
+                            <label for="birthday" style="font-size: 14px; color: #555; font-weight: 500;">Date de
+                                Naissance
+                                *</label>
+                            <input type="date" name="birthday" placeholder="jj/mm/aaaa"
+                                style="z-index: 0; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; margin-top: -15px;">
+
+                            <label for="cni"
+                                style="font-size: 14px; color: #555; font-weight: 500;">CIN/Passeport</label>
+                            <input type="text" name="cni" placeholder="CIN/Passeport"
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; margin-top: -15px;">
+
+                            <label for="ville" style="font-size: 14px; color: #555; font-weight: 500;">Ville *</label>
+                            <input name="ville" placeholder="Ville"
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; background-color: white; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23999%22%20d%3D%22M208%2080L128%20160L48%2080Z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 12px; margin-top: -15px;">
+
+                            </input>
+                        </div>
+                    </div>
+                    <div style="margin-top: 30px; margin-bottom: 30px;">
+                        <span
+                            style="font-size: 14px; color: #555; font-weight: 500; margin-bottom: 10px; display: block;">Photo
+                            (optionnel)</span>
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <div id="image-preview-container"
+                                style="width: 80px; height: 80px; background-color: #f0f2f5; border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 2px dashed #ccc; flex-shrink: 0;">
+                                <i class="fa fa-user" style="font-size: 30px; color: #aaa;"></i>
+                            </div>
+                            <label for="photo_upload_input"
+                                style="background-color: white; color: #007bff; border: 1px solid #007bff; padding: 10px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s, color 0.3s; display: flex; align-items: center; gap: 8px;">
+                                <span><i class="fa fa-download"></i></span><span id="photo_upload_input_text">Charger
+                                    image</span>
+                                <input id="photo_upload_input" type="file" name="photo_upload_input" accept="image/*"
+                                    style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div
+                        style="display: flex; justify-content: flex-end; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                        <button type="button" onclick="nextStep()"
+                            style="background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s; display: flex; align-items: center; gap: 5px;">
+                            Suivant <span><i class="fa fa-chevron-right"></i></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="if2" class="form-section" style="display: none;">
+                    <div
+                        style="display: flex; align-items: center; gap: 10px; font-size: 18px; color: #333; font-weight: 600; margin-bottom: 20px;">
+                        <span
+                            style="background-color: #007bff; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; font-size: 16px;"><i
+                                class="fa fa-school"></i></span>
+                        Éducation actuelle
+                    </div>
+                    <div style="display:flex;flex-direction: column; gap: 20px 30px;">
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <label for="current_education_ville"
+                                style="font-size: 14px; color: #555; font-weight: 500;">Ville *</label>
+                            <input name="current_education_ville" placeholder="Ville actuelle"
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; background-color: white; appearance: none; margin-top: -15px;">
+                            </input>
+
+                            <label for="current_education_etablissement"
+                                style="font-size: 14px; color: #555; font-weight: 500;">Établissement actuel *</label>
+                            <input type="text" name="current_education_etablissement"
+                                placeholder="Nom de l'établissement"
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; margin-top: -15px;">
+                        </div>
+                    </div>
+
+                    <div
+                        style="display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                        <button type="button" onclick="prevStep()"
+                            style="background-color: #f0f2f5; color: #555; border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s, color 0.3s; display: flex; align-items: center; gap: 5px;">
+                            <span><i class="fa fa-chevron-left"></i></span>Précédent
+                        </button>
+                        <button type="button" onclick="nextStep()"
+                            style="background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s; display: flex; align-items: center; gap: 5px;">
+                            Suivant <span><i class="fa fa-chevron-right"></i></span>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div id="if3" class="form-section" style="display: none;">
+                    <div
+                        style="display: flex; align-items: center; gap: 10px; font-size: 18px; color: #333; font-weight: 600; margin-bottom: 20px;">
+                        <span
+                            style="background-color: #007bff; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; font-size: 16px;">
+                            <i class="fa-solid fa-graduation-cap"></i></span>
+                        Informations Baccalauréat
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px;">
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <label for="annee_bac" style="font-size: 14px; color: #555; font-weight: 500;">Niveau
+                                Bac</label>
+                            <select type="number" name="annee_bac" id="sel_choice"
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; margin-top: -15px;">
+                                <option value="0" selected="selected">BAC (ou en cours de preparation)</option>
+                                <option value="1">BAC + 1</option>
+                                <option value="2">BAC + 2</option>
+                                <option value="3">BAC + 4</option>
+                                <option value="4">BAC + 4</option>
+                                <option value="5">BAC + 5</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <label for="serie_bac" style="font-size: 14px; color: #555; font-weight: 500;">Série du
+                                Baccalauréat</label>
+                            <select name="serie_bac"
+                                style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; background-color: white; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23999%22%20d%3D%22M208%2080L128%20160L48%2080Z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 12px; margin-top: -15px;">
+                                <option value="781">Sciences de la Vie et de la Terre</option>
+                                <option selected="selected" value="782">Sciences Physiques et Chimiques</option>
+                                <option value="783">Sciences Maths A</option>
+                                <option value="784">Sciences Maths B</option>
+                                <option value="785">Sciences Economiques</option>
+                                <option value="786">Techniques de Gestion et de Comptabilité</option>
+                                <option value="787">Sciences agronomiques</option>
+                                <option value="788">Sciences et Technologies Electriques</option>
+                                <option value="789">Sciences et Technologies Mécaniques</option>
+                                <option value="790">Arts Appliqués</option>
+                                <option value="791">Sciences Humaines / Lettres</option>
+                                <option value="795">Autre bac (scientifique)</option>
+                                <option value="796">Autre bac (technique)</option>
+                                <option value="797">Autre bac (SHS)</option>
+                                <option value="798">Autre bac</option>
+                                <option value="802">Bac International</option>
+                                <option value="923">Bac Espagnol</option>
+                                <option value="924">Bac Anglais</option>
+                                <option value="925">Bac Français</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div style="display: flex;flex-direction: column;gap: 20px 30px;margin-top: 20px;">
+                        <label for="moyenne_bac" style="font-size: 14px; color: #555; font-weight: 500;">Moyenne au
+                            bac</label>
+                        <input disabled="true" id="mean_bac" type="number" min="10" max="20" step="0.01"
+                            name="moyenne_bac" placeholder="0.00"
+                            style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; margin-top: -15px;">
+                    </div>
+
+                    <script>
+                        // 1. Sélectionner les éléments HTML
+                        const selectElement = document.getElementById('sel_choice');
+                        const inputElement = document.getElementById('mean_bac');
+
+                        // 2. Ajouter un écouteur d'événements 'change' au select
+                        selectElement.addEventListener('change', function () {
+                            // Convertir la valeur en nombre pour une comparaison plus facile si besoin
+                            // ou la comparer directement comme une chaîne si c'est ce que tu veux (comme '0' pour BAC)
+                            const selectedValue = this.value;
+
+                            // Si la valeur sélectionnée est '0' (correspondant à "BAC (ou en cours de preparation)")
+                            if (selectedValue === "0") {
+                                inputElement.disabled = true; // Désactive l'input
+                                inputElement.value = 0.00;   // Met sa valeur à 0.00
+                            } else {
+                                inputElement.disabled = false; // Active l'input
+                                inputElement.value = 10.00;  // Met sa valeur par défaut à 10.00
+                            }
+                        });
+                    </script>
+
+                    <div
+                        style="display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                        <button type="button" onclick="prevStep()"
+                            style="background-color: #f0f2f5; color: #555; border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s, color 0.3s; display: flex; align-items: center; gap: 5px;">
+                            <span><i class="fa fa-chevron-left"></i></span>Précédent
+                        </button>
+                        <button type="button" onclick="nextStep()"
+                            style="background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s; display: flex; align-items: center; gap: 5px;">
+                            Suivant <span><i class="fa fa-chevron-right"></i></span>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div id="if4" class="form-section" style="display: none;">
+                    <div
+                        style="display: flex; align-items: center; gap: 10px; font-size: 18px; color: #333; font-weight: 600; margin-bottom: 20px;">
+                        <span
+                            style="background-color: #007bff; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; font-size: 16px;"><i
+                                class="fa-solid fa-user-graduate"></i>
+                        </span>
+                        Choix de la Formation
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 20px 30px;">
+                        <label for="formation" style="font-size: 14px; color: #555; font-weight: 500;">Formation
+                            d'intérêt
+                            *</label>
+                        <select name="formation_id" id="all_view_formations"
+                            style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; background-color: white; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23999%22%20d%3D%22M208%2080L128%20160L48%2080Z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 12px; margin-top: -15px;">
+                        </select>
+                    </div>
+
+                    <div
+                        style="display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                        <button type="button" onclick="prevStep()"
+                            style="background-color: #f0f2f5; color: #555; border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s, color 0.3s; display: flex; align-items: center; gap: 5px;">
+                            <span><i class="fa fa-chevron-left"></i></span>Précédent
+                        </button>
+                        <button type="button" onclick="nextStep()"
+                            style="background-color: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s; display: flex; align-items: center; gap: 5px;">
+                            Suivant <span><i class="fa fa-chevron-right"></i></span>
+                        </button>
+                    </div>
+                </div>
+
+
+                <div id="if5" class="form-section" style="display: none;">
+                    <div
+                        style="display: flex; align-items: center; gap: 10px; font-size: 18px; color: #333; font-weight: 600; margin-bottom: 20px;">
+                        <span
+                            style="background-color: #007bff; color: white; border-radius: 50%; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; font-size: 16px;"><i
+                                class="fa fa-file-lines"></i></span>
+                        Documents et Message
+                    </div>
+                    <div
+                        style="border-radius: 12px;border: 1px solid rgb(29 78 216);margin-bottom: 20px;
+        display: flex;flex-direction: column;gap: 10;padding: 12px;padding-bottom: 1px; background-color: rgb(239 246 255);">
+                        <h1 style="font-size: 1.2rem;">Documents requis pour l'étude de votre dossier</h1>
+                        <p>Veuillez joindre tous les documents nécessaires. Les documents marqués d'une * sont
+                            obligatoires.</p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px;">
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <label for="cv_upload_input" style="font-size: 14px; color: #555; font-weight: 500;">CV /
+                                Curriculum
+                                Vitae (optionnel) </label>
+                            <div
+                                style="padding: 12px; border: 2px dashed #D1D5DB;border-radius: 0.75rem; text-align: center; display: flex; justify-content: center; align-items: center;">
+                                <label for="cv_upload_input"
+                                    style="width: 100%; background-color: white; border: 1px solid #E5E7EB; border-radius: 1rem; padding: 0.75rem 1.5rem; font-size: 0.8rem; font-weight: 500; color: #374151; cursor: pointer; display:flex; flex-direction: row; align-items: center; gap: 0.5rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: background-color 0.2s, border-color 0.2s;justify-content: center;">
+                                    <i class="fa fa-upload" style="font-size: 1.25rem;"></i><span
+                                        id="cv_upload_input_text">Choisir un fichier</span>
+                                    <input id="cv_upload_input" type="file" name="cv_upload_input"
+                                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                                        style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">
+                                </label>
+                            </div>
+
+                            <label for="releve_notes_upload_input"
+                                style="font-size: 14px; color: #555; font-weight: 500;">Relevé de Notes du Baccalauréat
+                                (ou Diplôme Équivalent)
+                                *</label>
+                            <div
+                                style="padding: 12px; border: 2px dashed #D1D5DB;border-radius: 0.75rem; text-align: center; display: flex; justify-content: center; align-items: center;">
+                                <label for="releve_notes_upload_input"
+                                    style="width: 100%; background-color: white; border: 1px solid #E5E7EB; border-radius: 1rem; padding: 0.75rem 1.5rem; font-size: 0.8rem; font-weight: 500; color: #374151; cursor: pointer; display:flex; flex-direction: row; align-items: center; gap: 0.5rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: background-color 0.2s, border-color 0.2s;justify-content: center;">
+                                    <i class="fa fa-upload" style="font-size: 1.25rem;"></i><span
+                                        id="releve_notes_upload_input_text">Choisir un fichier</span>
+                                    <input id="releve_notes_upload_input" type="file" name="releve_notes_upload_input"
+                                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                                        style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">
+                                </label>
+                            </div>
+
+                            <label for="bac_diploma_upload_input"
+                                style="font-size: 14px; color: #555; font-weight: 500;">Diplôme du Baccalauréat (ou
+                                Diplôme Équivalent)
+                                *</label>
+                            <div
+                                style="padding: 12px; border: 2px dashed #D1D5DB;border-radius: 0.75rem; text-align: center; display: flex; justify-content: center; align-items: center;">
+                                <label for="bac_diploma_upload_input"
+                                    style="width: 100%; background-color: white; border: 1px solid #E5E7EB; border-radius: 1rem; padding: 0.75rem 1.5rem; font-size: 0.8rem; font-weight: 500; color: #374151; cursor: pointer; display:flex; flex-direction: row; align-items: center; gap: 0.5rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: background-color 0.2s, border-color 0.2s;justify-content: center;">
+                                    <i class="fa fa-upload" style="font-size: 1.25rem;"></i><span
+                                        id="bac_diploma_upload_input_text">Choisir un fichier</span>
+                                    <input id="bac_diploma_upload_input" type="file" name="bac_diploma_upload_input"
+                                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                                        style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            <label for="cni_copy_upload_input"
+                                style="font-size: 14px; color: #555; font-weight: 500;">Copie de la Pièce d'Identité
+                                (CIN/Passeport)
+                                *</label>
+                            <div
+                                style="padding: 12px; border: 2px dashed #D1D5DB;border-radius: 0.75rem; text-align: center; display: flex; justify-content: center; align-items: center;">
+                                <label for="cni_copy_upload_input"
+                                    style="width: 100%; background-color: white; border: 1px solid #E5E7EB; border-radius: 1rem; padding: 0.75rem 1.5rem; font-size: 0.8rem; font-weight: 500; color: #374151; cursor: pointer; display:flex; flex-direction: row; align-items: center; gap: 0.5rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: background-color 0.2s, border-color 0.2s;justify-content: center;">
+                                    <i class="fa fa-upload" style="font-size: 1.25rem;"></i><span
+                                        id="cni_copy_upload_input_text">Choisir un fichier</span>
+                                    <input id="cni_copy_upload_input" type="file" name="cni_copy_upload_input"
+                                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                                        style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">
+                                </label>
+                            </div>
+
+                            <label for="lettre_motivation_input"
+                                style="font-size: 14px; color: #555; font-weight: 500;">Lettre de Motivation / Lettre de
+                                Candidature (optionnel)
+                            </label>
+                            <div
+                                style="padding: 12px; border: 2px dashed #D1D5DB;border-radius: 0.75rem; text-align: center; display: flex; justify-content: center; align-items: center;">
+                                <label for="lettre_motivation_input"
+                                    style="width: 100%; background-color: white; border: 1px solid #E5E7EB; border-radius: 1rem; padding: 0.75rem 1.5rem; font-size: 0.8rem; font-weight: 500; color: #374151; cursor: pointer; display:flex; flex-direction: row; align-items: center; gap: 0.5rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: background-color 0.2s, border-color 0.2s;justify-content: center;">
+                                    <i class="fa fa-upload" style="font-size: 1.25rem;"></i><span
+                                        id="lettre_motivation_input_text">Choisir un fichier</span>
+                                    <input id="lettre_motivation_input" type="file" name="lettre_motivation_input"
+                                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                                        style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">
+                                </label>
+                            </div>
+
+                            <label for="recommandation_load_input"
+                                style="font-size: 14px; color: #555; font-weight: 500;">Lettres de Recommandation
+                                (optionnel)
+                            </label>
+                            <div
+                                style=" padding: 12px; border: 2px dashed #D1D5DB;border-radius: 0.75rem; text-align: center; display: flex; justify-content: center; align-items: center;">
+                                <label for="recommandation_load_input"
+                                    style="width: 100%; background-color: white; border: 1px solid #E5E7EB; border-radius: 1rem; padding: 0.75rem 1.5rem; font-size: 0.8rem; font-weight: 500; color: #374151; cursor: pointer; display:flex; flex-direction: row; align-items: center; gap: 0.5rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: background-color 0.2s, border-color 0.2s;justify-content: center;">
+                                    <i class="fa fa-upload" style="font-size: 1.25rem;"></i><span
+                                        id="recommandation_load_input_text">Choisir un fichier</span>
+                                    <input id="recommandation_load_input" type="file" name="recommandation_load_input"
+                                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                                        style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">
+                                </label>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                    <div style=" margin-top: 20px; color: rgb(75 85 99); border-radius: 12px;margin-bottom: 20px;
+        display: flex;flex-direction: column; background-color: rgb(249 250 251);padding: 12px;">
+                        <p style=" font-size: 1.rem;"><span style="font-weight: bold;">Formats acceptés :</span> PDF,
+                            DOC, DOCX, JPG, PNG (max 5MB par fichier)</p>
+                        <p style="line-height: 2px;"><span style=" font-weight: bold;">Important :</span> Assurez-vous
+                            que tous vos documents sont lisibles et en bonne qualité.</p>
+                    </div>
+
+
+
+                    <div style="display: flex;flex-direction: column;gap: 10px; margin-top: 20px;">
+                        <label for="message" style="font-size: 14px; color: #555; font-weight: 500;">Message
+                            (optionnel)</label>
+                        <textarea name="message" placeholder="Votre message..." rows="5"
+                            style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; resize: vertical;"></textarea>
+                    </div>
+
+                    <div
+                        style="display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+                        <button type="button" onclick="prevStep()"
+                            style="background-color: #f0f2f5; color: #555; border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s, color 0.3s; display: flex; align-items: center; gap: 5px;">
+                            <span><i class="fa fa-chevron-left"></i></span>Précédent
+                        </button>
+                        <input type="hidden" id="identifiant_ecole_" value="">
+                        <button type="submit"
+                            style="background-color: rgb(22 163 74); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background-color 0.3s; display: flex; align-items: center; gap: 5px;">
+                            Soumettre <span><i class="fa fa-chevron-right"></i></span>
+                        </button>
+
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+@media (max-width: 992px) {
+    #form_demande > div > div {
+        font-size: 1em !important;
+        padding: 10px !important;
+    }
+    #form_demande .close-button {
+        top: 10px !important;
+        right: 10px !important;
+        font-size: 2.2em !important;
+        z-index: 1001 !important;
+        background: none !important;
+        color: #888 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+}
+@media (max-width: 768px) {
+    #form_demande > div > div {
+        font-size: 0.97em !important;
+        padding: 8px !important;
+    }
+    #form_demande .close-button {
+        top: 8px !important;
+        right: 8px !important;
+        font-size: 2em !important;
+        z-index: 1001 !important;
+        background: none !important;
+        color: #888 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+}
+@media (max-width: 480px) {
+    #form_demande > div > div {
+        font-size: 0.93em !important;
+        padding: 4px !important;
+    }
+    #form_demande .close-button {
+        top: 4px !important;
+        right: 4px !important;
+        font-size: 1.7em !important;
+        z-index: 1001 !important;
+        background: none !important;
+        color: #888 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+}
+</style>

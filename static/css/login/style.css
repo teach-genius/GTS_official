@@ -1,0 +1,119 @@
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    width: 100%; 
+    margin: 0;
+    padding: 0;
+    background-color: #f5f8ff;
+}
+
+
+.login-container {
+    position: absolute;
+    top: 25%;
+    background-color: #fff; 
+    border:1px solid hsl(214.3 31.8% 91.4%);
+    padding: 25px; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; 
+    max-width: 500px; 
+    text-align: center; 
+    box-sizing: border-box; 
+    font-family: Arial, sans-serif;
+}
+
+/* Styles du titre "Connexion" */
+.login-container h1 {
+    color: black; /* Couleur du texte (noir/gris très foncé) */
+    font-size: 20px; /* Taille de la police */
+    font-weight: bold; /* Texte en gras */
+}
+
+/* Styles des groupes de formulaire (label + input) */
+.form-group {
+    margin-bottom: 20px; /* Espacement entre les groupes de formulaires */
+    text-align: left; /* Aligne le label à gauche */
+}
+
+/* Styles des labels (Email, Mot de passe) */
+.form-group label {
+    display: block; /* S'assure que le label prend sa propre ligne */
+    margin-bottom: 8px; /* Espacement entre le label et le champ de saisie */
+    color: black; /* Couleur du texte du label (gris foncé) */
+    font-weight: bold; /* Texte en gras */
+}
+
+/* Styles du wrapper pour les champs de saisie (bordure, icônes) */
+.input-wrapper {
+    position: relative;
+    display: flex; /* Utilise flexbox pour aligner l'icône et l'input */
+    align-items: center; /* Aligne verticalement l'icône et l'input au centre */
+    border: 1px solid #ddd; /* Bordure fine grise autour du champ */
+    border-radius: 4px; /* Coins légèrement arrondis pour la bordure */
+    padding: 0 12px; /* Padding interne pour l'espacement gauche/droite */
+    height: 44px; /* Hauteur fixe pour les champs, comme sur l'image */
+    box-sizing: border-box; /* Inclut padding et border dans la hauteur */
+    background-color: #fff; /* Assure un fond blanc pour le champ */
+}
+
+/* Styles de l'input réel dans le wrapper */
+.input-wrapper input {
+    border: none; /* Supprime la bordure par défaut de l'input */
+    outline: none; /* Supprime le contour bleu/noir au focus */
+    flex-grow: 1; /* Permet à l'input de prendre l'espace restant */
+    padding: 0; /* Pas de padding ici, il est géré par .input-wrapper */
+    font-size: 16px; /* Taille de la police du texte saisi */
+    color: black; /* Couleur du texte saisi */
+}
+
+/* Styles des icônes d'enveloppe et de cadenas */
+.input-wrapper .icon {
+    color: black; /* Couleur des icônes (gris) */
+    margin-right: 10px; /* Espacement entre l'icône et le texte du champ */
+    font-size: 20px; /* Taille des icônes */
+}
+
+/* Styles de l'icône de l'œil (pour le mot de passe) */
+.input-wrapper .eye-icon {
+    cursor: pointer; /* Indique que l'icône est cliquable */
+    color: black; /* Couleur de l'icône (gris) */
+    margin-left: 10px; /* Espacement entre le texte du champ et l'icône de l'œil */
+    font-size: 20px; /* Taille de l'icône */
+}
+
+/* Styles du bouton "Se connecter" */
+.login-button {
+    width: 100%; /* Prend toute la largeur du conteneur */
+    padding: 15px; /* Espacement intérieur du bouton */
+    background-color: hsl(220 100% 50%);
+    color: white; /* Couleur du texte blanc */
+    border: none; /* Supprime la bordure du bouton */
+    border-radius: 4px; /* Coins légèrement arrondis */
+    font-size: 18px; /* Taille de la police */
+    font-weight: bold; /* Texte en gras */
+    cursor: pointer; /* Indique que le bouton est cliquable */
+    transition: background-color 0.3s ease; /* Effet de transition au survol */
+    margin-top: 20px; /* Espacement au-dessus du bouton */
+}
+
+.login-button:hover {
+    background-color: #0056b3; /* Bleu plus foncé au survol */
+}
+
+/* Styles du lien "Pas de compte ? Inscrivez-vous" */
+.signup-link {
+    margin-top: 20px; /* Espacement au-dessus du lien */
+    font-size: 14px; /* Taille de la police */
+}
+
+.signup-link a {
+    color: #007bff; /* Couleur bleue du lien */
+    text-decoration: none; /* Supprime le soulignement par défaut */
+}
+
+.signup-link a:hover {
+    text-decoration: underline; /* Souligne le lien au survol */
+}

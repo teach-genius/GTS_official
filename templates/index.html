@@ -1,0 +1,131 @@
+{% extends 'base_template.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <h1 class="text-white">Votre Compagnon pour Étudier <br><span class="highlight">au Maroc</span></h1>
+        <p>Trouvez votre université idéale et votre logement parfait en quelques clics</p>
+    </div>
+</section>
+
+<section class="intro-text-section">
+    <div class="container">
+        <h2><span class="highlight">Votre avenir commence</span> ici</h2>
+        <p>GTS - Global Talaba Students vous accompagne dans votre parcours éducatif au Maroc. Trouvez votre école
+            idéale, votre logement parfait et bénéficiez de conseils personnalisés.</p>
+    </div>
+</section>
+
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>15,000+</h3>
+                <p>Étudiants accompagnés</p>
+            </div>
+            <div class="stat-item">
+                <h3>200+</h3>
+                <p>Établissements partenaires</p>
+            </div>
+            <div class="stat-item">
+                <h3>50+</h3>
+                <p>Villes couvertes</p>
+            </div>
+            <div class="stat-item">
+                <h3>98%</h3>
+                <p>Satisfaction clients</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="why-choose-us">
+    <div class="container">
+        <h2>Pourquoi choisir GTS ?</h2>
+        <p>Votre partenaire de confiance pour vos études au Maroc</p>
+        <div class="features-grid">
+            <div id="feat-ecole" class="feature-item pointer">
+                <div class="icon-box">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Établissements Vérifiés</h3>
+                <p>Plus de 200 écoles et universités partenaires soigneusement sélectionnées</p>
+            </div>
+            <div id="feat-logement" class="feature-item pointer">
+                <div class="icon-box">
+                    <i class="fas fa-home"></i>
+                </div>
+                <h3>Logements de Qualité</h3>
+                <p>Trouvez le logement parfait près de votre établissement d'études</p>
+            </div>
+            <div id="feat-bot" class="feature-item pointer">
+                <div class="icon-box">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Assistant IA Intelligent</h3>
+                <p>Obtenez des conseils personnalisés grâce à notre IA d'orientation</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials-section">
+    <div class="container">
+        <h2>Ce que disent nos étudiants</h2>
+        <p>Des milliers d'étudiants nous font confiance</p>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p>"GTS m'a aidée à trouver ma formation en ingénierie et un logement parfait près du campus."</p>
+                <p class="author">Aisha Benali</p>
+                <p class="school">ENSA Rabat</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p>"L'assistant IA m'a donné d'excellents conseils pour mon orientation en commerce."</p>
+                <p class="author">Omar Chakir</p>
+                <p class="school">ENCG Casablanca</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                        class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p>"Grâce à GTS, j'ai trouvé ma voie en médecine et un financement adapté."</p>
+                <p class="author">Fatima Idrissi</p>
+                <p class="school">Faculté de Médecine Fès</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-buttons">
+            <a href="{% url 'ecoles:ecoles' %}" class="btn-outline-primary">
+                <i class="fas fa-graduation-cap"></i> Découvrir les écoles
+            </a>
+            <button class="btn-primary" onclick="toggleChat()">
+                <i class="fas fa-robot"></i> Conseils IA gratuits
+            </button>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+{% endblock %}
