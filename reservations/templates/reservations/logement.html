@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block content %}
-<div style="padding: 20px;">
+<div style="padding-top: 20px;">
     {% include 'reservations/index.html' %}
     <div style="height: 580px; padding:40px; display: flex;flex-direction: column;align-items: center;width: 100%; overflow-y: auto;gap: 10px;">
         {% for visite in mes_logements %}
         <div class="card-container">
             <div class="header-section">
                 <h1 class="title">{{visite.logement.title}}</h1>
-                <div class="status-tag">
-                    <i class="fas fa-clock"></i>{{visite.status}}
+                <div  class="status-tag {% if visite.status == 'Confirmée' %}status-confirmee{% else %}status-autre{% endif %}">
+                {% if visite.status == 'Confirmée' %}<i class="fa-solid fa-circle-check"></i>{{visite.status}}{% else %}<i class="fas fa-clock"></i>{{visite.status}}{% endif %}
                 </div>
             </div>
             <div class="location">
@@ -46,6 +46,14 @@
 
 
     <style>
+    .status-confirmee {
+        background-color: #28a745;
+        color: white;
+    }
+    .status-autre {
+        background-color: #ffc107;
+        color: white;
+    }
         .card-container {
             background-color: #ffffff;
             border-radius: 12px;
@@ -78,9 +86,10 @@
             /* Semi-bold font weight */
         }
 
+        
+        
         /* Status tag (e.g., "En attente") */
         .status-tag {
-            background-color:  #e6a700;
             color: white;
             padding: 2px 7px;
             /* Inner spacing */

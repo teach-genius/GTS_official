@@ -1,9 +1,9 @@
 {% extends 'base_template.html' %}
 {% load static %}
 {% block content %}
-<div style="padding: 20px;">
+<div style="padding-top: 20px;">
     {% include 'favoris/index.html' %}
-    <div style=" padding:40px;display: grid;grid-template-columns: repeat(3, 1fr);gap: 10px;">
+    <div style="display: flex;flex-direction: row;flex-wrap: wrap;gap: 10px;padding: 30px;justify-content:center;">
         {% for favoris in mes_ecoles %}
         <div>
             <div

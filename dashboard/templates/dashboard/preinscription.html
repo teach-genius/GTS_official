@@ -5,6 +5,21 @@
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/dashboard/style_preinscription.css' %}">
 {% endblock %}
+
+<style>
+    .status-confirmee {
+        background-color: #28a745;
+        color: white;
+    }
+    .status-autre {
+        background-color: #ffc107;
+        color: white;
+    }
+    .status-refus {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
 <div class="info-s">
     <h1>Gestion des pré-inscriptions</h1>
     <p>Gérer toutes les demandes de pré-inscription</p>
@@ -26,7 +41,7 @@
         {% for preins in preinscription.all %}
         <div class="reservation-card">
             <div class="reservation-details">
-                <span class="name"> {{preins.nom_etudiant}}<span class="status-tag">{{preins.statut}}</span></span>
+                <span class="name"> {{preins.nom_etudiant}}<span class="status-tag {% if preins.statut == 'Refusée' %}status-refus{% elif preins.statut == 'Approuvée' %}status-confirmee{% else %}status-autre{% endif %}">{{preins.statut}}</span></span>
                 <strong>Courriel :</strong> <span>{{preins.email_de_l_etudiant}}</span>
                 <strong>École :</strong> <span>{{preins.identifiant_ecole.nom}}</span>
                 <strong>Ville :</strong> <span>{{preins.ville}}</span>
@@ -35,9 +50,50 @@
     
             <div class="reservation-actions">
                 <ul>
-                    <li><button class="view-btn"><i class="fa-solid fa-eye"></i>Voir</button></li>
-                    <li><button class="confirm-btn"><i class="fa-solid fa-check"></i>Approuver</button></li>
-                    <li><button class="cancel-btn"><i class="fa-solid fa-xmark"></i>Rejeter</button></li>
+                {% if preins.statut == "En attente" %}
+                <form action="{% url 'approuver_pre' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="approuver_pre" value="{{preins.identifiant}}">
+                    <li><button type="submit" class="confirm-btn"><i class="fa-solid fa-check"></i>Approuver</button></li>
+                </form>
+                <li><button class="cancel-btn" data-id_preinscription_demande="{{preins.identifiant}}" onclick="open_rejet(this)"><i class="fa-solid fa-xmark"></i>Rejeter</button></li>
+                {% else %}
+                <form action="{% url 'Supprimer_pre' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="Supprimer_pre" value="{{preins.identifiant}}">
+                    <li><button type="submit" class="cancel-btn"><i class="fa-solid fa-xmark"></i>Supprimer</button></li>
+                </form>
+                {% endif %}
+                <li>
+<button onclick="openmodalpreins(this)"
+        data-nom="{{ preins.nom_etudiant|default:'' }}"
+        data-email="{{ preins.email_de_l_etudiant|default:'' }}"
+        data-telephone="{{ preins.telephone_etudiant|default:'' }}"
+        data-date-naissance="{{ preins.date_de_naissance|date:'Y-m-d' }}"
+        data-ville="{{ preins.ville|default:'' }}"
+        data-pays="{{ preins.pays|default:'' }}"
+        data-civilite="{{ preins.civilite|default:'' }}"
+        data-annee-bac="{{ preins.annee_d_obtention_du_bac|default:'' }}"
+        data-serie="{{ preins.bac_series|default:'' }}"
+        data-moy-reg="{{ preins.moyenne_bac_regionale|default:0|floatformat:2 }}"
+        data-statut="{{ preins.statut|default:'' }}"
+        data-message="{{ preins.message|default:'' }}"
+        data-photo="{{ preins.photo.url|default:'' }}"
+        data-cv="{{ preins.cv.url|default:'' }}"
+        data-notes="{{ preins.releve_notes.url|default:'' }}"
+        data-bac="{{ preins.bac_diploma.url|default:'' }}"
+        data-motivation="{{ preins.lettre_motivation.url|default:'' }}"
+        data-ecoleA="{{preins.ecole_actuelle|default:'' }}"
+        data-ville_actuelle="{{preins.ville_actuelle|default:'' }}"
+        data-programme="{{preins.programme_id_id.nom|default:'' }}">
+  Voir
+</button>
+
+
+
+</li>
+
+
                 </ul>
             </div>
         </div>
@@ -45,4 +101,218 @@
 
     </div>
 </div>
+
+<!-- Modal Fiche de Préinscription -->
+<div id="modal-preins" 
+     style="display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; 
+            overflow: auto; background-color: rgba(0,0,0,0.5); font-family: Arial, sans-serif;">
+
+  <div style="background-color: white; margin: 3% auto; padding: 30px; border: 1px solid #ccc; 
+              width: 95%; max-width: 800px; border-radius: 10px; position: relative;">
+
+    <span onclick="document.getElementById('modal-preins').style.display='none'" 
+          style="position: absolute; top: 15px; right: 25px; color: #aaa; font-size: 28px; font-weight: bold; cursor: pointer;">
+      &times;
+    </span>
+
+    <h2 style="text-align: center;font-size: 18px;margin-bottom: 12px;">Fiche demande de Préinscription</h2>
+
+    <!-- Photo -->
+    <div style="text-align: center; margin-bottom: 20px;">
+      <img id="modal-photo" src="" alt="Photo Étudiant" 
+           style="max-height: 180px; border-radius: 8px; border: 1px solid #ccc; object-fit: cover;">
+    </div>
+
+    <!-- Infos -->
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr><td><strong>Nom :</strong></td><td id="modal-nom_etudiant"></td></tr>
+      <tr><td><strong>Email :</strong></td><td id="modal-email_de_l_etudiant"></td></tr>
+      <tr><td><strong>Téléphone :</strong></td><td id="modal-telephone_etudiant"></td></tr>
+      <tr><td><strong>Date de naissance :</strong></td><td id="modal-date_de_naissance"></td></tr>
+      <tr><td><strong>Ville :</strong></td><td id="modal-ville"></td></tr>
+      <tr><td><strong>Pays :</strong></td><td id="modal-pays"></td></tr>
+      <tr><td><strong>Civilité :</strong></td><td id="modal-civilite"></td></tr>
+      <tr><td><strong>Année Bac :</strong></td><td id="modal-annee_d_obtention_du_bac"></td></tr>
+      <tr><td><strong>Série Bac :</strong></td><td id="modal-bac_series"></td></tr>
+      <tr><td><strong>Moyenne régionale :</strong></td><td id="modal-moyenne_bac_regionale"></td></tr>
+      <tr><td><strong>Statut :</strong></td><td id="modal-statut"></td></tr>
+
+      <tr><td><strong>Formation :</strong></td><td id="modal-programme"></td></tr>
+      <tr><td><strong>Ville Actuelle :</strong></td><td id="modal-ville_actuelle"></td></tr>
+      <tr><td><strong>Ecole Actuelle :</strong></td><td id="modal-ecole_actuelle"></td></tr>
+    </table>
+
+    <!-- Message -->
+    <h3 style="margin-top: 20px;">Message :</h3>
+    <p id="modal-message" style="padding: 10px; background: #f9f9f9; border: 1px solid #ddd; border-radius: 6px;"></p>
+
+    <!-- Boutons documents -->
+    <h3 style="margin-top: 25px;">Documents joints</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+      <button id="btn-cv" style="display: none;" class="doc-btn">Voir CV</button>
+      <button id="btn-notes" style="display: none;" class="doc-btn">Voir Relevé de notes</button>
+      <button id="btn-bac" style="display: none;" class="doc-btn">Voir Diplôme Bac</button>
+      <button id="btn-motivation" style="display: none;" class="doc-btn">Voir Lettre de motivation</button>
+    </div>
+
+    <div style="text-align: right; margin-top: 20px;">
+      <button onclick="document.getElementById('modal-preins').style.display='none'" 
+              style="padding: 10px 20px; background-color: #6c757d; color: white; border: none; border-radius: 5px;">
+        Fermer
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal PDF Viewer -->
+<div id="pdf-viewer-modal" 
+     style="display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; 
+            background-color: rgba(0, 0, 0, 0.8);">
+  <div style="position: relative; width: 70%; height: 80%;padding: 10px; margin: 5% auto; background: white; border-radius: 8px;">
+    <span onclick="document.getElementById('pdf-viewer-modal').style.display='none'" 
+          style="position: absolute; top: 10px; right: 20px; color: #000; font-size: 28px; cursor: pointer;">&times;</span>
+    <iframe id="pdf-frame" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+  </div>
+</div>
+
+<style>
+  .doc-btn {
+    padding: 10px 15px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .doc-btn:hover {
+    background-color: #0056b3;
+  }
+</style>
+<script>
+  function openmodalpreins(btn) {
+    // Champs
+    document.getElementById('modal-nom_etudiant').textContent = btn.dataset.nom;
+    document.getElementById('modal-email_de_l_etudiant').textContent = btn.dataset.email;
+    document.getElementById('modal-telephone_etudiant').textContent = btn.dataset.telephone;
+    document.getElementById('modal-date_de_naissance').textContent = btn.dataset.dateNaissance;
+    document.getElementById('modal-ville').textContent = btn.dataset.ville;
+    document.getElementById('modal-pays').textContent = btn.dataset.pays;
+    document.getElementById('modal-civilite').textContent = btn.dataset.civilite;
+    document.getElementById('modal-annee_d_obtention_du_bac').textContent = btn.dataset.anneeBac;
+    document.getElementById('modal-bac_series').textContent = btn.dataset.serie;
+    document.getElementById('modal-moyenne_bac_regionale').textContent = btn.dataset.moyReg;
+    document.getElementById('modal-statut').textContent = btn.dataset.statut;
+    document.getElementById('modal-message').textContent = btn.dataset.message;
+    document.getElementById('modal-photo').src = btn.dataset.photo || '';
+
+    
+    document.getElementById('modal-programme').textContent = btn.dataset.programme;
+    document.getElementById('modal-ville_actuelle').textContent = btn.dataset.ville_actuelle;
+    document.getElementById('modal-ecole_actuelle').src = btn.dataset.ecoleA;
+
+    // Fichiers
+    setDocBtn('btn-cv', btn.dataset.cv);
+    setDocBtn('btn-notes', btn.dataset.notes);
+    setDocBtn('btn-bac', btn.dataset.bac);
+    setDocBtn('btn-motivation', btn.dataset.motivation);
+
+    document.getElementById('modal-preins').style.display = 'block';
+  }
+
+  function setDocBtn(id, fileUrl) {
+    const btn = document.getElementById(id);
+    if (fileUrl) {
+      btn.style.display = 'inline-block';
+      btn.onclick = function () {
+        document.getElementById('pdf-frame').src = fileUrl;
+        document.getElementById('pdf-viewer-modal').style.display = 'block';
+      };
+    } else {
+      btn.style.display = 'none';
+    }
+  }
+</script>
+
+
+
+<div id="modalRejet" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+">
+    <form action="{% url 'rejet_demande' %}" method="POST" style="
+        border-radius: 16px;
+        width: 90%;
+        max-width: 500px;
+        background-color: rgb(232, 85, 85);
+        padding: 24px 20px;
+        position: relative;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+    ">
+        {% csrf_token %}
+        <!-- Bouton de fermeture -->
+        <button  type="button" onclick="document.getElementById('modalRejet').style.display='none'" style="
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            color: rgb(232, 85, 85);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        ">&times;</button>
+
+        <label for="motif" style="color: white; font-weight: bold; margin-bottom: 8px;">
+            Motif du rejet :
+        </label>
+        
+       
+        <textarea type="text" name="motif" id="motif" placeholder="Saisir le motif..." required style="
+            padding: 10px 12px;
+            border: none;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            outline: none;
+            background-color: white;
+        ">
+
+        </textarea>
+        <input type="hidden" name="id_preinscription_demande" id="id_preinscription_demande">
+        <button type="submit" style="
+            background-color: white;
+            color: rgb(232, 85, 85);
+            border: none;
+            padding: 10px 0;
+            font-size: 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        ">
+            Confirmer
+        </button>
+    </form>
+</div>
+
+<script>
+    function open_rejet(btn){
+        document.getElementById('id_preinscription_demande').value = btn.dataset.id_preinscription_demande;
+        document.getElementById('modalRejet').style.display="flex";
+    }
+</script>
 {% endblock %}

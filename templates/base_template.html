@@ -12,7 +12,67 @@
     {% block css %}{% endblock %}
     <title>{% block title %}GTS - Global Talaba Students{% endblock %}</title>
 </head>
+<style>
+    body{
+        overflow-x: hidden;
+    }
+    /* Loader plein écran */
+#custom-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 64px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  color: #007bff;
+  gap: 12px;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
 
+.letter {
+  display: inline-block;
+  animation: spinIn 1.2s ease-in-out, align 0.5s ease-in-out forwards;
+  animation-delay: 0s, 1.2s;
+  opacity: 0;
+}
+
+/* Animation de rotation */
+@keyframes spinIn {
+  0% {
+    transform: rotate(0deg) scale(1.2);
+    opacity: 0;
+  }
+  50% {
+    transform: rotate(360deg) scale(1.5);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(720deg) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Légère élévation pour alignement final */
+@keyframes align {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
+}
+
+/* Fade-out */
+#custom-loader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+</style>
 <body>
     <header>
         <div class="container">
@@ -92,35 +152,25 @@
 }
 
 @media (max-width: 992px) {
-    .warning_toogle{
-    display: flex;
-}
+ 
     .b_out{
     display: block;
 }
-#m-ain{
-    display: none;
-}
+
 
 }
 
 @media (max-width: 768px) {
-    .warning_toogle{
-    display: flex;
-}
+ 
    .b_out{
     display: block;
 }
-#m-ain{
-    display: none;
-}
+
 
 }
 
 @media (max-width: 480px) {
-.warning_toogle{
-    display: flex;
-}
+
 
  .b_out{
     display: block;
@@ -141,6 +191,13 @@
         Cette application n’est pas disponible sur les petits écrans.
         Veuillez utiliser un appareil avec un écran plus grand.
     </div>
+</div>
+
+
+<div id="custom-loader">
+  <span class="letter">G</span>
+  <span class="letter">T</span>
+  <span class="letter">S</span>
 </div>
 
 
@@ -864,5 +921,25 @@ function updateBtn(isFavorited_true) {
     }
 }
  </script>
+
+
+<script>
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('custom-loader');
+    const mainContent = document.getElementById('m-ain');
+
+    // Ajouter la classe fade-out
+    loader.classList.add('fade-out');
+
+    // Attendre la fin de la transition avant d'afficher le contenu
+    setTimeout(() => {
+      loader.style.display = 'none';
+      mainContent.style.display = 'block';
+    }, 500); // correspond à la durée du `transition: opacity`
+  });
+</script>
+
+
+
 </body>
 </html>

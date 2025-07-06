@@ -10,7 +10,7 @@
 <div class="establishments-page" >
     <div class="establishments-header">
         <h1>Gestion des Établissements</h1>
-        <button class="add-button">
+        <button class="add-button" onclick="document.getElementById('view_et').parentElement.style.display='flex'">
             <i class="fas fa-plus"></i>
             Ajouter un Établissement
         </button>
@@ -199,4 +199,181 @@
         </div>
     </div>
 </div>
+
+<style>
+    #view_et input[type="text"]{
+        padding: 10px;
+        border-radius: 12px;
+    }
+</style>
+
+<!-- MODAL BACKDROP -->
+<div style="padding: 12px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999; position: fixed; top: 0; left: 0; overflow-y: auto;">
+
+    <!-- MODAL CONTENT -->
+    <div id="view_et" style="overflow-y: auto; gap: 10px; padding: 24px; background-color: #fff; width: 95%; max-width: 1300px; margin: 40px auto; border-radius: 12px; display: flex; flex-direction: row; flex-wrap: wrap; position: relative;">
+
+        <!-- Optional Close Button -->
+        <button onclick="document.getElementById('view_et').parentElement.style.display='none'" style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 24px; cursor: pointer;">&times;</button>
+
+        <form action="/ton-action-url/" method="post" style="width: 100%;">
+            <div class="form-wrapper">
+
+                <!-- Colonne 1 -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="nom">Nom Établissement:</label>
+                        <input type="text" id="nom" name="nom" placeholder="Etablissement">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type">Type Établissement:</label>
+                        <select id="type" name="type">
+                            {% for tp in type %}
+                            <option value="">{{tp.nom}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="admission">Admission Établissement:</label>
+                        <select id="admission" name="admission">
+                            <option value="">Sélectionner</option>
+                            <option value="non">Pré-inscription Indisponible</option>
+                            <option value="oui">Pré-inscription Disponible</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description Établissement:</label>
+                        <textarea id="description" name="description" placeholder="Description..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="site">Site Web Établissement:</label>
+                        <input type="url" id="site" name="site" placeholder="https://">
+                    </div>
+                </div>
+
+                <!-- Colonne 2 -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="note">Note Établissement:</label>
+                        <input type="number" id="note" name="note" min="0" max="5" placeholder="4.5">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Établissement:</label>
+                        <input type="email" id="email" name="email" placeholder="adresse@gmail.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lat">Latitude Établissement:</label>
+                        <input type="number" id="lat" name="latitude" placeholder="34.405" step="any">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lng">Longitude Établissement:</label>
+                        <input type="number" id="lng" name="longitude" placeholder="-23.394" step="any">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="form-button">Enregistrer</button>
+                    </div>
+                </div>
+
+                <!-- Colonne 3 -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="nom_confirme">Nom Établissement (confirmation):</label>
+                        <input type="text" id="nom_confirme" name="nom_confirme">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adresse">Adresse Établissement:</label>
+                        <input type="text" id="adresse" name="adresse" placeholder="Rond point Bensouda">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tel">Téléphone Établissement:</label>
+                        <input type="tel" id="tel" name="telephone" placeholder="+212 6XX XXX XXX">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ville">Ville Établissement:</label>
+                        <select id="ville" name="ville">
+                            <option value="">Sélectionner</option>
+                            <option value="casablanca">Casablanca</option>
+                            <option value="fes">Fès</option>
+                            <option value="rabat">Rabat</option>
+                            <option value="meknes">Meknès</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>URLs Images Établissement:</label>
+                        <input type="url" name="image_url_1" placeholder="https://image1">
+                        <input type="url" name="image_url_2" placeholder="https://image2">
+                        <input type="url" name="image_url_3" placeholder="https://image3">
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!-- STYLES -->
+<style>
+    .form-section {
+        width: 400px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        box-sizing: border-box;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .form-group label {
+        font-weight: 500;
+        font-size: 14px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    .form-button {
+        padding: 12px;
+        border-radius: 12px;
+        border: none;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        font-size: 16px;
+        width: 100%;
+    }
+
+    .form-button:hover {
+        background-color: #0056b3;
+    }
+
+    .form-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+</style>
+
 {% endblock %}

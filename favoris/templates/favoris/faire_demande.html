@@ -1,3 +1,4 @@
+
 <!-- limite modale -->
 <div style="display: none; " id="form_demande">
 
@@ -48,7 +49,7 @@
                         <li style="display: flex; align-items: center; gap: 5px;"><input type="radio" name="gender"
                                 id="m" value="m" style="margin: 0;"> <label for="m" style="color: #444;">M.</label></li>
                     </ul>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px;">
+                    <div id="vue_centre">
                         <div style="display: flex; flex-direction: column; gap: 20px;">
                             <label for="prenom" style="font-size: 14px; color: #555; font-weight: 500;">Prénom *</label>
                             <input type="text" name="prenom" placeholder="Prénom"
@@ -166,18 +167,18 @@
                         Informations Baccalauréat
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px;">
+                    <div id="vue_bac">
                         <div style="display: flex; flex-direction: column; gap: 20px;">
                             <label for="annee_bac" style="font-size: 14px; color: #555; font-weight: 500;">Niveau
                                 Bac</label>
-                            <select type="number" name="annee_bac" id="sel_choice"
+                            <select type="text" name="annee_bac" id="sel_choice"
                                 style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; margin-top: -15px;">
-                                <option value="0" selected="selected">BAC (ou en cours de preparation)</option>
-                                <option value="1">BAC + 1</option>
-                                <option value="2">BAC + 2</option>
-                                <option value="3">BAC + 4</option>
-                                <option value="4">BAC + 4</option>
-                                <option value="5">BAC + 5</option>
+                                <option value="BAC (ou en cours de preparation)" selected="selected">BAC (ou en cours de preparation)</option>
+                                <option value="BAC + 1">BAC + 1</option>
+                                <option value="BAC + 2">BAC + 2</option>
+                                <option value="BAC + 3">BAC + 4</option>
+                                <option value="BAC + 4">BAC + 4</option>
+                                <option value="BAC + 5">BAC + 5</option>
                             </select>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -185,25 +186,25 @@
                                 Baccalauréat</label>
                             <select name="serie_bac"
                                 style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; background-color: white; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23999%22%20d%3D%22M208%2080L128%20160L48%2080Z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 12px; margin-top: -15px;">
-                                <option value="781">Sciences de la Vie et de la Terre</option>
-                                <option selected="selected" value="782">Sciences Physiques et Chimiques</option>
-                                <option value="783">Sciences Maths A</option>
-                                <option value="784">Sciences Maths B</option>
-                                <option value="785">Sciences Economiques</option>
-                                <option value="786">Techniques de Gestion et de Comptabilité</option>
-                                <option value="787">Sciences agronomiques</option>
-                                <option value="788">Sciences et Technologies Electriques</option>
-                                <option value="789">Sciences et Technologies Mécaniques</option>
-                                <option value="790">Arts Appliqués</option>
-                                <option value="791">Sciences Humaines / Lettres</option>
-                                <option value="795">Autre bac (scientifique)</option>
-                                <option value="796">Autre bac (technique)</option>
-                                <option value="797">Autre bac (SHS)</option>
-                                <option value="798">Autre bac</option>
-                                <option value="802">Bac International</option>
-                                <option value="923">Bac Espagnol</option>
-                                <option value="924">Bac Anglais</option>
-                                <option value="925">Bac Français</option>
+                                <option value="Sciences de la Vie et de la Terre">Sciences de la Vie et de la Terre</option>
+                                <option selected="selected" value="Sciences Physiques et Chimiques">Sciences Physiques et Chimiques</option>
+                                <option value="Sciences Maths A">Sciences Maths A</option>
+                                <option value="Sciences Maths B">Sciences Maths B</option>
+                                <option value="Sciences Economiques">Sciences Economiques</option>
+                                <option value="Techniques de Gestion et de Comptabilité">Techniques de Gestion et de Comptabilité</option>
+                                <option value="Sciences agronomiques">Sciences agronomiques</option>
+                                <option value="Sciences et Technologies Electriques">Sciences et Technologies Electriques</option>
+                                <option value="Sciences et Technologies Mécaniques">Sciences et Technologies Mécaniques</option>
+                                <option value="Arts Appliqués">Arts Appliqués</option>
+                                <option value="Sciences Humaines / Lettres">Sciences Humaines / Lettres</option>
+                                <option value="Autre bac (scientifique)">Autre bac (scientifique)</option>
+                                <option value="Autre bac (technique)">Autre bac (technique)</option>
+                                <option value="Autre bac (SHS)">Autre bac (SHS)</option>
+                                <option value="Autre bac">Autre bac</option>
+                                <option value="Bac International">Bac International</option>
+                                <option value="Bac Espagnol">Bac Espagnol</option>
+                                <option value="Bac Anglais">Bac Anglais</option>
+                                <option value="Bac Français">Bac Français</option>
 
                             </select>
                         </div>
@@ -292,7 +293,7 @@
                                 class="fa fa-file-lines"></i></span>
                         Documents et Message
                     </div>
-                    <div
+                    <div id="header-"
                         style="border-radius: 12px;border: 1px solid rgb(29 78 216);margin-bottom: 20px;
         display: flex;flex-direction: column;gap: 10;padding: 12px;padding-bottom: 1px; background-color: rgb(239 246 255);">
                         <h1 style="font-size: 1.2rem;">Documents requis pour l'étude de votre dossier</h1>
@@ -300,7 +301,7 @@
                             obligatoires.</p>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px;">
+                    <div id="grille" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px;">
                         <div style="display: flex; flex-direction: column; gap: 20px;">
                             <label for="cv_upload_input" style="font-size: 14px; color: #555; font-weight: 500;">CV /
                                 Curriculum
@@ -409,7 +410,7 @@
         display: flex;flex-direction: column; background-color: rgb(249 250 251);padding: 12px;">
                         <p style=" font-size: 1.rem;"><span style="font-weight: bold;">Formats acceptés :</span> PDF,
                             DOC, DOCX, JPG, PNG (max 5MB par fichier)</p>
-                        <p style="line-height: 2px;"><span style=" font-weight: bold;">Important :</span> Assurez-vous
+                        <p ><span style=" font-weight: bold;">Important :</span> Assurez-vous
                             que tous vos documents sont lisibles et en bonne qualité.</p>
                     </div>
 
@@ -443,7 +444,31 @@
 </div>
 
 <style>
+#vue_centre{
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px;
+}
+
+#vue_bac{
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px;
+}
+
+
+
 @media (max-width: 992px) {
+    #vue_bac{
+    display: flex;
+    flex-direction: column;
+}
+    #vue_centre{
+display: flex;
+flex-direction: column;
+}
+    #grille {
+        font-size: 0.8px;
+    }
+    #header-{
+        font-size: 0.6rem;
+    }
     #form_demande > div > div {
         font-size: 1em !important;
         padding: 10px !important;
@@ -460,6 +485,20 @@
     }
 }
 @media (max-width: 768px) {
+    #vue_bac{
+    display: flex;
+    flex-direction: column;
+}
+     #vue_centre{
+display: flex;
+flex-direction: column;
+}
+    #grille label{
+        font-size: 0.6px;
+    }
+    #header-{
+        font-size: 0.6rem;
+    }
     #form_demande > div > div {
         font-size: 0.97em !important;
         padding: 8px !important;
@@ -476,6 +515,20 @@
     }
 }
 @media (max-width: 480px) {
+    #vue_bac{
+    display: flex;
+    flex-direction: column;
+}
+     #vue_centre{
+display: flex;
+flex-direction: column;
+}
+    #grille label{
+        font-size: 0.6px;
+    }
+    #header-{
+        font-size: 0.6rem;
+    }
     #form_demande > div > div {
         font-size: 0.93em !important;
         padding: 4px !important;

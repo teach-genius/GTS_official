@@ -19,14 +19,14 @@ class EcoleAdmin(admin.ModelAdmin):
 
 @admin.register(EcoleImage)
 class EcoleImageAdmin(admin.ModelAdmin):
-    list_display = ('ecole', 'image_url', 'description', 'cree_a')
+    list_display = ('ecole', 'image_url', 'cree_a')
     list_filter = ('ecole',)
-    search_fields = ('ecole__nom', 'description')
+    search_fields = ('ecole__nom',)
 
 
 @admin.register(TypeEcole) # Nouvel enregistrement pour TypeEcole
 class TypeEcoleAdmin(admin.ModelAdmin):
-    list_display = ('nom', 'description')
+    list_display = ('nom',)
     search_fields = ('nom',)
     list_filter = ('nom',)
 
@@ -40,7 +40,7 @@ class ProgrammeScolaireAdmin(admin.ModelAdmin):
 @admin.register(PreInscription)
 class PreInscriptionAdmin(admin.ModelAdmin):
     list_display = ('nom_etudiant', 'email_de_l_etudiant', 'identifiant_ecole', 'programme_id', 'statut', 'cree_a')
-    list_filter = ('statut', 'identifiant_ecole', 'programme_id', 'ville', 'niveau_d_education')
+    list_filter = ('statut', 'identifiant_ecole', 'programme_id', 'ville')
     search_fields = ('nom_etudiant', 'email_de_l_etudiant', 'identifiant_ecole__nom', 'passeport_cin')
     readonly_fields = ('cree_a',)
 

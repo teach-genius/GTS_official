@@ -4,7 +4,6 @@ import uuid
 
 class TypeEcole(models.Model):
     nom = models.CharField(max_length=100, unique=True, help_text="Ex: Université, École d'ingénieurs, École de commerce, Lycée")
-    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.nom
@@ -44,7 +43,6 @@ class Ecole(models.Model):
 class EcoleImage(models.Model):
     ecole = models.ForeignKey(Ecole, on_delete=models.CASCADE, related_name='images')
     image_url = models.URLField(max_length=2000)
-    description = models.CharField(max_length=255, blank=True, null=True)
     cree_a = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -88,13 +86,11 @@ class PreInscription(models.Model):
     ville = models.CharField(max_length=100, null=True, blank=True)
     passeport_cin = models.CharField(max_length=50, null=True, blank=True)
     photo_url = models.URLField(max_length=2000, null=True, blank=True)
-    niveau_d_education = models.CharField(max_length=100, null=True, blank=True)
     master_one_code = models.CharField(max_length=50, null=True, blank=True)
     nom_du_lycee = models.CharField(max_length=255, null=True, blank=True)
-    annee_d_obtention_du_bac = models.CharField(max_length=4, null=True, blank=True)
+    annee_d_obtention_du_bac = models.CharField(max_length=100, null=True, blank=True)
     bac_series = models.CharField(max_length=100, null=True, blank=True)
     moyenne_bac_regionale = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    moyenne_nationale = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     statut = models.CharField(max_length=50, default='En attente')
     cree_a = models.DateTimeField(auto_now_add=True)
     civilite = models.CharField(max_length=10, null=True, blank=True)

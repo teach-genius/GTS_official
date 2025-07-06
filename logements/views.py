@@ -112,7 +112,6 @@ def toggle_favoris(request):
 
 
 
-
 @login_required
 @require_POST
 def reserver_visite(request):
@@ -123,13 +122,27 @@ def reserver_visite(request):
     email = request.POST.get('email')
     message = request.POST.get('message', '')
 
+    # Vérifie si tous les champs obligatoires sont présents
     if not all([logement_identifiant, preferred_date_str, preferred_time, phone, email]):
-        messages.warning(request, "Veuillez remplire tous les champs")
+        messages.warning(request, "Veuillez remplir tous les champs.")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('logements:logements')))
-    
+
+    # Vérifie si une demande existe déjà pour le même utilisateur et logement
+    if DemandeVisite.objects.filter(user=request.user, logement__identifiant=logement_identifiant).exists():
+        messages.warning(request, "Vous avez déjà soumis une demande pour ce logement.")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('logements:logements')))
+
+    # Récupère le logement
     logement = get_object_or_404(Logement, identifiant=logement_identifiant)
-    requested_date = datetime.strptime(preferred_date_str, '%Y-%m-%d').date()
-    
+
+    # Convertit la date
+    try:
+        requested_date = datetime.strptime(preferred_date_str, '%Y-%m-%d').date()
+    except ValueError:
+        messages.error(request, "Date invalide.")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('logements:logements')))
+
+    # Crée la demande
     demande = DemandeVisite.objects.create(
         user=request.user,
         logement=logement,
@@ -140,10 +153,6 @@ def reserver_visite(request):
         message=message,
         status='En attente'
     )
-    if demande:
-        messages.warning(request, "Demande de visite soumise avec succès")
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('logements:logements')))
-    else:
-        messages.warning(request, "Echec de la demande de visite veuillez contacter le support technique")
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('logements:logements')))
 
+    messages.success(request, "Votre demande de visite a été soumise avec succès.")
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('logements:logements')))

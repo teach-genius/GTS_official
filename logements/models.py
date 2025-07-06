@@ -140,6 +140,7 @@ class DemandeVisite(models.Model):
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='En attente', verbose_name="Statut de la demande")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de la demande")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Dernière mise à jour")
+    identifiant = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, verbose_name="Identifiant unique demande")
 
     def __str__(self):
         return f"Demande de visite pour {self.logement.title} par {self.user.username} le {self.requested_date}"

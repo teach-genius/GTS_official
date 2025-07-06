@@ -1,336 +1,332 @@
-<!-- moad details -->
+<style>
+/* ========================
+   STYLES GÉNÉRAUX
+======================== */
+.modal-content{
+    margin-top: 1000px;
+}
+
+.add-to-fav-btn {
+    padding: 12px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
+
+.favorited {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.favorited:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.carousel-dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.carousel-dot.active {
+    background-color: #007bff;
+    transform: scale(1.2);
+}
+
+.school-image-wrapper {
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    scroll-snap-align: start;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.school-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.formation-price {
+    font-weight: 700;
+    color: #28a745;
+}
+
+.formation-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    color: #444;
+    font-weight: 500;
+}
+
+.formation-description {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    color: #666;
+    line-height: 1.5;
+}
+
+.degree-badge {
+    background-color: #007bff;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    font-weight: 500;
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+.formation-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.formation-item {
+    background-color: #fefefe;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.formation-item:last-child {
+    margin-bottom: 0;
+}
+
+.formation-item h4 {
+    margin: 0;
+    color: #333;
+    font-size: 1.1em;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* ========================
+   RESPONSIVE TABLETTES
+======================== */
+@media (max-width: 768px) {
+    #addToFavBtn ,#postdem,h3,h2{
+        font-size: 0.8rem;
+    }
+    .formations-list{
+        font-size: 0.6rem;
+    }
+    #schoolDetailModal .modal-content {
+        max-width: 98vw !important;
+        width: 98vw !important;
+        padding: 0 !important;
+        border-radius: 10px !important;
+    }
+
+    .modal-header,
+    .modal-body,
+    .school-main-content,
+    .location-map {
+        padding: 12px !important;
+        gap: 10px !important;
+    }
+
+    .school-main-content {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    .formations-section {
+        padding: 0 !important;
+    }
+
+    .school-image-carousel,
+    .map-container {
+        height: 180px !important;
+    }
+
+    .modal-header h2 {
+        font-size: 1em !important;
+    }
+
+    .modal-header .rating-badge,
+    .modal-header .private-badge {
+        font-size: 0.8em !important;
+        padding: 4px 8px !important;
+    }
+}
+
+/* ========================
+   RESPONSIVE MOBILES
+======================== */
+@media (max-width: 480px) {
+    #addToFavBtn ,#postdem,h3,h2{
+        font-size: 0.8rem;
+    }
+    .formations-list{
+        font-size: 0.6rem;
+    }
+       .modal-content{
+    margin-top: 0px;
+}
+
+     p{
+        font-size: 0.8rem;
+    }
+    h1{
+        font-size: 0.8rem;
+    }
+    h2{
+        font-size: 0.8rem;
+    }
+    #schoolDetailModal .modal-content {
+        max-width: 100vw !important;
+        width: 100vw !important;
+        padding: 0 !important;
+        border-radius: 6px !important;
+    }
+
+    .modal-header,
+    .modal-body,
+    .school-main-content,
+    .location-map {
+        padding: 6px !important;
+        gap: 6px !important;
+    }
+
+    .school-main-content {
+        flex-direction: column !important;
+        gap: 6px !important;
+    }
+
+    .school-image-carousel,
+    .map-container {
+        height: 120px !important;
+    }
+
+    .modal-header h2 {
+        font-size: 0.9em !important;
+    }
+
+    .modal-header .rating-badge,
+    .modal-header .private-badge {
+        font-size: 0.7em !important;
+        padding: 3px 6px !important;
+    }
+}
+</style>
+
 <div id="view_Ecole" style="display: none;">
-    <div style=" z-index: 9999px; position: fixed; top: 0; padding: 100px; width: 100%;height: 100%;overflow-y: auto; background-color: rgb(0, 0, 0,0.5);display: flex;align-items: center;justify-content: center;"
-        id="schoolDetailModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalSchoolName">
+    <div id="schoolDetailModal" class="modal" role="dialog" aria-modal="true"
+        style="z-index: 9999; position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow-y: auto; background-color: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;">
         <div class="modal-content"
-            style="margin-top: 1000px; background-color: #fefefe; border-radius: 12px; width: 100%; max-width: 960px; box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.25), 0 12px 40px 0 rgba(0, 0, 0, 0.15); position: relative; display: flex; flex-direction: column; overflow: hidden; max-height: 400vh;">
+            style="background-color: #fefefe; border-radius: 12px; width: 100%; max-width: 960px; box-shadow: 0 8px 16px rgba(0,0,0,0.25); display: flex; flex-direction: column; overflow: hidden;">
             <div class="modal-header"
-                style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background-color: #fff; border-bottom: 1px solid #ebf1f5; position: relative; z-index: 10; flex-wrap: wrap;">
-                <h2 id="modalSchoolName"
-                    style="margin: 0; font-size: 1em; color: #2c3e50; flex-grow: 1; padding-right: 20px;"></h2>
+                style="display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; border-bottom: 1px solid #ebf1f5; flex-wrap: wrap;">
+                <h2 id="modalSchoolName" style="margin: 0; font-size: 1.2em; color: #2c3e50; flex-grow: 1;"></h2>
                 <div class="school-info-badges" style="display: flex; align-items: center; gap: 10px;">
                     <span id="modalPrivateBadge" class="private-badge"
-                        style="display: inline-block; background-color: #6c757d; color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.85em; font-weight: 500; text-transform: uppercase;">privée</span>
+                        style="background-color: #6c757d; color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.85em; text-transform: uppercase;">Privée</span>
                     <div class="rating-badge"
-                        style="margin-right: 30px; background-color: #ffc107; color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.9em; font-weight: 600; display: flex; align-items: center; gap: 5px;">
-                        <i class="fas fa-star" style="color: #fff;"></i> <span id="modalSchoolRating"> </span>
+                        style="background-color: #ffc107; color: white; padding: 6px 12px; border-radius: 20px; font-size: 0.9em; font-weight: 600; display: flex; align-items: center; gap: 5px;">
+                        <i class="fas fa-star" style="color: #fff;"></i>
+                        <span id="modalSchoolRating"></span>
                     </div>
                 </div>
-                <button onclick="closeView()" class="close-button" aria-label="Fermer la fenêtre modale"
-                    style="color: #888; font-size: 32px; font-weight: bold; cursor: pointer; position: absolute; top: 15px; right: 20px; background: none; border: none; padding: 0; line-height: 1; z-index: 11; transition: color 0.2s ease;">×</button>
+                <button onclick="closeView()" class="close-button" aria-label="Fermer"
+                    style="color: #6c757d;margin-left: 10px; cursor: pointer;  background: none; border: none;font-size: 32px;">×</button>
             </div>
-
-            <div class="modal-body" style="padding: 0; display: flex; flex-direction: column; flex-grow: 1;">
-                <div class="school-image-carousel" role="region" aria-label="Images de l'école"
-                    style="width: 100%; height: 250px; overflow-x: scroll; overflow-y: hidden; display: flex; gap: 0; box-sizing: border-box; position: relative; scroll-snap-type: x mandatory; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;">
+    
+            <div class="modal-body" style="display: flex; flex-direction: column;">
+                <div class="school-image-carousel"
+                    style="height: 250px; overflow-x: scroll; display: flex; scroll-snap-type: x mandatory;">
+                    <!-- Images dynamiques ici -->
                 </div>
-                <div class="carousel-dots" id="schoolCarouselDots" role="tablist" aria-label="Sélectionner l'image"
-                    style="display: flex; justify-content: center; align-items: center; padding: 10px 0; background-color: #fff; border-bottom: 1px solid #ebf1f5; position: relative; z-index: 5;">
+
+                <div class="carousel-dots" id="schoolCarouselDots"
+                    style="display: flex; justify-content: center; padding: 10px 0; background-color: #fff; border-bottom: 1px solid #ebf1f5;">
                 </div>
 
                 <div class="school-main-content"
                     style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; padding: 25px; border-bottom: 1px solid #ebf1f5;">
-                    <div class="school-details-section" style="padding-right: 15px;">
-                        <h3
-                            style="color: #0056b3; margin-top: 0; margin-bottom: 15px; font-size: 1.3em; font-weight: 600;">
-                            Informations générales</h3>
-                        <p id="modalSchoolDescription" class="school-description"
-                            style="line-height: 1.6; color: #555; margin-bottom: 20px;"></p>
-                        <p style="margin-bottom: 10px; color: #555; display: flex; align-items: center;"><i
-                                class="fas fa-map-marker-alt" style="margin-right: 8px; color: #0056b3;"></i> <span
-                                id="modalSchoolLocation"></span></p>
-                        <p id="modalAddressP"
-                            style="display: none; margin-bottom: 10px; color: #555; display: flex; align-items: center;">
-                            <i class="fas fa-road" style="margin-right: 8px; color: #0056b3;"></i> <span
-                                id="modalSchoolAddress"></span>
-                        </p>
-                        <p id="modalUniversityP"
-                            style="display: none; margin-bottom: 10px; color: #555; display: flex; align-items: center;">
-                            <i class="fas fa-university" style="margin-right: 8px; color: #0056b3;"></i> <span
-                                id="modalSchoolUniversity"></span>
-                        </p>
+                    <div>
+                        <h3 style="color: #0056b3;">Informations générales</h3>
+                        <p id="modalSchoolDescription" class="school-description" style="color: #555;"></p>
+                        <p><i class="fas fa-map-marker-alt" style="color: #0056b3;"></i> <span id="modalSchoolLocation"></span></p>
+                        <p id="modalAddressP" style="display: none;"><i class="fas fa-road" style="color: #0056b3;"></i> <span id="modalSchoolAddress"></span></p>
+                        <p id="modalUniversityP" style="display: none;"><i class="fas fa-university" style="color: #0056b3;"></i> <span id="modalSchoolUniversity"></span></p>
 
-                        <div class="admission-actions"
-                            style="display: flex; flex-direction: column; gap: 12px; margin-top: 25px;">
+                        <div class="admission-actions" style="margin-top: 25px;">
                             {% if user.is_authenticated %}
                             <form method="POST" action="{% url 'ecoles:toggle_favoris_voir' %}" id="addToFavForm">
                                 {% csrf_token %}
                                 <input type="hidden" id="Ecole_Id_f" name="Ecole_Id_f" value="">
                                 <input type="hidden" id="isFavorised" name="isFavorised" value="false">
-                                <button style="
-                                padding: 12px 20px;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 1.05em;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        text-align: center;"  type="submit" id="addToFavBtn" aria-label="Ajouter aux favoris" class="add-to-fav-btn" >
-                                    <i id="add_msg" class="far fa-heart" aria-hidden="true"
-                                        style="margin-right: 8px;"></i> <span id="favButtonText">Ajouter
-                                        aux favoris</span>
+                                <button type="submit" id="addToFavBtn" class="add-to-fav-btn" style="padding: 12px 20px;width: 100%;border-radius: 8px;cursor: pointer;">
+                                    <i id="add_msg" class="far fa-heart" style="margin-right: 8px;"></i>
+                                    <span id="favButtonText">Ajouter aux favoris</span>
                                 </button>
-                            </form>
-
-                            <div id="favFeedbackMsgEcole" class="fav-feedback-message" style="display:none;"></div>
-                            <input type="hidden" id="identifiant_ecole_send" value="">
+                            </form> 
                             <button class="pre-inscription-btn" id="postdem" onclick="opendemande(this)"
-                                aria-label="Faire une demande de pré-inscription pour cette école"
-                                style="padding: 12px 20px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer; font-size: 1.05em; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; width: 100%; text-align: center; background-color: #28a745; color: white; border-color: #28a745;">
-                                <i class="fas fa-file-alt" style="margin-right: 8px;"></i> Faire une demande de
-                                pré-inscription
-                            </button>
+                                style="margin-top: 12px; background-color: #28a745; color: white; border: none; border-radius: 8px; padding: 12px 20px; font-weight: 600; width: 100%;cursor: pointer;">
+                                <i class="fas fa-file-alt" style="margin-right: 8px;"></i> Demande de pré-inscription
+                            </button> 
                             {% else %}
-                            <form action="{% url 'connexion' %}" method="GET" class="login-for-action-form">
-                                {% csrf_token %}
-                                <button type="submit" class="pre-inscription-btn"
-                                    aria-label="Connectez-vous pour vous pré-inscrire à cette école"
-                                    style="padding: 12px 20px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer; font-size: 1.05em; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; width: 100%; text-align: center; background-color: #28a745; color: white; border-color: #28a745;">
-                                    <i class="fas fa-file-alt" style="margin-right: 8px;"></i> Connectez-vous pour vous
-                                    pré-inscrire
+                            <form action="{% url 'connexion' %}" method="GET">
+                                <button type="submit"
+                                    style="margin-top: 12px; background-color: #28a745; color: white; border: none; border-radius: 8px; padding: 12px 20px; font-weight: 600; width: 100%;">
+                                    <i class="fas fa-file-alt" style="margin-right: 8px;"></i> Connectez-vous pour vous pré-inscrire
                                 </button>
                             </form>
                             {% endif %}
                         </div>
                     </div>
 
-                    <div class="formations-section" style="display: flex; flex-direction: column;">
-                        <h3
-                            style="color: #0056b3; margin-top: 0; margin-bottom: 15px; font-size: 1.3em; font-weight: 600;">
-                            Formations disponibles</h3>
-                        <div id="modalFormationsList" class="formations-list"
-                            style="flex-grow: 1; overflow-y: auto; max-height: 350px; padding-right: 10px;">
-                        </div>
+                    <div class="formations-section" style="overflow-y: auto;">
+                        <h3 style="color: #0056b3;">Formations disponibles</h3>
+                        <div id="modalFormationsList" class="formations-list" style="max-height: 350px;"></div>
                     </div>
                 </div>
 
-
-                <div class="location-map"
-                    style="padding: 25px; padding-top: 0; display: flex; flex-direction: column; align-items: center;">
-                    <h3
-                        style="width: 100%; text-align: left; margin-bottom: 15px; color: #0056b3; margin-top: 0; font-size: 1.3em; font-weight: 600;">
-                        Localisation</h3>
+                <div class="location-map" style="padding: 25px;">
+                    <h3 style="color: #0056b3;">Localisation</h3>
                     <div class="map-container"
-                        style="width: 100%; height: 350px; border-radius: 8px; overflow: hidden; position: relative; background-color: #e9e9e9;">
-                        <iframe id="modalMapFrame" width="100%" height="100%" frameborder="0" style="border:0"
-                            allowfullscreen="" aria-hidden="false" tabindex="0"
-                            title="Carte de localisation de l'école"></iframe>
-                        <div id="mapErrorOverlay" class="map-error-overlay"
-                            style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.9); display: flex; justify-content: center; align-items: center; text-align: center; z-index: 5;">
-                            <div class="map-error-content"
-                                style="background-color: #fff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); max-width: 300px;">
-                                <p style="margin-bottom: 15px; color: #333; font-size: 1.1em;">Impossible de charger
-                                    Google Maps correctement sur cette page.</p>
+                        style="height: 350px; border-radius: 8px; overflow: hidden; position: relative;">
+                        <iframe id="modalMapFrame" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                        <div id="mapErrorOverlay"
+                            style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center;">
+                            <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                                <p>Impossible de charger Google Maps.</p>
                                 <button id="mapErrorOkButton"
-                                    style="background-color: #007bff; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; transition: background-color 0.2s ease;">OK</button>
+                                    style="background-color: #007bff; color: white; padding: 8px 16px; border: none; border-radius: 5px;">OK</button>
                             </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
-<style>
-    .add-to-fav-btn {
-        padding: 12px 20px;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 1.05em;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        text-align: center;
-    }
 
-    .favorited {
-        background-color: #007bff;
-        color: white;
-        border-color: #007bff;
-    }
-
-    .favorited:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
-
-
-    .carousel-dot {
-        height: 10px;
-        width: 10px;
-        margin: 0 5px;
-        background-color: #bbb;
-        border-radius: 50%;
-        display: inline-block;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .carousel-dot.active {
-        background-color: #007bff;
-        transform: scale(1.2);
-    }
-
-    .carousel-dot.active {
-        background-color: #007bff;
-        transform: scale(1.2);
-    }
-
-    .school-image-wrapper {
-        flex-shrink: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        position: relative;
-        scroll-snap-align: start;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #f0f0f0;
-    }
-
-    .school-image-wrapper img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-
-
-
-    .formation-price {
-        font-weight: 700;
-        color: #28a745;
-    }
-
-    .formation-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.9em;
-        color: #444;
-        font-weight: 500;
-    }
-
-    .formation-description {
-        margin-bottom: 10px;
-        font-size: 0.9em;
-        color: #666;
-        line-height: 1.5;
-    }
-
-    .degree-badge {
-        background-color: #007bff;
-        color: white;
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 0.75em;
-        font-weight: 500;
-        margin-left: 10px;
-        white-space: nowrap;
-    }
-
-    .formation-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 8px;
-    }
-
-    .formation-item {
-        background-color: #fefefe;
-        padding: 15px;
-        margin-bottom: 15px;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-
-    .formation-item:last-child {
-        margin-bottom: 0;
-    }
-
-    .formation-item h4 {
-        margin: 0;
-        color: #333;
-        font-size: 1.1em;
-        font-weight: 600;
-        line-height: 1.4;
-    }
-
-    @media (max-width: 768px) {
-        #schoolDetailModal .modal-content {
-            max-width: 98vw !important;
-            width: 98vw !important;
-            min-width: 0 !important;
-            padding: 0 !important;
-            border-radius: 10px !important;
-        }
-        .modal-header, .modal-body, .school-main-content, .location-map {
-            padding: 12px !important;
-            gap: 10px !important;
-        }
-        .school-main-content {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 10px !important;
-        }
-        .formations-section {
-            padding: 0 !important;
-        }
-        .school-image-carousel {
-            height: 180px !important;
-        }
-        .map-container {
-            height: 180px !important;
-        }
-        .modal-header h2 {
-            font-size: 1em !important;
-        }
-        .modal-header .rating-badge, .modal-header .private-badge {
-            font-size: 0.8em !important;
-            padding: 4px 8px !important;
-        }
-    }
-    @media (max-width: 480px) {
-        #schoolDetailModal .modal-content {
-            max-width: 100vw !important;
-            width: 100vw !important;
-            min-width: 0 !important;
-            padding: 0 !important;
-            border-radius: 6px !important;
-        }
-        .modal-header, .modal-body, .school-main-content, .location-map {
-            padding: 6px !important;
-            gap: 6px !important;
-        }
-        .school-main-content {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 6px !important;
-        }
-        .formations-section {
-            padding: 0 !important;
-        }
-        .school-image-carousel {
-            height: 120px !important;
-        }
-        .map-container {
-            height: 120px !important;
-        }
-        .modal-header h2 {
-            font-size: 0.9em !important;
-        }
-        .modal-header .rating-badge, .modal-header .private-badge {
-            font-size: 0.7em !important;
-            padding: 3px 6px !important;
-        }
-    }
-</style>

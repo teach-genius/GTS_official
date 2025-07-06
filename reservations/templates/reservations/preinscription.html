@@ -2,7 +2,21 @@
 {% load static %}
 
 {% block content %}
-<div style="padding: 20px;">
+<style>
+    .status-confirmee {
+        background-color: #28a745;
+        color: white;
+    }
+    .status-autre {
+        background-color: #ffc107;
+        color: white;
+    }
+    .status-refus {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
+<div style="padding-top: 20px;">
     {% include 'reservations/index.html' %} {# Make sure this path is correct for your project #}
 
     <div style="height: 580px; padding:40px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
@@ -10,8 +24,8 @@
         <div class="contenaire_preinscritption">
             <div class="header-section-preinscription">
                 <h2 class="title-preinscription">Pré-inscription</h2> {# Changed h1 to h2 for better semantic structure #}
-                <div class="status-tag status-tag-preinscription">
-                    <i class="fas fa-clock"></i> {{ demande.statut }}
+                <div class="status-tag-preinscription {% if demande.statut == 'Refusée' %}status-refus{% elif demande.statut == 'Approuvée' %}status-confirmee{% else %}status-autre{% endif %}" >
+                    {% if demande.statut == 'Refusée' %}<i class="fa-solid fa-circle-xmark"></i> {{demande.statut}}{% elif demande.statut == 'Approuvée' %}<i class="fa-solid fa-square-check"></i> {{demande.statut}}{% else %}<i class="fas fa-clock"></i> {{demande.statut}}{% endif %}
                 </div>
             </div>
             <div class="student-name">
@@ -130,29 +144,29 @@
 
             // Mise à jour du statut et de son style
             if (statutDemandeElement && statutDisplayElement) {
-                statutDisplayElement.textContent = statut; // Set the text content for the status
-                // Reset previous styles
-                statutDemandeElement.style.backgroundColor = '';
-                statutDemandeElement.style.color = '';
-                statutDemandeElement.style.border = ''; // In case you add border to status tag
-
-                // Apply new styles based on status
-                if (statut === 'En attente') {
-                    statutDemandeElement.style.backgroundColor = '#ffc107';
-                    statutDemandeElement.style.color = '#343a40';
-                } else if (statut === 'Approuvée') {
+                // Détermine l'icône en fonction du statut
+                let iconClass = '';
+                if (statut === 'Approuvée') {
                     statutDemandeElement.style.backgroundColor = '#28a745';
                     statutDemandeElement.style.color = 'white';
+                    iconClass = 'fa-solid fa-square-check';
                 } else if (statut === 'Refusée') {
                     statutDemandeElement.style.backgroundColor = '#dc3545';
                     statutDemandeElement.style.color = 'white';
+                    iconClass = 'fa-solid fa-circle-xmark';
+                } else if (statut === 'En attente') {
+                    statutDemandeElement.style.backgroundColor = '#ffc107';
+                    statutDemandeElement.style.color = '#343a40';
+                    iconClass = 'fas fa-clock';
                 } else {
-                    // Default style for other statuses
                     statutDemandeElement.style.backgroundColor = '#6c757d';
                     statutDemandeElement.style.color = 'white';
+                    iconClass = 'fas fa-info-circle';
                 }
-            }
 
+                // Met à jour le contenu avec l'icône et le texte
+                statutDemandeElement.innerHTML = `<i class="${iconClass}" style="margin-right: 5px;"></i><span id="statut_display">${statut}</span>`;
+            }
 
             // Afficher la modale
             modal.style.display = 'flex';
@@ -194,7 +208,6 @@
         }
 
         .status-tag-preinscription {
-            background-color: #e6a700;
             color: white;
             padding: 5px 12px; /* Adjusted padding */
             border-radius: 20px;

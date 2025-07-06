@@ -177,6 +177,9 @@ def faire_demande_now(request):
     email = request.POST.get('email')
     telephone = request.POST.get('telephone')
     birthday_str = request.POST.get('birthday')
+    current_education_ville = request.POST.get('current_education_ville')
+    current_education_etablissement = request.POST.get('current_education_etablissement')
+
     errors = {}
     # Verification for empty fields
     if not civilite:
@@ -214,9 +217,6 @@ def faire_demande_now(request):
         pays = request.POST.get('pays')
         ville = request.POST.get('ville')
 
-        current_education_ville = request.POST.get('current_education_ville')
-        current_education_etablissement = request.POST.get('current_education_etablissement')
-
         annee_bac = request.POST.get('annee_bac')
         serie_bac = request.POST.get('serie_bac')
         
@@ -231,11 +231,8 @@ def faire_demande_now(request):
                 print(f"Erreur: La moyenne du bac '{moyenne_bac_str}' n'est pas un nombre valide.")
                 return HttpResponse("Erreur: La moyenne du bac doit être un nombre valide.", status=400)
         
-        print(f"DEBUG: 'moyenne_bac_cleaned' après traitement: {moyenne_bac_cleaned} (Type: {type(moyenne_bac_cleaned)})")
-        # --- FIN DE CORRECTION MOYENNE BAC ---
-
+      
         programme_identifiant_str = request.POST.get('formation_id')
-        print(f"DEBUG: id recuperé pour la formation {programme_identifiant_str}")
         programme = None
         ecole = None
 
@@ -328,9 +325,7 @@ def faire_demande_now(request):
                 pre_inscription.documents_telecharger = documents_telecharges_meta
                 pre_inscription.save(update_fields=['documents_telecharger']) # Sauvegarder uniquement ce champ
 
-                print("Pré-inscription et fichiers enregistrés avec succès.")
-                print(f"URLs des documents sauvegardés: {documents_telecharges_meta}")
-
+                messages.success(request,"Demande effecutée avec succès")
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('ecoles:ecoles')))
             except ValidationError as e:
                 print(f"Erreur de validation lors de la sauvegarde: {e.message_dict}")
@@ -343,3 +338,5 @@ def faire_demande_now(request):
         else:
             messages.warning("operation avortée veuillez remplir les documents obligatoires")
             return redirect('ecoles:ecoles')
+
+

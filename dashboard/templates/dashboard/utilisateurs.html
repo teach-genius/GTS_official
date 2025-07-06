@@ -36,8 +36,7 @@
                 <div class="user-info">
                     <div class="user-main-details">
                         <span class="user-email">{{ user.username }} - {{ user.email }}</span>
-                        {# The role is hardcoded as 'Client'. If you have a dynamic role, you'd fetch it from 'user'
-                        object #}
+                       
                         <span class="user-role role-admin">Client</span>
                         <span
                             class="user-status {% if user.is_active %}status-active{% else %}status-inactive{% endif %}">
@@ -45,7 +44,6 @@
                         </span>
                     </div>
                     <div class="user-meta-details">
-                        {# Using |date:"DATE_FORMAT" filter for better date display #}
                         <span class="user-joined">Inscrit le : {{ user.date_joined|date:"d M Y H:i" }}</span>
                         <span class="meta-separator">•</span>
                         <span class="user-last-login">Dernière connexion : {{ user.last_login|date:"d M Y H:i" }}</span>
@@ -54,8 +52,6 @@
                 </div>
             </div>
             <div class="user-actions">
-                {# Consider using a data attribute for the user ID for JavaScript to pick up, instead of hardcoding
-                email in aria-label #}
                 <button class="delete-user-button" aria-label="Supprimer l'utilisateur {{ user.email }}"
                     data-user-id="{{ user.id }}">
                     <i class="fa-solid fa-trash-can"></i>

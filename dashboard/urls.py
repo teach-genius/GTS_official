@@ -24,7 +24,12 @@ from .views import (
     preinscription_view,
     etablissement_view,
     notifications_view,
-    utilisateurs_view
+    utilisateurs_view,
+    confirmer_view,
+    annuler_view,
+    rejet_demande_view,
+    supprimer_pre_view,
+    approuver_pre_view
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -38,7 +43,12 @@ urlpatterns = [
     path('reservation/',reservation_view,name='reservation'),
     path('etablissement/',etablissement_view,name="etablissement"),
     path('notifications/',notifications_view,name="notifications"),
-    path('utilisateurs/',utilisateurs_view,name="utilisateurs")
+    path('utilisateurs/',utilisateurs_view,name="utilisateurs"),
+    path('confirmer/',confirmer_view,name="confirmer"),
+    path('annuler/',annuler_view,name="annuler"),
+    path('rejet_demande/',rejet_demande_view,name='rejet_demande'),
+    path('Supprimer_pre/',supprimer_pre_view,name='Supprimer_pre'),
+    path('approuver_pre/',approuver_pre_view,name='approuver_pre')
 
 
 ]

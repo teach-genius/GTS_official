@@ -1,6 +1,7 @@
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 from ecoles.models import Ecole, PreInscription
 from logements.models import Logement,DemandeVisite
 from django.shortcuts import render, redirect
@@ -16,8 +17,8 @@ def dashboard_view(request):
         context = {
             'total_utilisateurs': User.objects.filter(is_superuser=True).count(),
             'etablissements': Ecole.objects.count(),
-            'visites': DemandeVisite.objects.count(),
-            'preinscription': PreInscription.objects.count(),
+            'visites': DemandeVisite.objects.filter(status='En attente').count(),
+            'preinscription': PreInscription.objects.filter(statut='En attente').count(),
             'logement': Logement.objects.count()
         }
         return render(request, 'dashboard/index.html', context)
@@ -34,10 +35,29 @@ def parametre_view(request):
     return render(request,"dashboard/parametre.html")
 
 
+def supprimer_pre_view(request):
+    if request.method == 'POST':
+        identifiant = request.POST.get('Supprimer_pre')
+        if identifiant:
+            pre_ins = get_object_or_404(PreInscription, identifiant=identifiant)
+            pre_ins.delete()
+        return redirect(request.META.get('HTTP_REFERER', 'preinscription'))
+
+
+def approuver_pre_view(request):
+    if request.method == 'POST':
+        identifiant = request.POST.get('approuver_pre')
+        if identifiant:
+            pre_ins = get_object_or_404(PreInscription, identifiant=identifiant)
+            pre_ins.statut = "Approuvée"
+            pre_ins.support_tech_msg = "Nous avons le plaisir de vous informer que votre demande de préinscription a été approuvée."
+            pre_ins.save()
+        return redirect(request.META.get('HTTP_REFERER', 'preinscription'))
+
 def preinscription_view(request):
     if request.user.is_authenticated and request.user.is_superuser:
         context = {
-            'preinscription': PreInscription.objects
+            'preinscription': PreInscription.objects.all()
         }
         return render(request,"dashboard/preinscription.html",context)
     else:
@@ -51,7 +71,74 @@ def reservation_view(request):
         }
     return render(request,"dashboard/reservation.html",context)
 
+def rejet_demande_view(request):
+    if request.method == "POST":
+        id_demande = request.POST.get('id_preinscription_demande')
+        motif = request.POST.get('motif', '').strip()  # correction : .strip() au lieu de .trip()
 
+        if motif:
+            pre = get_object_or_404(PreInscription, identifiant=id_demande)
+            pre.support_tech_msg = motif
+            pre.statut = "Refusée"
+            pre.save()
+        
+        # Redirection dans tous les cas (avec ou sans motif)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('preinscription')))
+    
+    return HttpResponseRedirect(reverse('preinscription'))
+
+
+def ajouter_ecole(request):
+    if request.method == 'POST':
+        nom = request.POST.get('nom')
+        ville = request.POST.get('ville')
+        adresse = request.POST.get('adresse')
+        email = request.POST.get('email')
+        telephone = request.POST.get('telephone')
+        site_web = request.POST.get('site_web')
+
+        Ecole.objects.create(
+            nom=nom,
+            ville=ville,
+            adresse=adresse,
+            email=email,
+            telephone=telephone,
+            site_web=site_web
+        )
+        return HttpResponseRedirect(reverse('etablissement'))
+    return HttpResponseRedirect(reverse('etablissement'))
+
+
+def confirmer_view(request):
+    if request.method == "POST":
+        id_demande = request.POST.get("iDdemande")
+        # Récupère la demande ou renvoie une 404 si elle n'existe pas
+        demande = get_object_or_404(DemandeVisite, identifiant=id_demande)
+
+        # Change le statut
+        demande.status = "Confirmée"
+        demande.save()
+
+        # Redirection ou message de confirmation
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('reservation')))
+    else:
+        return HttpResponse("Méthode non autorisée", status=405)
+    
+def annuler_view(request):
+    if request.method == "POST":
+        id_demande = request.POST.get("iDdemande")
+
+        # Récupère la demande ou renvoie une 404 si elle n'existe pas
+        demande = get_object_or_404(DemandeVisite, identifiant=id_demande)
+
+        # Supprime la demande
+        demande.delete()
+
+        # Redirection avec confirmation
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', reverse('reservation')))
+    else:
+        return HttpResponse("Méthode non autorisée", status=405)
+        
 
 def statistique_view(request):
     return render(request,"dashboard/statistique.html")

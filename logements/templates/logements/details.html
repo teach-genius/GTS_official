@@ -3,11 +3,32 @@
     <span id="globalToastMsg"></span>
 </div>
 
-<div id="logementDetailModal_global" style="display: none;">
+<style>
+    #logementDetailModal .modal-content{
+    margin-top: 500px; 
+    background-color: #fefefe; 
+    border-radius: 12px; 
+    width: 100%; 
+    max-width: 960px; 
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.25), 0 12px 40px 0 rgba(0, 0, 0, 0.15);
+    position: relative; 
+    
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden; 
+    max-height: 400vh;
+
+    
+    }
+
+   
+</style>
+
+<div id="logementDetailModal_global" style="display: none;margin-top: 1000px;">
 
     <div id="logementDetailModal" class="modal" style="z-index: 9999px; position: fixed; top: 0; padding: 100px; width: 100%;height: 100%;overflow-y: auto; background-color: rgb(0, 0, 0,0.5);display: flex;align-items: center;justify-content: center;">
         <div class="modal-content"
-            style=" margin-top: 500px; background-color: #fefefe; border-radius: 12px; width: 100%; max-width: 960px; box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.25), 0 12px 40px 0 rgba(0, 0, 0, 0.15); position: relative; display: flex; flex-direction: column; overflow: hidden; max-height: 400vh;">
+            >
             <div class="modal-header"
                 style=" display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background-color: #fff; border-bottom: 1px solid #ebf1f5; position: relative; z-index: 10; flex-wrap: wrap;">
                 <h2 id="modalLogementName"
@@ -24,7 +45,7 @@
                     </div>
                 </div>
                 <button onclick="close_logement_view()" class="close-button" aria-label="Fermer le modal"
-                    style="color: #888; font-size: 32px; font-weight: bold; cursor: pointer; position: absolute; top: 15px; right: 20px; background: none; border: none; padding: 0; line-height: 1; z-index: 11; transition: color 0.2s ease;">×</button>
+                    style="color: #888; font-size: 32px; font-weight: bold; cursor: pointer; background: none; border: none; padding: 0; line-height: 1; z-index: 11; transition: color 0.2s ease;">×</button>
             </div>
             <div class="modal-body"
                 style="padding: 0; display: flex; flex-direction: column; flex-grow: 1; overflow-y: auto;">
@@ -68,7 +89,7 @@
                             <p style="margin-bottom: 10px; color: #555; display: flex; align-items: flex-start;">
                                 <i class="fas fa-bath" aria-hidden="true"
                                     style="margin-right: 8px; color: #0056b3; margin-top: 4px;"></i>
-                                Salles de bain: <span style="margin-left: 5px;" id="modalLogementBains"></span>
+                                <span id="sb">Salles de bain: </span><span style="margin-left: 5px;" id="modalLogementBains"></span>
                             </p>
                             <p style="margin-bottom: 10px; color: #555; display: flex; align-items: flex-start;">
                                 <i class="fas fa-tag" aria-hidden="true"
@@ -87,12 +108,16 @@
                                 <input type="hidden" id="isFavorised" name="isFavorised" value="false">
                                 <button type="submit" id="addToFavBtn" class="add-to-fav-btn"
                                     aria-label="Ajouter aux favoris"
-                                    style="padding: 12px 20px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer; font-size: 1.05em; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; width: 100%; text-align: center; background-color: #f8f9fa; color: #34495e;">
+                                    >
                                     <i class="far fa-heart" aria-hidden="true" style="margin-right: 8px;"></i> <span>Ajouter
                                     aux favoris</span>
                                 </button>
                             </form>
-                            
+                            <style>
+                                #addToFavBtn{
+                                    padding: 12px 20px; border: 1px solid #e0e0e0; border-radius: 8px; cursor: pointer; font-size: 1.05em; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; width: 100%; text-align: center; background-color: #f8f9fa; color: #34495e;
+                                }
+                            </style>
                             <div id="favFeedbackMsg" class="fav-feedback-message" style="display:none;"></div>
 
                             <button onclick="open_reserve_logement()" class="pre-inscription-btn"
@@ -140,7 +165,7 @@
                     </div>
                 </div>
 
-                <div class="container_reserve"
+                <div class="container_reserve" id="bo"
                     style="background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); width: 100%; position: relative; display: none;">
                     <h1>Réserver une visite</h1>
                     <form id="bookingForm" action="{% url 'logements:reserver_visite' %}" method="POST">
@@ -190,8 +215,6 @@
                             <button type="submit" class="btn btn-primary" id="envoyerDemandeBtn"
                                 style="padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; transition: background-color 0.3s ease; background-color: #28a745; color: #fff;">Envoyer
                                 la demande</button>
-                            <button type="button" ondblclick="close_logement_view()" class="btn btn-secondary cancel-button"
-                                style="padding: 12px 25px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; transition: background-color 0.3s ease; background-color: #f8f9fa; color: #333; border: 1px solid #ced4da;">Annuler</button>
                            </div>
                     </form>
                 </div>
@@ -479,14 +502,15 @@ document.addEventListener('DOMContentLoaded', () => {
         justify-content: center !important;
         padding: 0 !important;
     }
-    #logementDetailModal .modal-content {
-        margin-top: 0 !important;
-        top: 0 !important;
-        left: 0 !important;
-        transform: none !important;
+    .close-button{
+        font-size: 32px;
     }
+   
 }
 @media (max-width: 992px) {
+    #logementDetailModal_global {
+        font-size: 0.8rem;
+    }
     #logementDetailModal .close-button {
         top: 10px !important;
         right: 10px !important;
@@ -499,21 +523,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     #logementDetailModal .modal-content {
         font-size: 1em !important;
+        padding-top: 0px;
+        margin-top: 150px;
+    }
+     #addToFavBtn{
+        font-size: 0.6rem;
+    }
+    #sb{
+        display: none;
+    }
+    .close-button{
+        font-size: 32px;
     }
 }
 @media (max-width: 768px) {
+    #logementDetailModal_global {
+        font-size: 0.8rem;
+    }
     #logementDetailModal {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         padding: 0 !important;
     }
-    #logementDetailModal .modal-content {
-        margin-top: 0 !important;
-        top: 0 !important;
-        left: 0 !important;
-        transform: none !important;
-    }
+ 
     #logementDetailModal .close-button {
         top: 8px !important;
         right: 8px !important;
@@ -526,21 +559,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     #logementDetailModal .modal-content {
         font-size: 0.97em !important;
+        margin-top: 150px;
+    }
+     #addToFavBtn{
+        font-size: 0.6rem;
+    }
+    #sb{
+        display: none;
+    }
+    .close-button{
+        font-size: 32px;
     }
 }
 @media (max-width: 480px) {
+    #sb{
+        display: none;
+    }
+    #addToFavBtn{
+        font-size: 0.6rem;
+    }
+    #logementDetailModal_global {
+        font-size: 0.8rem;
+    }
     #logementDetailModal {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         padding: 0 !important;
     }
-    #logementDetailModal .modal-content {
-        margin-top: 0 !important;
-        top: 0 !important;
-        left: 0 !important;
-        transform: none !important;
-    }
+  
     #logementDetailModal .close-button {
         top: 4px !important;
         right: 4px !important;
@@ -553,6 +600,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     #logementDetailModal .modal-content {
         font-size: 0.93em !important;
+        margin-top: 150px;
+    }
+    .close-button{
+        font-size: 32px;
     }
 }
 </style>

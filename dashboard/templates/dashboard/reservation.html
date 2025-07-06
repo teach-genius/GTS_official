@@ -3,6 +3,57 @@
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/dashboard/style_reservation.css' %}">
+<style>
+    .status-confirmee {
+        background-color: #28a745;
+        color: white;
+    }
+    .status-autre {
+        background-color: #ffc107;
+        color: white;
+    }
+
+    #modalVoirDemande {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #modalVoirDemande .modal-content {
+        background: #fff;
+        width: 70%;
+        max-width: 800px;
+        border-radius: 12px;
+        padding: 30px;
+        position: relative;
+        animation: fadeIn 0.3s ease-in-out;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    #modalVoirDemande .modal-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        border: none;
+        background: #eee;
+        color: #333;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -30,7 +81,11 @@
         <div class="reservation-card">
             <div class="reservation-details">
                 <ul>
-                    <li>{{ demande.logement.title }} <span class="status-tag">{{ demande.status }}</span></li>
+                    <li>{{ demande.logement.title }}   
+                        <span class="status-tag {% if demande.status != 'En attente' %}status-confirmee{% endif %}">
+                            {{ demande.status }}
+                        </span>
+                    </li>
                     <li>Lieu : {{ demande.logement.city }}, {{ demande.logement.address }}</li>
                     <li>Date/Heure : {{ demande.requested_date }} à {{ demande.requested_time }}</li>
                     <li>Contact : {{ demande.phone }}</li>
@@ -40,9 +95,39 @@
 
             <div class="reservation-actions">
                 <ul>
-                    <li><button class="view-btn"><i class="fa-solid fa-eye"></i> Voir</button></li>
-                    <li><button class="confirm-btn"><i class="fa-solid fa-check"></i> Confirmer</button></li>
-                    <li><button class="cancel-btn"><i class="fa-solid fa-xmark"></i> Annuler</button></li>
+                    <li>
+                        <button class="view-btn" 
+                            data-modal_user="{{ demande.user.email }}"
+                            data-modal_message="{{ demande.message }}"
+                            data-modal_statut="{{ demande.status }}"
+                            data-modal_heure="{{ demande.requested_time }}"
+                            data-modal_date="{{ demande.requested_date }}"
+                            data-modal_email="{{ demande.email }}"
+                            data-modal_phone="{{ demande.phone }}"
+                            data-modal_logement="{{ demande.logement.title }}"
+                            onclick="openvoir(this)">
+                            <i class="fa-solid fa-eye"></i> Voir
+                        </button>
+                    </li>
+                    {% if demande.status == 'En attente' %}
+                    <li>
+                        <form action="{% url 'confirmer' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="iDdemande" value="{{ demande.identifiant }}">
+                            <button class="confirm-btn"><i class="fa-solid fa-check"></i> Confirmer</button>
+                        </form>
+                    </li>
+                    {% endif %}
+                    <li>
+                        <form action="{% url 'annuler' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="iDdemande" value="{{ demande.identifiant }}">
+                            <button class="cancel-btn">
+                                <i class="fa-solid fa-xmark"></i>
+                                {% if demande.status == 'En attente' %} Annuler {% else %} Supprimer {% endif %}
+                            </button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -51,4 +136,49 @@
         {% endfor %}
     </div>
 </div>
+
+<!-- Modal Voir Demande (en dehors de la boucle) -->
+<div id="modalVoirDemande">
+    <div class="modal-content">
+        <button class="modal-close" onclick="document.getElementById('modalVoirDemande').style.display='none'">&times;</button>
+        <h2>Détails de la demande</h2>
+        <div style="line-height: 1.6;">
+            <p><strong>Utilisateur :</strong> <span id="modal-user"></span></p>
+            <p><strong>Logement :</strong> <span id="modal-logement"></span></p>
+            <p><strong>Téléphone :</strong> <span id="modal-phone"></span></p>
+            <p><strong>Email :</strong> <span id="modal-email"></span></p>
+            <p><strong>Date souhaitée :</strong> <span id="modal-date"></span></p>
+            <p><strong>Heure souhaitée :</strong> <span id="modal-heure"></span></p>
+            <p><strong>Statut :</strong> 
+                <span id="modal-statut" style="font-weight: bold; padding: 5px 10px; border-radius: 6px; color: white;"></span>
+            </p>
+            <p><strong>Message :</strong></p>
+            <div id="modal-message" style="background-color: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #ccc;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function openvoir(btn) {
+    document.getElementById("modalVoirDemande").style.display = "flex";
+    document.getElementById("modal-user").textContent = btn.dataset.modal_user;
+    document.getElementById("modal-logement").textContent = btn.dataset.modal_logement;
+    document.getElementById("modal-phone").textContent = btn.dataset.modal_phone;
+    document.getElementById("modal-email").textContent = btn.dataset.modal_email;
+    document.getElementById("modal-date").textContent = btn.dataset.modal_date;
+    document.getElementById("modal-heure").textContent = btn.dataset.modal_heure;
+    document.getElementById("modal-statut").textContent = btn.dataset.modal_statut;
+    document.getElementById("modal-message").textContent = btn.dataset.modal_message;
+
+    const statut = btn.dataset.modal_statut;
+    const statutEl = document.getElementById("modal-statut");
+    if (statut === "Confirmée") {
+        statutEl.style.backgroundColor = "#28a745";
+    } else if (statut === "Annulée") {
+        statutEl.style.backgroundColor = "#dc3545";
+    } else {
+        statutEl.style.backgroundColor = "#ffc107";
+    }
+}
+</script>
 {% endblock %}
