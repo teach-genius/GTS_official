@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de Remboursement - GTS Pro Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 3px solid #1a365d;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #1a365d;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .last-updated {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+            color: #1565c0;
+        }
+
+        h2 {
+            color: #1a365d;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #10b981;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #4a5568;
+            font-size: 1.1rem;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: background 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #059669;
+        }
+
+        .toc {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #1a365d;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+        }
+
+        .toc a {
+            color: #1a365d;
+            text-decoration: none;
+            padding: 5px 0;
+            display: block;
+        }
+
+        .toc a:hover {
+            color: #10b981;
+            text-decoration: underline;
+        }
+
+        .refund-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .refund-table th {
+            background: #1a365d;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .refund-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .refund-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .refund-table tr:hover {
+            background: #e8f5e8;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+        }
+
+        .timeline-icon {
+            background: #10b981;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-weight: bold;
+        }
+
+        .timeline-content h4 {
+            margin: 0 0 10px 0;
+            color: #1a365d;
+        }
+
+        .success-box {
+            background: #dcfce7;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ef4444;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            margin: 20px 0;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .process-step {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid #10b981;
+        }
+
+        .process-step-number {
+            background: #10b981;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .contact-box {
+            background: #1a365d;
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .contact-box h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .contact-box a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        .contact-box a:hover {
+            text-decoration: underline;
+        }
+
+        .amount-calculator {
+            background: #f0f9ff;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 2px solid #0ea5e9;
+        }
+
+        .calculator-input {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .calculator-input label {
+            font-weight: 600;
+            color: #1a365d;
+        }
+
+        .calculator-input select {
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background: white;
+        }
+
+        .calculator-result {
+            background: #10b981;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .refund-table {
+                font-size: 14px;
+            }
+
+            .refund-table th,
+            .refund-table td {
+                padding: 10px;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .timeline-icon {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="javascript:history.back()" class="back-button">← Retour</a>
+
+        <div class="header" style="align-items: center;display: flex;flex-direction: column;">
+            <h1>Politique de Remboursement</h1>
+            <p>GTS Pro Service - Conditions de remboursement transparentes</p>
+        </div>
+
+        <div class="last-updated">
+            Dernière mise à jour : 07 Juillet 2025
+        </div>
+
+        <div class="toc">
+            <h3>Sommaire</h3>
+            <ul>
+                <li><a href="#principes">1. Principes Généraux</a></li>
+                <li><a href="#conditions">2. Conditions de Remboursement</a></li>
+                <li><a href="#exceptionnels">3. Remboursements Exceptionnels</a></li>
+                <li><a href="#exclusions">4. Exclusions de Remboursement</a></li>
+                <li><a href="#procedure">5. Procédure de Demande</a></li>
+                <li><a href="#modalites">6. Modalités de Remboursement</a></li>
+                <li><a href="#recours">7. Recours et Contestation</a></li>
+                <li><a href="#calculateur">8. Calculateur de Remboursement</a></li>
+            </ul>
+        </div>
+
+        <section id="principes">
+            <h2>1. Principes Généraux</h2>
+            
+            <h3>1.1 Engagement Qualité</h3>
+            <p>GTS Pro Service s'engage à fournir des services d'accompagnement de haute qualité. Cette politique de remboursement définit de manière transparente les conditions dans lesquelles un remboursement peut être accordé.</p>
+
+            <h3>1.2 Transparence Totale</h3>
+            <div class="success-box">
+                <p><strong>Notre engagement :</strong></p>
+                <ul>
+                    <li>Toutes les conditions sont clairement définies avant signature</li>
+                    <li>Aucun frais caché dans les remboursements</li>
+                    <li>Délais de traitement garantis</li>
+                    <li>Communication transparente à chaque étape</li>
+                </ul>
+            </div>
+
+            <h3>1.3 Montant de Référence</h3>
+            <p>Le montant de référence pour tous les calculs de remboursement est de <strong>110 000 CFA</strong> correspondant au tarif unique de notre service d'accompagnement premium de 3 mois.</p>
+        </section>
+
+        <section id="conditions">
+            <h2>2. Conditions de Remboursement</h2>
+
+            <p>Le montant du remboursement dépend du délai entre votre demande d'annulation et votre date de départ prévue :</p>
+
+            <table class="refund-table">
+                <thead>
+                    <tr>
+                        <th>Délai d'Annulation</th>
+                        <th>Remboursement</th>
+                        <th>Frais Retenus</th>
+                        <th>Justification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Plus de 60 jours</strong></td>
+                        <td><span style="color: #10b981; font-weight: bold;">100%</span> (110 000 CFA)</td>
+                        <td>0 CFA</td>
+                        <td>Aucun service engagé</td>
+                    </tr>
+                    <tr>
+                        <td><strong>30-60 jours</strong></td>
+                        <td><span style="color: #f59e0b; font-weight: bold;">75%</span> (82 500 CFA)</td>
+                        <td>27 500 CFA</td>
+                        <td>Frais administratifs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>15-29 jours</strong></td>
+                        <td><span style="color: #ef4444; font-weight: bold;">50%</span> (55 000 CFA)</td>
+                        <td>55 000 CFA</td>
+                        <td>Réservations engagées</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Moins de 15 jours</strong></td>
+                        <td><span style="color: #dc2626; font-weight: bold;">25%</span> (27 500 CFA)</td>
+                        <td>82 500 CFA</td>
+                        <td>Services pré-payés</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Après arrivée</strong></td>
+                        <td>Au prorata des services non fournis</td>
+                        <td>Variable</td>
+                        <td>Services déjà consommés</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="timeline">
+                <h3>Chronologie des Délais</h3>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon">60+</div>
+                    <div class="timeline-content">
+                        <h4>Remboursement Intégral</h4>
+                        <p>Plus de 60 jours avant le départ : <strong>100% remboursé sans frais</strong></p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">30</div>
+                    <div class="timeline-content">
+                        <h4>Remboursement Partiel</h4>
+                        <p>30-60 jours avant : <strong>75% remboursé</strong> (frais administratifs déductibles)</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">15</div>
+                    <div class="timeline-content">
+                        <h4>Remboursement Réduit</h4>
+                        <p>15-29 jours avant : <strong>50% remboursé</strong> (réservations irrécupérables)</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">0</div>
+                    <div class="timeline-content">
+                        <h4>Remboursement Minimal</h4>
+                        <p>Moins de 15 jours : <strong>25% remboursé</strong> (services pré-engagés)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="exceptionnels">
+            <h2>3. Remboursements Exceptionnels</h2>
+
+            <h3>3.1 Cas de Force Majeure</h3>
+            <div class="success-box">
+                <p><strong>Remboursement intégral (100%) accordé en cas de :</strong></p>
+                <ul>
+                    <li><strong>Fermeture des frontières</strong> par les autorités marocaines ou de votre pays</li>
+                    <li><strong>Suspension des vols</strong> pour raisons sanitaires (pandémie, épidémie)</li>
+                    <li><strong>Catastrophes naturelles majeures</strong> empêchant le voyage</li>
+                    <li><strong>Guerre ou troubles politiques graves</strong> dans l'un des pays concernés</li>
+                </ul>
+            </div>
+
+            <h3>3.2 Refus de Visa</h3>
+            <div class="info-box">
+                <p><strong>Conditions spéciales pour refus de visa :</strong></p>
+                <ul>
+                    <li><strong>Remboursement :</strong> 90% du montant payé (99 000 CFA)</li>
+                    <li><strong>Conservation :</strong> 10% pour frais administratifs (11 000 CFA)</li>
+                    <li><strong>Condition :</strong> Dossier complet fourni selon nos instructions</li>
+                    <li><strong>Preuve requise :</strong> Lettre officielle de refus du consulat</li>
+                </ul>
+            </div>
+
+            <h3>3.3 Maladie Grave</h3>
+            <div class="info-box">
+                <p><strong>Remboursement pour raisons médicales :</strong></p>
+                <ul>
+                    <li><strong>Évaluation :</strong> Au cas par cas selon gravité</li>
+                    <li><strong>Documents requis :</strong> Certificat médical officiel détaillé</li>
+                    <li><strong>Délai :</strong> Notification dans les 48h de l'événement</li>
+                    <li><strong>Remboursement type :</strong> 70-95% selon situation</li>
+                </ul>
+            </div>
+
+            <h3>3.4 Décès dans la Famille Proche</h3>
+            <p>En cas de décès d'un parent direct (père, mère, frère, sœur), un remboursement de 80% est accordé sur présentation de l'acte de décès officiel.</p>
+        </section>
+
+        <section id="exclusions">
+            <h2>4. Exclusions de Remboursement</h2>
+
+            <h3>4.1 Changement d'Avis Personnel</h3>
+            <div class="warning-box">
+                <p><strong>Aucun remboursement pour :</strong></p>
+                <ul>
+                    <li>Changement de destination d'études</li>
+                    <li>Décision familiale non justifiée médicalement</li>
+                    <li>Préférence pour un autre service concurrent</li>
+                    <li>Changement de filière ou d'université</li>
+                </ul>
+            </div>
+
+            <h3>4.2 Non-Respect des Obligations</h3>
+            <div class="warning-box">
+                <p><strong>Exclusion totale de remboursement en cas de :</strong></p>
+                <ul>
+                    <li><strong>Documents falsifiés :</strong> Présentation de faux documents</li>
+                    <li><strong>Non-respect des délais :</strong> Retard dans la fourniture des pièces</li>
+                    <li><strong>Comportement inapproprié :</strong> Irrespect envers l'équipe</li>
+                    <li><strong>Non-paiement des frais officiels :</strong> Refus de régler les frais administratifs</li>
+                </ul>
+            </div>
+
+            <h3>4.3 Services Partiellement Consommés</h3>
+            <p>Aucun remboursement possible après utilisation de :</p>
+            <ul>
+                <li>Accueil aéroport effectué</li>
+                <li>Logement confirmé et occupé</li>
+                <li>Formation/orientation dispensée</li>
+                <li>Plus de 50% des services du package consommés</li>
+            </ul>
+        </section>
+
+        <section id="procedure">
+            <h2>5. Procédure de Demande</h2>
+
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="process-step-number">1</div>
+                    <h4>Notification</h4>
+                    <p>Email à <strong>refund@gtsproservice.com</strong> dans les 7 jours suivant l'événement</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-step-number">2</div>
+                    <h4>Documents</h4>
+                    <p>Fourniture de tous les justificatifs requis selon votre situation</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-step-number">3</div>
+                    <h4>Évaluation</h4>
+                    <p>Analyse de votre dossier sous 10 jours ouvrables maximum</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-step-number">4</div>
+                    <h4>Décision</h4>
+                    <p>Notification écrite avec justification et montant</p>
+                </div>
+
+                <div class="process-step">
+                    <div class="process-step-number">5</div>
+                    <h4>Remboursement</h4>
+                    <p>Virement sous 14 jours après acceptation</p>
+                </div>
+            </div>
+
+            <h3>5.1 Format de la Demande</h3>
+            <div class="highlight">
+                <p><strong>Objet de l'email :</strong> "Demande de remboursement - [Votre Nom] - [Numéro de dossier]"</p>
+                <p><strong>Contenu obligatoire :</strong></p>
+                <ul>
+                    <li>Motif détaillé de l'annulation</li>
+                    <li>Date de départ prévue initialement</li>
+                    <li>Copie du contrat de service signé</li>
+                    <li>Justificatifs selon le motif (médical, administratif, etc.)</li>
+                    <li>Coordonnées bancaires pour le remboursement</li>
+                </ul>
+            </div>
+
+            <h3>5.2 Délais de Traitement Garantis</h3>
+            <ul>
+                <li><strong>Accusé de réception :</strong> Sous 48h</li>
+                <li><strong>Évaluation complète :</strong> 10 jours ouvrables maximum</li>
+                <li><strong>Notification de décision :</strong> Par email avec justification détaillée</li>
+                <li><strong>Remboursement :</strong> 14 jours après acceptation</li>
+            </ul>
+        </section>
+
+        <section id="modalites">
+            <h2>6. Modalités de Remboursement</h2>
+
+            <h3>6.1 Méthodes de Remboursement</h3>
+            <div class="success-box">
+                <p><strong>Options disponibles :</strong></p>
+                <ul>
+                    <li><strong>Virement bancaire :</strong> Méthode privilégiée (SWIFT international)</li>
+                    <li><strong>Mobile Money :</strong> Orange Money, MTN Money selon pays</li>
+                    <li><strong>Crédit futur :</strong> Utilisable pour vous ou un proche éligible</li>
+                </ul>
+            </div>
+
+            <h3>6.2 Délais par Méthode</h3>
+            <table class="refund-table">
+                <thead>
+                    <tr>
+                        <th>Méthode</th>
+                        <th>Délai</th>
+                        <th>Frais</th>
+                        <th>Remarques</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Virement SWIFT</td>
+                        <td>5-7 jours</td>
+                        <td>15-25 USD</td>
+                        <td>Déduit du montant</td>
+                    </tr>
+                    <tr>
+                        <td>Mobile Money</td>
+                        <td>24-48h</td>
+                        <td>2-5%</td>
+                        <td>Selon opérateur</td>
+                    </tr>
+                    <tr>
+                        <td>Crédit futur</td>
+                        <td>Immédiat</td>
+                        <td>Aucun</td>
+                        <td>Valable 24 mois</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>6.3 Informations Requises</h3>
+            <p>Pour le remboursement par virement :</p>
+            <ul>
+                <li>Nom complet du bénéficiaire</li>
+                <li>IBAN ou numéro de compte complet</li>
+                <li>Code SWIFT de la banque</li>
+                <li>Adresse complète de la banque</li>
+                <li>Justificatif d'identité bancaire (RIB, attestation)</li>
+            </ul>
+        </section>
+
+        <section id="recours">
+            <h2>7. Recours et Contestation</h2>
+
+            <h3>7.1 Droit de Contestation</h3>
+            <p>En cas de désaccord avec notre décision de remboursement, vous disposez de <strong>30 jours</strong> pour contester par écrit.</p>
+
+            <h3>7.2 Procédure de Recours</h3>
+            <ol>
+                <li><strong>Recours interne :</strong> Réexamen par un responsable senior sous 15 jours</li>
+                <li><strong>Médiation :</strong> Intervention d'un médiateur indépendant si nécessaire</li>
+                <li><strong>Arbitrage :</strong> Décision finale contraignante</li>
+            </ol>
+
+            <h3>7.3 Médiation</h3>
+            <div class="info-box">
+                <p><strong>Processus de médiation :</strong></p>
+                <ul>
+                    <li>Médiateur indépendant choisi d'un commun accord</li>
+                    <li>Frais partagés équitablement entre les parties</li>
+                    <li>Procédure confidentielle et sans formalisme excessif</li>
+                    <li>Décision finale contraignante pour les deux parties</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="calculateur">
+            <h2>8. Calculateur de Remboursement</h2>
+
+            <div class="amount-calculator">
+                <h3>💰 Calculez votre remboursement</h3>
+                <p>Utilisez cet outil pour estimer le montant de remboursement selon votre situation :</p>
+                
+                <div class="calculator-input">
+                    <label>Délai d'annulation :</label>
+                    <select id="delai-select">
+                        <option value="">Sélectionnez...</option>
+                        <option value="100">Plus de 60 jours</option>
+                        <option value="75">30-60 jours</option>
+                        <option value="50">15-29 jours</option>
+                        <option value="25">Moins de 15 jours</option>
+                    </select>
+                </div>
+
+                <div class="calculator-input">
+                    <label>Situation particulière :</label>
+                    <select id="situation-select">
+                        <option value="normal">Annulation normale</option>
+                        <option value="visa">Refus de visa</option>
+                        <option value="maladie">Maladie grave</option>
+                        <option value="force-majeure">Force majeure</option>
+                    </select>
+                </div>
+
+                <div class="calculator-result" id="calculator-result" style="display: none;">
+                    Votre remboursement estimé : <span id="amount"></span>
+                </div>
+            </div>
+        </section>
+
+        <div class="contact-box">
+            <h3>Service Remboursements</h3>
+            <p><strong>Email :</strong> <a href="mailto:refund@gtsproservice.com">refund@gtsproservice.com</a></p>
+            <p><strong>Téléphone :</strong> +212 6XX XX XX XX</p>
+            <p><strong>Horaires :</strong> Lundi-Vendredi 9h-18h (GMT+1)</p>
+            <p><strong>Délai de réponse garanti :</strong> 48h maximum</p>
+        </div>
+
+        <div style="text-align: center; margin: 50px 0; padding: 30px; background: #f7fafc; border-radius: 12px;">
+            <p style="color: #666; font-size: 14px;">
+                © 2025 GTS Pro Service. Tous droits réservés.<br>
+                Cette politique de remboursement s'applique à tous les contrats signés à partir du 07 Juillet 2025.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight current section in TOC
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.style.fontWeight = link.getAttribute('href') === '#' + current ? 'bold' : 'normal';
+                link.style.color = link.getAttribute('href') === '#' + current ? '#10b981' : '#1a365d';
+            });
+        });
+
+        // Refund Calculator
+        const delaiSelect = document.getElementById('delai-select');
+        const situationSelect = document.getElementById('situation-select');
+        const resultDiv = document.getElementById('calculator-result');
+        const amountSpan = document.getElementById('amount');
+
+        function calculateRefund() {
+            const delai = delaiSelect.value;
+            const situation = situationSelect.value;
+            
+            if (!delai) {
+                resultDiv.style.display = 'none';
+                return;
+            }
+
+            let percentage = parseInt(delai);
+            let baseAmount = 110000;
+            
+            // Adjust for special situations
+            if (situation === 'visa') {
+                percentage = 90;
+            } else if (situation === 'force-majeure') {
+                percentage = 100;
+            } else if (situation === 'maladie') {
+                percentage = Math.min(85, percentage + 10); // Add 10% for medical reasons, max 85%
+            }
+            
+            const refundAmount = (baseAmount * percentage) / 100;
+            const formattedAmount = refundAmount.toLocaleString('fr-FR') + ' CFA';
+            
+            amountSpan.textContent = formattedAmount + ` (${percentage}%)`;
+            resultDiv.style.display = 'block';
+        }
+
+        delaiSelect.addEventListener('change', calculateRefund);
+        situationSelect.addEventListener('change', calculateRefund);
+
+        // Table row hover effects
+        document.querySelectorAll('.refund-table tr').forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.01)';
+                this.style.transition = 'transform 0.2s ease';
+            });
+            
+            row.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Timeline animation on scroll
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideInLeft 0.6s ease forwards';
+                }
+            });
+        }, { threshold: 0.3 });
+
+        timelineItems.forEach(item => {
+            observer.observe(item);
+        });
+
+        // Add slide animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInLeft {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

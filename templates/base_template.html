@@ -114,9 +114,7 @@
                 </ul>
             </nav>
 
-           
-
-
+            
             <div class="header-actions">
                 {% if user.is_authenticated %}
                 <a href="{% url 'deconnexion' %}" class="logout-button"
@@ -137,6 +135,7 @@
 
 
  <style>
+    
     .warning_toogle{
     z-index: 999;
     display: none; 
@@ -201,13 +200,89 @@
 </div>
 
 
-    <main id="m-ain">
+    <main id="m-ain" >
         {% block content %}
         {% endblock %}
     </main>
 
-    <footer>
-       
+    <footer style="background-color: var(--bg-light); color: var(--white); padding: 60px 0 30px;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px;">
+                
+                <!-- About -->
+                <div>
+                    <h4 style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 20px;">À Propos de GTS Pro</h4>
+                    <p style="line-height: 1.6;  margin-bottom: 20px;">
+                        Le service d'accompagnement premium exclusif pour les étudiants d'Afrique subsaharienne au Maroc. 
+                    </p>
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <span style="color: var(--secondary-color); font-weight: 600;">Suivez-nous :</span>
+                        <div style="display: flex; gap: 5px;flex-direction: row;">
+                           <!-- Facebook -->
+<a href="https://facebook.com/gtsproservice"
+   style="color: #1877F2; text-decoration: none; font-size: 24px; margin-right: 10px;"
+   title="Facebook">
+   <i class="fa-brands fa-facebook" style="background-color: white; border-radius: 50%; padding: 6px;"></i>
+</a>
+
+<!-- Instagram -->
+<a href="https://instagram.com/gtsproservice"
+   style="color: #E1306C; text-decoration: none; font-size: 24px; margin-right: 10px;"
+   title="Instagram">
+   <i class="fa-brands fa-instagram" style="background-color: white; border-radius: 50%; padding: 6px;"></i>
+</a>
+
+<!-- TikTok -->
+<a href="https://tiktok.com/@gtsproservice"
+   style="color: #010101; text-decoration: none; font-size: 24px;"
+   title="TikTok">
+   <i class="fa-brands fa-tiktok" style="background-color: white; border-radius: 50%; padding: 6px;"></i>
+</a>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 20px;">Nos Services</h4>
+                    <ul style="list-style: none; line-height: 2; ">
+                        <li><a href="#" style=" text-decoration: none; transition: color 0.3s ease;">Accompagnement Pré-Départ</a></li>
+                        <li><a href="#" style=" text-decoration: none; transition: color 0.3s ease;">Accueil &amp; Intégration</a></li>
+                        <li><a href="#" style=" text-decoration: none; transition: color 0.3s ease;">Assistance Administrative</a></li>
+                        <li><a href="#" style=" text-decoration: none; transition: color 0.3s ease;">Mentorat Académique</a></li>
+                        <li><a href="#" style=" text-decoration: none; transition: color 0.3s ease;">Réseau d'Anciens</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 20px;">Contact</h4>
+                    <ul style="list-style: none; line-height: 2;">
+                        <li><i class="fa-solid fa-phone"></i> +212 703-999601</li>
+                        <li><i class="fa-solid fa-envelope"></i>  parkeranalytica@gmail.com</li>
+                        <li><i class="fa-solid fa-location-dot"></i> Fès, Maroc</li>
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div>
+                    <h4 style="font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 20px;">Légal</h4>
+                    <ul style="list-style: none; line-height: 2; ">
+                        <li><a href="{% url 'conf' %}" style=" text-decoration: none; transition: color 0.3s ease;">Politique de Confidentialité</a></li>
+                        <li><a href="{% url 'utilisation' %}" style=" text-decoration: none; transition: color 0.3s ease;">Conditions d'Utilisation</a></li>
+                        <li><a href="{% url 'rembourse' %}" style=" text-decoration: none; transition: color 0.3s ease;">Politique de Remboursement</a></li>
+                        <li><a href="{% url 'cook' %}" style=" text-decoration: none; transition: color 0.3s ease;">Politique des Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div style="border-top: 1px solid #4a5568; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <p style=" margin: 0;">© 2025 GTS Pro Service. Tous droits réservés.</p>
+               
+            </div>
+        </div>
     </footer>
 
     {# Script pour la navigation mobile (à ajouter plus tard avec JS) #}
@@ -224,7 +299,7 @@
         });
     </script>
 
-    <div onclick="toggleChat()" style="
+    <div id="openchat" onclick="toggleChat()" style="
     z-index: 999;
     position: fixed;
     bottom: 50px;
@@ -248,12 +323,12 @@
     </div>
 
 
-
+<style>
+    
+</style>
 
     <!-- 💻 Chatbox -->
     <div id="chat-box" style="
-        width: 320px;
-        height: 450px;
         background-color: #f5f8ff;
         position: fixed;
         bottom: 20px;
@@ -509,7 +584,6 @@
         {% endfor %}
 {% endif %}
 
-<script src="{% static 'js/voirdetails.js' %}"></script>
 
 
 <script>
@@ -706,6 +780,7 @@ function decodeUnicode(str) {
 }
 
 function openView(buttonElement) {
+    document.getElementById('openchat').style.display='none';
     const Connected = buttonElement.dataset.connected === 'true';
     const view_Ecole = document.getElementById('view_Ecole');
 
@@ -886,6 +961,7 @@ function openView(buttonElement) {
 
 
 function closeView() {
+    document.getElementById('openchat').style.display='flex';
     const view_Ecole = document.getElementById('view_Ecole');
     view_Ecole.style.display = 'none';
 }

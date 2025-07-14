@@ -22,11 +22,6 @@
 <style>
   
 /* ================== Responsive Adjustments for School Page ================== */
-@media (max-width: 992px) {
-    .results-filter-bart{
-    
-    }
-}
 
 @media (max-width: 768px) {
   .results-filter-bar input[type="text"],
@@ -419,7 +414,7 @@
                             "degree": "{{ programme.type_de_degre|default:""|escapejs }}",
                             "description": "{{ programme.description|default:""|escapejs }}",
                             "duration": "{{ programme.duree|default:""|escapejs }}",
-                            "price": "{% if programme.cout_min and programme.cout_max %}{{ programme.cout_min }} - {{ programme.cout_max }} {{ programme.devise|default:""|escapejs }}{% elif programme.cout_min %}{{ programme.cout_min }} {{ programme.devise|default:""|escapejs }}{% else %}N/A{% endif %}"
+                            "price": "{% if programme.cout_max %}{{ programme.cout_max }} {{ programme.devise|default:""|escapejs }}{% else %}N/A{% endif %}"
                           }{% if not forloop.last %},{% endif %}
                         {% endfor %}]'
                         data-is-favorited="{{ ecole.is_favorite|yesno:'true,false' }}">

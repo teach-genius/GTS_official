@@ -19,7 +19,7 @@
 <div style="padding-top: 20px;">
     {% include 'reservations/index.html' %} {# Make sure this path is correct for your project #}
 
-    <div style="height: 580px; padding:40px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+    <div style="height: 580px; padding-top: 40px;padding: 12px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
         {% for demande in mes_preinscriptions %}
         <div class="contenaire_preinscritption">
             <div class="header-section-preinscription">
@@ -325,7 +325,7 @@
 
         @media (max-width: 600px) {
             .contenaire_preinscritption {
-                padding: 10px;
+                padding: 12px;
             }
             .header-section-preinscription {
                 flex-direction: column;
@@ -364,7 +364,7 @@
 
         @media (max-width: 768px) {
             .contenaire_preinscritption {
-                padding: 10px 6px !important;
+                padding: 12px !important;
                 border-radius: 10px !important;
             }
             .header-section-preinscription {
@@ -402,7 +402,7 @@
         }
         @media (max-width: 480px) {
             .contenaire_preinscritption {
-                padding: 6px 2px !important;
+                padding: 12px !important;
                 border-radius: 6px !important;
             }
             .title-preinscription {

@@ -8,7 +8,7 @@ class EcoleImageInline(admin.TabularInline):
 @admin.register(Ecole)
 class EcoleAdmin(admin.ModelAdmin):
     list_display = ('nom', 'get_type_ecole_display', 'ville', 'telephone', 'email', 'notation', 'cree_a') # Modifié
-    search_fields = ('nom', 'ville', 'type_ecole__nom') # Modifié
+    search_fields = ('nom', 'type_ecole__nom') # Modifié
     list_filter = ('type_ecole', 'ville')
     inlines = [EcoleImageInline]
 
@@ -33,7 +33,7 @@ class TypeEcoleAdmin(admin.ModelAdmin):
 
 @admin.register(ProgrammeScolaire)
 class ProgrammeScolaireAdmin(admin.ModelAdmin):
-    list_display = ('nom', 'identifiant_ecole', 'type_de_degre', 'duree', 'cout_min', 'cout_max')
+    list_display = ('nom', 'identifiant_ecole', 'type_de_degre', 'duree',  'cout_max')
     search_fields = ('nom', 'identifiant_ecole__nom', 'type_de_degre')
     list_filter = ('type_de_degre', 'identifiant_ecole')
 

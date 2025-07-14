@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique des Cookies - GTS Pro Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 3px solid #1a365d;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #1a365d;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .last-updated {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+            color: #1565c0;
+        }
+
+        h2 {
+            color: #1a365d;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #10b981;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #4a5568;
+            font-size: 1.1rem;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: background 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #059669;
+        }
+
+        .toc {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #1a365d;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+        }
+
+        .toc a {
+            color: #1a365d;
+            text-decoration: none;
+            padding: 5px 0;
+            display: block;
+        }
+
+        .toc a:hover {
+            color: #10b981;
+            text-decoration: underline;
+        }
+
+        .cookie-definition {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #10b981;
+            margin: 25px 0;
+        }
+
+        .cookie-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .cookie-type {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-top: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-type:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .cookie-type.necessary {
+            border-top-color: #ef4444;
+        }
+
+        .cookie-type.performance {
+            border-top-color: #f59e0b;
+        }
+
+        .cookie-type.analytics {
+            border-top-color: #3b82f6;
+        }
+
+        .cookie-type.marketing {
+            border-top-color: #8b5cf6;
+        }
+
+        .cookie-type.preferences {
+            border-top-color: #10b981;
+        }
+
+        .cookie-type h4 {
+            margin-top: 0;
+            color: #1a365d;
+        }
+
+        .cookie-manager {
+            background: #f0f9ff;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+            border: 2px solid #0ea5e9;
+        }
+
+        .cookie-toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .cookie-toggle:last-child {
+            border-bottom: none;
+        }
+
+        .toggle-info {
+            flex: 1;
+        }
+
+        .toggle-info h4 {
+            margin: 0 0 5px 0;
+            color: #1a365d;
+        }
+
+        .toggle-info p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            margin-left: 20px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 30px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #10b981;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(30px);
+        }
+
+        input:disabled + .slider {
+            background-color: #ef4444;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .cookies-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .cookies-table th {
+            background: #1a365d;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .cookies-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        .cookies-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .cookies-table tr:hover {
+            background: #e8f5e8;
+        }
+
+        .browser-instructions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .browser-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .browser-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .browser-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .browser-card h4 {
+            margin: 0 0 15px 0;
+            color: #1a365d;
+        }
+
+        .browser-steps {
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .browser-steps ol {
+            padding-left: 20px;
+        }
+
+        .impact-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .impact-table th {
+            background: #1a365d;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .impact-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .impact-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .impact-allowed {
+            background: #dcfce7;
+            color: #166534;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .impact-limited {
+            background: #fed7aa;
+            color: #9a3412;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .impact-blocked {
+            background: #fecaca;
+            color: #991b1b;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .save-preferences {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .save-btn {
+            background: #10b981;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .contact-box {
+            background: #1a365d;
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .contact-box h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .contact-box a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        .contact-box a:hover {
+            text-decoration: underline;
+        }
+
+        .info-box {
+            background: #dbeafe;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: #fee2e2;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ef4444;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: #dcfce7;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .cookie-types,
+            .browser-instructions {
+                grid-template-columns: 1fr;
+            }
+
+            .cookies-table,
+            .impact-table {
+                font-size: 12px;
+            }
+
+            .cookies-table th,
+            .cookies-table td,
+            .impact-table th,
+            .impact-table td {
+                padding: 8px;
+            }
+
+            .cookie-toggle {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .toggle-switch {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="javascript:history.back()" class="back-button">← Retour</a>
+
+        <div class="header" style="align-items: center;display: flex;flex-direction: column;">
+            <h1>Politique des Cookies</h1>
+            <p>GTS Pro Service - Gestion transparente des cookies</p>
+        </div>
+
+        <div class="last-updated">
+            Dernière mise à jour : 07 Juillet 2025
+        </div>
+
+        <div class="toc">
+            <h3>Sommaire</h3>
+            <ul>
+                <li><a href="#definition">1. Qu'est-ce qu'un Cookie ?</a></li>
+                <li><a href="#types">2. Types de Cookies Utilisés</a></li>
+                <li><a href="#tiers">3. Cookies Tiers</a></li>
+                <li><a href="#gestion">4. Gestionnaire de Préférences</a></li>
+                <li><a href="#navigateur">5. Configuration du Navigateur</a></li>
+                <li><a href="#impact">6. Impact du Refus des Cookies</a></li>
+                <li><a href="#duree">7. Durée de Conservation</a></li>
+                <li><a href="#securite">8. Sécurité et Protection</a></li>
+            </ul>
+        </div>
+
+        <section id="definition">
+            <h2>1. Qu'est-ce qu'un Cookie ?</h2>
+            
+            <div class="cookie-definition">
+                <h3>🍪 Définition Simple</h3>
+                <p>Un cookie est un petit fichier texte stocké sur votre appareil (ordinateur, tablette, smartphone) lors de la visite d'un site web. Il permet au site de reconnaître votre appareil lors de vos visites ultérieures.</p>
+            </div>
+
+            <h3>Utilité des Cookies</h3>
+            <p>Les cookies permettent :</p>
+            <ul>
+                <li><strong>Améliorer votre expérience de navigation</strong> en mémorisant vos préférences</li>
+                <li><strong>Mémoriser vos choix</strong> (langue, paramètres d'affichage)</li>
+                <li><strong>Analyser l'utilisation du site</strong> pour l'améliorer</li>
+                <li><strong>Personnaliser le contenu</strong> selon vos intérêts</li>
+                <li><strong>Sécuriser vos sessions</strong> et protéger vos données</li>
+            </ul>
+
+            <div class="info-box">
+                <p><strong>Important :</strong> Les cookies ne peuvent pas endommager votre appareil, installer des virus ou accéder à vos fichiers personnels. Ils contiennent uniquement des informations que vous avez choisies de partager avec le site web.</p>
+            </div>
+        </section>
+
+        <section id="types">
+            <h2>2. Types de Cookies Utilisés</h2>
+            
+            <p>GTS Pro Service utilise différents types de cookies selon leurs fonctions :</p>
+
+            <div class="cookie-types">
+                <div class="cookie-type necessary">
+                    <h4>🔐 Cookies Strictement Nécessaires</h4>
+                    <p><strong>Finalité :</strong> Fonctionnement essentiel du site</p>
+                    <ul>
+                        <li>Gestion des sessions utilisateur</li>
+                        <li>Sécurisation des formulaires</li>
+                        <li>Mémorisation du panier</li>
+                        <li>Authentification sécurisée</li>
+                    </ul>
+                    <p><strong>Base légale :</strong> Intérêt légitime</p>
+                    <p><strong>Conservation :</strong> Session ou 24h max</p>
+                </div>
+
+                <div class="cookie-type performance">
+                    <h4>⚡ Cookies de Performance</h4>
+                    <p><strong>Finalité :</strong> Amélioration des performances</p>
+                    <ul>
+                        <li>Mesure du temps de chargement</li>
+                        <li>Identification des pages lentes</li>
+                        <li>Détection des erreurs techniques</li>
+                        <li>Optimisation de l'affichage</li>
+                    </ul>
+                    <p><strong>Base légale :</strong> Consentement</p>
+                    <p><strong>Conservation :</strong> 12 mois max</p>
+                </div>
+
+                <div class="cookie-type analytics">
+                    <h4>📊 Cookies Analytiques</h4>
+                    <p><strong>Finalité :</strong> Analyse du comportement</p>
+                    <ul>
+                        <li>Pages les plus visitées</li>
+                        <li>Parcours de navigation</li>
+                        <li>Durée des sessions</li>
+                        <li>Taux de rebond</li>
+                    </ul>
+                    <p><strong>Outils :</strong> Google Analytics, Hotjar</p>
+                    <p><strong>Conservation :</strong> 26 mois max</p>
+                </div>
+
+                <div class="cookie-type marketing">
+                    <h4>🎯 Cookies Marketing</h4>
+                    <p><strong>Finalité :</strong> Publicité ciblée</p>
+                    <ul>
+                        <li>Facebook Pixel</li>
+                        <li>Google Ads</li>
+                        <li>LinkedIn Insight Tag</li>
+                        <li>Remarketing personnalisé</li>
+                    </ul>
+                    <p><strong>Base légale :</strong> Consentement</p>
+                    <p><strong>Conservation :</strong> 12 mois max</p>
+                </div>
+
+                <div class="cookie-type preferences">
+                    <h4>⚙️ Cookies de Préférences</h4>
+                    <p><strong>Finalité :</strong> Personnalisation</p>
+                    <ul>
+                        <li>Langue choisie</li>
+                        <li>Devise préférée</li>
+                        <li>Taille de police</li>
+                        <li>Mode sombre/clair</li>
+                    </ul>
+                    <p><strong>Base légale :</strong> Consentement</p>
+                    <p><strong>Conservation :</strong> 12 mois max</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="tiers">
+            <h2>3. Cookies Tiers</h2>
+
+            <h3>3.1 Réseaux Sociaux</h3>
+            <table class="cookies-table">
+                <thead>
+                    <tr>
+                        <th>Plateforme</th>
+                        <th>Cookie</th>
+                        <th>Finalité</th>
+                        <th>Durée</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Facebook</td>
+                        <td>_fbp, fr</td>
+                        <td>Boutons Like/Share, publicité</td>
+                        <td>90 jours</td>
+                    </tr>
+                    <tr>
+                        <td>YouTube</td>
+                        <td>VISITOR_INFO1_LIVE</td>
+                        <td>Lecture vidéos témoignages</td>
+                        <td>6 mois</td>
+                    </tr>
+                    <tr>
+                        <td>LinkedIn</td>
+                        <td>bcookie, lidc</td>
+                        <td>Partage professionnel</td>
+                        <td>2 ans</td>
+                    </tr>
+                    <tr>
+                        <td>Instagram</td>
+                        <td>ig_did, mid</td>
+                        <td>Contenu intégré</td>
+                        <td>1 an</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>3.2 Services de Communication</h3>
+            <ul>
+                <li><strong>Chat en ligne :</strong> Intercom, Zendesk (sessions support client)</li>
+                <li><strong>Calendrier :</strong> Calendly (prise de rendez-vous)</li>
+                <li><strong>Visioconférence :</strong> Zoom, Teams (consultations)</li>
+            </ul>
+
+            <h3>3.3 Paiement et Sécurité</h3>
+            <ul>
+                <li><strong>Processeurs de paiement :</strong> Sécurisation des transactions</li>
+                <li><strong>Vérification d'identité :</strong> Prévention de la fraude</li>
+                <li><strong>Systèmes antifraude :</strong> Protection des données financières</li>
+            </ul>
+        </section>
+
+        <section id="gestion">
+            <h2>4. Gestionnaire de Préférences</h2>
+
+            <div class="cookie-manager">
+                <h3>🍪 Gérer vos Préférences de Cookies</h3>
+                <p>Vous pouvez activer ou désactiver chaque catégorie de cookies selon vos préférences :</p>
+
+                <div class="cookie-toggle">
+                    <div class="toggle-info">
+                        <h4>Cookies Strictement Nécessaires</h4>
+                        <p>Requis pour le bon fonctionnement du site. Ne peuvent pas être désactivés.</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" checked disabled>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="cookie-toggle">
+                    <div class="toggle-info">
+                        <h4>Cookies de Performance</h4>
+                        <p>Nous aident à améliorer les performances et la vitesse du site.</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="performance-cookies" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="cookie-toggle">
+                    <div class="toggle-info">
+                        <h4>Cookies Analytiques</h4>
+                        <p>Nous permettent de comprendre comment vous utilisez notre site.</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="analytics-cookies" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="cookie-toggle">
+                    <div class="toggle-info">
+                        <h4>Cookies Marketing</h4>
+                        <p>Utilisés pour vous proposer des publicités personnalisées.</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="marketing-cookies">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="cookie-toggle">
+                    <div class="toggle-info">
+                        <h4>Cookies de Préférences</h4>
+                        <p>Mémorisent vos choix pour personnaliser votre expérience.</p>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="preferences-cookies" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="save-preferences">
+                    <button class="save-btn" onclick="savePreferences()">💾 Sauvegarder mes Préférences</button>
+                    <p style="margin-top: 10px; font-size: 14px; color: #666;">
+                        Vos préférences seront sauvegardées pour 12 mois
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="navigateur">
+            <h2>5. Configuration du Navigateur</h2>
+
+            <p>Vous pouvez également gérer les cookies directement depuis votre navigateur :</p>
+
+            <div class="browser-instructions">
+                <div class="browser-card">
+                    <span class="browser-icon">🌐</span>
+                    <h4>Google Chrome</h4>
+                    <div class="browser-steps">
+                        <ol>
+                            <li>Menu ⋮ > Paramètres</li>
+                            <li>Confidentialité et sécurité</li>
+                            <li>Cookies et autres données</li>
+                            <li>Gérer les exceptions</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="browser-card">
+                    <span class="browser-icon">🦊</span>
+                    <h4>Mozilla Firefox</h4>
+                    <div class="browser-steps">
+                        <ol>
+                            <li>Menu ≡ > Paramètres</li>
+                            <li>Vie privée et sécurité</li>
+                            <li>Cookies et données de sites</li>
+                            <li>Gérer les données</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="browser-card">
+                    <span class="browser-icon">🧭</span>
+                    <h4>Safari (Mac/iOS)</h4>
+                    <div class="browser-steps">
+                        <ol>
+                            <li>Safari > Préférences</li>
+                            <li>Onglet Confidentialité</li>
+                            <li>Gérer les cookies</li>
+                            <li>Bloquer tous les cookies</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="browser-card">
+                    <span class="browser-icon">🔷</span>
+                    <h4>Microsoft Edge</h4>
+                    <div class="browser-steps">
+                        <ol>
+                            <li>Menu ... > Paramètres</li>
+                            <li>Cookies et autorisations</li>
+                            <li>Gérer et supprimer</li>
+                            <li>Configurer par site</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>⚠️ Attention :</strong> Bloquer tous les cookies peut affecter le fonctionnement normal de notre site et limiter certaines fonctionnalités.</p>
+            </div>
+        </section>
+
+        <section id="impact">
+            <h2>6. Impact du Refus des Cookies</h2>
+
+            <table class="impact-table">
+                <thead>
+                    <tr>
+                        <th>Type de Cookie</th>
+                        <th>Si Acceptés</th>
+                        <th>Si Refusés</th>
+                        <th>Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Strictement Nécessaires</strong></td>
+                        <td><span class="impact-allowed">Fonctionnel</span></td>
+                        <td><span class="impact-blocked">Site inutilisable</span></td>
+                        <td>Impossible de naviguer correctement</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Performance</strong></td>
+                        <td><span class="impact-allowed">Site optimisé</span></td>
+                        <td><span class="impact-limited">Plus lent</span></td>
+                        <td>Chargement moins optimisé</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Analytiques</strong></td>
+                        <td><span class="impact-allowed">Améliorations</span></td>
+                        <td><span class="impact-limited">Pas d'évolution</span></td>
+                        <td>Site moins adapté à vos besoins</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Marketing</strong></td>
+                        <td><span class="impact-allowed">Publicités ciblées</span></td>
+                        <td><span class="impact-limited">Publicités génériques</span></td>
+                        <td>Contenu moins pertinent</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Préférences</strong></td>
+                        <td><span class="impact-allowed">Personnalisé</span></td>
+                        <td><span class="impact-limited">Configuration par défaut</span></td>
+                        <td>Réglages à refaire à chaque visite</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="duree">
+            <h2>7. Durée de Conservation</h2>
+
+            <h3>7.1 Cookies de Session</h3>
+            <div class="info-box">
+                <p><strong>Supprimés automatiquement</strong> à la fermeture de votre navigateur. Utilisés uniquement pendant votre visite active.</p>
+            </div>
+
+            <h3>7.2 Cookies Persistants</h3>
+            <table class="cookies-table">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Durée Maximale</th>
+                        <th>Renouvellement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Strictement Nécessaires</td>
+                        <td>24 heures</td>
+                        <td>À chaque visite</td>
+                    </tr>
+                    <tr>
+                        <td>Performance</td>
+                        <td>12 mois</td>
+                        <td>Automatique si consenti</td>
+                    </tr>
+                    <tr>
+                        <td>Analytiques</td>
+                        <td>26 mois (Google Analytics)</td>
+                        <td>Selon politique du service</td>
+                    </tr>
+                    <tr>
+                        <td>Marketing</td>
+                        <td>12 mois</td>
+                        <td>Si interaction avec publicité</td>
+                    </tr>
+                    <tr>
+                        <td>Préférences</td>
+                        <td>12 mois</td>
+                        <td>À chaque modification</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="securite">
+            <h2>8. Sécurité et Protection</h2>
+
+            <h3>8.1 Mesures de Sécurité</h3>
+            <div class="success-box">
+                <p><strong>Protection avancée :</strong></p>
+                <ul>
+                    <li><strong>Chiffrement HTTPS :</strong> Tous les cookies sont transmis de manière sécurisée</li>
+                    <li><strong>Flags sécurisés :</strong> Cookies marqués "Secure" et "HttpOnly"</li>
+                    <li><strong>SameSite :</strong> Protection contre les attaques CSRF</li>
+                    <li><strong>Audits réguliers :</strong> Vérification trimestrielle des partenaires tiers</li>
+                </ul>
+            </div>
+
+            <h3>8.2 Conformité Réglementaire</h3>
+            <ul>
+                <li><strong>RGPD européen :</strong> Conformité totale aux exigences</li>
+                <li><strong>Loi marocaine :</strong> Respect de la législation sur la protection des données</li>
+                <li><strong>Mise à jour continue :</strong> Adaptation aux évolutions légales</li>
+                <li><strong>Transparence totale :</strong> Information claire sur tous les cookies</li>
+            </ul>
+
+            <h3>8.3 Droits et Contrôle</h3>
+            <p>Vous conservez un contrôle total sur vos cookies :</p>
+            <ul>
+                <li>Modification de vos préférences à tout moment</li>
+                <li>Suppression de cookies existants via votre navigateur</li>
+                <li>Accès aux données collectées via nos cookies</li>
+                <li>Opposition au traitement pour motifs légitimes</li>
+            </ul>
+        </section>
+
+        <div class="contact-box">
+            <h3>Questions sur les Cookies</h3>
+            <p><strong>Délégué à la Protection des Données</strong></p>
+            <p><strong>Email :</strong> <a href="mailto:cookies@gtsproservice.com">cookies@gtsproservice.com</a></p>
+            <p><strong>Téléphone :</strong> +212 6XX XX XX XX</p>
+            <p><strong>Horaires :</strong> Lundi-Vendredi 9h-18h (GMT+1)</p>
+            <p><strong>Délai de réponse :</strong> 72h maximum</p>
+        </div>
+
+        <div style="text-align: center; margin: 50px 0; padding: 30px; background: #f7fafc; border-radius: 12px;">
+            <p style="color: #666; font-size: 14px;">
+                © 2025 GTS Pro Service. Tous droits réservés.<br>
+                Cette politique des cookies est mise à jour régulièrement pour refléter les évolutions technologiques et réglementaires.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight current section in TOC
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.style.fontWeight = link.getAttribute('href') === '#' + current ? 'bold' : 'normal';
+                link.style.color = link.getAttribute('href') === '#' + current ? '#10b981' : '#1a365d';
+            });
+        });
+
+        // Cookie preferences management
+        function savePreferences() {
+            const performance = document.getElementById('performance-cookies').checked;
+            const analytics = document.getElementById('analytics-cookies').checked;
+            const marketing = document.getElementById('marketing-cookies').checked;
+            const preferences = document.getElementById('preferences-cookies').checked;
+
+            // In a real implementation, this would send the preferences to the server
+            const cookiePreferences = {
+                necessary: true, // Always true
+                performance: performance,
+                analytics: analytics,
+                marketing: marketing,
+                preferences: preferences,
+                timestamp: Date.now()
+            };
+
+            // Save to localStorage (in real implementation, this would be a secure cookie)
+            localStorage.setItem('gts-cookie-preferences', JSON.stringify(cookiePreferences));
+
+            // Show confirmation
+            const btn = document.querySelector('.save-btn');
+            const originalText = btn.textContent;
+            btn.textContent = '✅ Préférences Sauvegardées !';
+            btn.style.background = '#10b981';
+            
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '#10b981';
+            }, 2000);
+
+            // In a real implementation, you would also:
+            // 1. Set/remove actual cookies based on preferences
+            // 2. Enable/disable tracking scripts
+            // 3. Send preferences to analytics services
+            updateCookieStatus();
+        }
+
+        function updateCookieStatus() {
+            const preferences = JSON.parse(localStorage.getItem('gts-cookie-preferences') || '{}');
+            
+            // Update toggle states based on saved preferences
+            if (preferences.performance !== undefined) {
+                document.getElementById('performance-cookies').checked = preferences.performance;
+            }
+            if (preferences.analytics !== undefined) {
+                document.getElementById('analytics-cookies').checked = preferences.analytics;
+            }
+            if (preferences.marketing !== undefined) {
+                document.getElementById('marketing-cookies').checked = preferences.marketing;
+            }
+            if (preferences.preferences !== undefined) {
+                document.getElementById('preferences-cookies').checked = preferences.preferences;
+            }
+        }
+
+        // Load saved preferences on page load
+        document.addEventListener('DOMContentLoaded', updateCookieStatus);
+
+        // Add animation to cookie type cards
+        const cookieTypeCards = document.querySelectorAll('.cookie-type');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'slideInUp 0.6s ease forwards';
+                }
+            });
+        }, { threshold: 0.3 });
+
+        cookieTypeCards.forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add slide animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Table row hover effects
+        document.querySelectorAll('.cookies-table tr, .impact-table tr').forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                if (!this.querySelector('th')) { // Don't animate header rows
+                    this.style.transform = 'scale(1.01)';
+                    this.style.transition = 'transform 0.2s ease';
+                }
+            });
+            
+            row.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Browser card interactions
+        document.querySelectorAll('.browser-card').forEach(card => {
+            card.addEventListener('click', function() {
+                // Highlight the clicked card temporarily
+                this.style.background = '#e8f5e8';
+                this.style.transform = 'scale(1.05)';
+                
+                setTimeout(() => {
+                    this.style.background = 'white';
+                    this.style.transform = 'scale(1)';
+                }, 300);
+            });
+        });
+
+        // Toggle switch sound effect (visual feedback)
+        document.querySelectorAll('.toggle-switch input[type="checkbox"]:not([disabled])').forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                // Add a brief visual feedback
+                const slider = this.nextElementSibling;
+                slider.style.boxShadow = '0 0 10px rgba(16, 185, 129, 0.5)';
+                
+                setTimeout(() => {
+                    slider.style.boxShadow = 'none';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>

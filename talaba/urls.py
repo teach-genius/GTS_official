@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import home_view,contact_view
+from .views import home_view,contact_view,gts_pro_view,conf_view,utilisation_view,rembourse_view,cook_view
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -32,6 +32,11 @@ urlpatterns = [
     path('dashboard/',include('dashboard.urls'),name='dashboard'),
     path('reservations/',include('reservations.urls'),name='reservations'),
     path('favoris/',include('favoris.urls'),name='favoris'),
+    path('gts_pro/',gts_pro_view,name='gts_pro'),
+    path('conf/',conf_view,name="conf"),
+    path('utilisation/',utilisation_view,name="utilisation"),
+    path('rembourse/',rembourse_view,name="rembourse"),
+    path('cook/',cook_view,name="cook"),
     
 ]
 # 12345678

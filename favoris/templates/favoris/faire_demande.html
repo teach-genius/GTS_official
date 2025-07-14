@@ -66,7 +66,6 @@
                             <label for="pays" style="font-size: 14px; color: #555; font-weight: 500;">Pays *</label>
                             <input name="pays" placeholder="pays"
                                 style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px; outline: none; transition: border-color 0.2s; background-color: white; appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20256%20256%22%3E%3Cpath%20fill%3D%22%23999%22%20d%3D%22M208%2080L128%20160L48%2080Z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 10px center; background-size: 12px; margin-top: -15px;">
-
                             </input>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -300,8 +299,12 @@
                         <p>Veuillez joindre tous les documents nécessaires. Les documents marqués d'une * sont
                             obligatoires.</p>
                     </div>
-
-                    <div id="grille" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px;">
+                    <style>
+                        #grille{
+                            display: grid; grid-template-columns: 1fr 1fr; gap: 20px 30px;
+                        }
+                    </style>
+                    <div id="grille" >
                         <div style="display: flex; flex-direction: column; gap: 20px;">
                             <label for="cv_upload_input" style="font-size: 14px; color: #555; font-weight: 500;">CV /
                                 Curriculum
@@ -465,6 +468,8 @@ flex-direction: column;
 }
     #grille {
         font-size: 0.8px;
+        display: flex;
+        flex-direction: column;
     }
     #header-{
         font-size: 0.6rem;
@@ -485,6 +490,11 @@ flex-direction: column;
     }
 }
 @media (max-width: 768px) {
+    #grille {
+        font-size: 0.6px;
+        display: flex;
+        flex-direction: column;
+    }
     #vue_bac{
     display: flex;
     flex-direction: column;
@@ -515,6 +525,11 @@ flex-direction: column;
     }
 }
 @media (max-width: 480px) {
+    #grille {
+        font-size: 0.6px;
+        display: flex;
+        flex-direction: column;
+    }
     #vue_bac{
     display: flex;
     flex-direction: column;

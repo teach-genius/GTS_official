@@ -10,13 +10,60 @@
         <h1 class="text-white">Votre Compagnon pour Étudier <br><span class="highlight">au Maroc</span></h1>
         <p>Trouvez votre université idéale et votre logement parfait en quelques clics</p>
     </div>
+    <style>
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(167, 217, 255, 0.7);
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(167, 217, 255, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(167, 217, 255, 0);
+            }
+        }
+
+        .pulse-button {
+            z-index: 999;
+            background: linear-gradient(to right, #a7d9ff, var(--primary-blue, #007bff));
+            border-radius: 12px;
+            padding: 22px 34px;
+            color: white;
+            border: none;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .pulse-button:hover {
+            transform: scale(1.08);
+        }
+    </style>
+
+    <button onclick="open_gts_pro()" class="pulse-button">GTS Pro Service</button>
+
+    <script>
+        function open_gts_pro() {
+            window.location.href = "{% url 'gts_pro' %}";
+        }
+    </script>
+
 </section>
 
 <section class="intro-text-section">
     <div class="container">
         <h2><span class="highlight">Votre avenir commence</span> ici</h2>
-        <p>GTS - Global Talaba Students vous accompagne dans votre parcours éducatif au Maroc. Trouvez votre école
-            idéale, votre logement parfait et bénéficiez de conseils personnalisés.</p>
+        <p>GLobal Talaba students transforme un parcours souvent compliqué <br> (visa, logement, formalités) en expérience
+            fluide et sécurisée, grâce à une prise en charge « clé en main » et un accompagnement humain qui va de
+            l’inscription à l'installation de l’étudiant
+        </p>
     </div>
 </section>
 

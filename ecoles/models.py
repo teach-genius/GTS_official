@@ -20,10 +20,9 @@ class Ecole(models.Model):
     description = models.TextField()
     emplacement = models.CharField(max_length=255)
     ville = models.CharField(max_length=255)
-    adresse = models.CharField(max_length=255)
-    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    latitude = models.DecimalField(max_digits=18, decimal_places=13, null=True, blank=True)
     identifiant = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=18, decimal_places=13, null=True, blank=True)
     site_web = models.URLField(max_length=2000, null=True, blank=True)
     telephone = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
@@ -31,6 +30,8 @@ class Ecole(models.Model):
     admission = models.CharField(max_length=50, null=True, blank=True)
     cree_a = models.DateTimeField(auto_now_add=True)
     mis_a_jour_a = models.DateTimeField(auto_now=True)
+
+
 
     def __str__(self):
         return self.nom
@@ -59,7 +60,6 @@ class ProgrammeScolaire(models.Model):
     description = models.TextField()
     duree = models.CharField(max_length=100)
     type_de_degre = models.CharField(max_length=100)
-    cout_min = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     cout_max = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     identifiant = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     devise = models.CharField(max_length=10, null=True, blank=True)

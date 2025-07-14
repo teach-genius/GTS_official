@@ -107,8 +107,25 @@
                 <p class="location"><i class="fas fa-map-marker-alt"></i> {{ ecole.ville }}</p>
                 <p class="description">{{ ecole.description|truncatewords:20 }}</p>
                 <div class="card-footer">
-                    <span class="admission-status">{{ ecole.admission }}</span>
-                    <a href="#" class="btn-smd" onclick="modification_ecole()">Modifier</a>
+                    <button onclick="ajouter_formation(this)" data-id_ecole="{{ ecole.identifiant }}">Ajouter Formation</button>
+                    <a href="#" class="btn-smd" onclick="modification_ecole(this)"
+                    
+                    data-id_ecole="{{ ecole.identifiant }}"
+                    data-nom="{{ ecole.nom }}"
+                    data-type="{{ ecole.type_ecole.nom }}"
+                    data-description="{{ ecole.description }}"
+                    data-site="{{ ecole.site_web }}"
+                    data-notation="{{ ecole.notation }}"
+                    data-email="{{ ecole.email }}"
+                    data-latitude="{{ ecole.latitude }}"
+                    data-longitude="{{ ecole.longitude }}"
+                    data-ville="{{ ecole.ville }}"
+                    data-admission="{{ ecole.admission }}"
+                    data-telephone="{{ ecole.telephone }}"
+                    data-imgone="{{ecole.images.first.image_url}}"
+                    data-imgtwo="{{ecole.images.first.image_url}}"
+                    data-imgthree="{{ecole.images.first.image_url}}"
+                    >Modifier</a>
                 </div>
             </div>
         </div>
@@ -178,24 +195,251 @@
     </div>
 </div>
 
+<div id="add-formation-modal" class="add-formation-modal" style="display: none; background-color: rgba(0, 0, 0, 0.5); width: 100%; height: 100%; position: fixed; top: 0; left: 0; z-index: 999; overflow-y: auto; align-items: center; justify-content: center;">
+    <div style="background-color: #fff; width: 90%; max-width: 600px; margin: auto; border-radius: 12px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+
+        <h2 style="margin-bottom: 20px; font-size: 24px; color: #333; text-align: center;">Ajouter une nouvelle formation</h2>
+
+        <form method="POST" action="{% url 'ajouter_formation_ecole' %}" style="display: flex; flex-direction: column; gap: 15px;">
+            {% csrf_token %}
+            <input type="hidden" id="id_ecole_modal_formation" name="id_ecole" value="">
+
+            <div style="display: flex; flex-direction: column;">
+                <label for="nom_formation" style="margin-bottom: 5px; color: #555; font-weight: 500;">Nom de la formation :</label>
+                <input type="text" id="nom_formation" name="nom_formation" required
+                    style="padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;">
+            </div>
+
+            <div style="display: flex; flex-direction: column;">
+                <label for="degre_formation" style="margin-bottom: 5px; color: #555; font-weight: 500;">Degre :</label>
+                <input type="text" id="degre_formation" name="degre_formation" required
+                    style="padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;">
+            </div>
+
+            <div style="display: flex; flex-direction: column;">
+                <label for="description_formation" style="margin-bottom: 5px; color: #555; font-weight: 500;">Description :</label>
+                <textarea id="description_formation" name="description_formation" required
+                    style="padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px; min-height: 80px;"></textarea>
+            </div>
+
+            <div style="display: flex; flex-direction: column;">
+                <label for="duree_formation" style="margin-bottom: 5px; color: #555; font-weight: 500;">Durée :</label>
+                <input type="text" id="duree_formation" name="duree_formation" required
+                    style="padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;">
+            </div>
+
+            <div style="display: flex; flex-direction: column;">
+                <label for="prix_formation" style="margin-bottom: 5px; color: #555; font-weight: 500;">Prix :</label>
+                <input type="text" id="prix_formation" name="prix_formation" required
+                    style="padding: 10px; border: 1px solid #ccc; border-radius: 8px; font-size: 16px;">
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                <button type="button" onclick="fermerModalFormation()" 
+                    style="padding: 10px 20px; background-color: #999; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                    Annuler
+                </button>
+
+                <button type="submit"
+                    style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                    Ajouter
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script>
+    function ajouter_formation(btn) {
+        const id_ecole = btn.getAttribute('data-id_ecole');
+        const modal = document.getElementById('add-formation-modal');
+        modal.style.display = 'flex';
+        modal.querySelector('#id_ecole_modal_formation').value = id_ecole;
+    }
+
+    function fermerModalFormation() {
+        document.getElementById('add-formation-modal').style.display = 'none';
+    }
+</script>
 
 
 <script>
-    function modification_ecole() {
-        const vue_mofif = document.getElementById('vue_mofif');
-        vue_mofif.style.display = 'block';
+   function modification_ecole(sp) {
+    const vue_mofif = document.getElementById('vue_mofif');
+
+    // Récupération des données depuis les attributs data
+    const id_ecole = sp.dataset.id_ecole;
+    const nom = sp.dataset.nom;
+    const type = sp.dataset.type;
+    const description = sp.dataset.description;
+    const site = sp.dataset.site;
+    const notation = sp.getAttribute('data-notation');
+    const email = sp.dataset.email;
+    const latitude = sp.getAttribute('data-latitude');
+    const longitude = sp.getAttribute('data-longitude');
+    const ville = sp.dataset.ville;
+    const admission = sp.getAttribute('data-admission');
+    const telephone = sp.dataset.telephone;
+    const imgone = sp.dataset.imgone;
+    const imgtwo = sp.dataset.imgtwo;
+    const imgthree = sp.dataset.imgthree;
+
+    // Remplissage des champs du formulaire
+
+    document.getElementById("id_ecole").value = id_ecole;
+    document.getElementById("nom_modif").value = nom;
+    document.getElementById("description_modif").value = description;
+    document.getElementById("site_modif").value = site;
+    document.getElementById("notation_modif").value = notation;
+    document.getElementById("email_modif").value = email;
+    document.getElementById("lat_modif").value = latitude;
+    document.getElementById("long_modif").value = longitude;
+    document.getElementById("tel_modif").value = telephone;
+    document.getElementById("image_url_1_modif").value = imgone;
+    document.getElementById("image_url_2_modif").value = imgtwo;
+    document.getElementById("image_url_3_modif").value = imgthree;
+
+    // Sélection des options dans les champs <select>
+    const typeSelect = document.getElementById("type_modif");
+    if (typeSelect) {
+        for (let option of typeSelect.options) {
+            if (option.value === type) {
+                option.selected = true;
+                break;
+            }
+        }
     }
+
+    const admissionSelect = document.getElementById("admission_modif");
+    if (admissionSelect) {
+        for (let option of admissionSelect.options) {
+            if (option.value === admission) {
+                option.selected = true;
+                break;
+            }
+        }
+    }
+
+    const villeSelect = document.getElementById("ville_modif");
+    if (villeSelect) {
+        for (let option of villeSelect.options) {
+            if (option.value === ville) {
+                option.selected = true;
+                break;
+            }
+        }
+    }
+
+    // Afficher la vue de modification
+    vue_mofif.style.display = 'flex'; // pour le centrage avec align-items / justify-content
+}
+
     function close_vue_mofif() {
         const vue_mofif = document.getElementById('vue_mofif');
         vue_mofif.style.display = 'none';
     }
 </script>
+
 <div>
     <div id="vue_mofif"
-        style="z-index: 9999px; position: fixed; top: 0; width: 100%;height: 100%;overflow-y: auto; background-color: rgb(0, 0, 0,0.5);display: none;align-items: center;justify-content: center;">
-        <div style="margin-top: 30px; width: 79%; height: 90%;background-color: #007bff;position: fixed;left: 250px;border-radius: 12px;">
-            <button onclick="close_vue_mofif()" style="font-size: 1rem;width: 20px;height: 20px;border-radius: 8px;position: fixed;right: 24px;margin: 12px;cursor: pointer;">&times;</button>
+        style="z-index: 999px; position: fixed; top: 0; width: 100%;height: 100%;background-color: rgba(0, 0, 0, 0.5); overflow-y: auto;display: none;align-items: center;justify-content: center;">
+        <div style="margin-top: 30px; width: 90%; height: 90%;background-color: #f0f0f0;position: fixed;left: 60px;border-radius: 12px;">
+            <button onclick="close_vue_mofif()" style="font-size: 1rem;width: 20px;height: 20px;border-radius: 8px;position: fixed;right: 70px;margin: 8px;cursor: pointer;">&times;</button>
+            <form action="{% url 'modifi_school' %}" method="POST" style="width: 100%;">
+            {% csrf_token %}
+            <input type="hidden" id="id_ecole" name="id_ecole" value="">
+            <div class="form-wrapper">
+                <!-- Colonne 1 -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="nom">Nom Établissement:</label>
+                        <input type="text" id="nom_modif" name="nom" placeholder="Etablissement" required>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="type">Type Établissement:</label>
+                        <select id="type_modif" name="type" required>
+                            {% for tp in all_tpes %}
+                            <option value="{{tp.nom}}">{{tp.nom}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="admission">Admission Établissement:</label>
+                        <select id="admission_modif" name="admission" required>
+                            <option value="">Sélectionner</option>
+                            <option value="Pré-inscription Disponible">Pré-inscription Indisponible</option>
+                            <option value="Pré-inscription Indisponible">Pré-inscription Disponible</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description Établissement:</label>
+                        <textarea id="description_modif" name="description" placeholder="Description..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="site">Site Web Établissement:</label>
+                        <input type="url" id="site_modif" name="site" placeholder="https://" required>
+                    </div>
+                </div>
+
+                <!-- Colonne 2 -->
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="note">Note Établissement:</label>
+                        <input type="number" id="notation_modif" step="0.1" name="note" min="0" max="5" placeholder="4.5" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Établissement:</label>
+                        <input type="email" id="email_modif" name="email" placeholder="adresse@gmail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lat">Latitude Établissement:</label>
+                        <input type="number" id="lat_modif" step="0.1" name="latitude" placeholder="34.405" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lng">Longitude Établissement:</label>
+                        <input type="number" id="long_modif" step="0.1" name="longitude" placeholder="-23.394" step="any" required>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="form-button">Enregistrer les modifications</button>
+                    </div>
+                </div>
+
+                <!-- Colonne 3 -->
+                <div class="form-section">
+
+                    <div class="form-group">
+                        <label for="tel">Téléphone Établissement:</label>
+                        <input type="tel" id="tel_modif" name="telephone" placeholder="+212 6XX XXX XXX" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ville">Ville Établissement:</label>
+                        <select id="ville_modif" name="ville" required>
+                            <option value="">Sélectionner</option>
+                            {% for ville in villes %}
+                            <option value="{{ville}}">{{ville}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>URLs Images Établissement:</label>
+                        <input type="url" name="image_url_1" id="image_url_1_modif" placeholder="https://image1" required>
+                        <input type="url" name="image_url_2" id="image_url_2_modif" placeholder="https://image2" required>
+                        <input type="url" name="image_url_3" id="image_url_3_modif" placeholder="https://image3" required>
+                    </div>
+                </div>
+            </div>
+        </form>
         </div>
     </div>
 </div>
@@ -208,50 +452,51 @@
 </style>
 
 <!-- MODAL BACKDROP -->
-<div style="padding: 12px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999; position: fixed; top: 0; left: 0; overflow-y: auto;">
+<div id="back_dro" style="padding: 12px; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999; position: fixed; top: 0; left: 0; overflow-y: auto;">
 
     <!-- MODAL CONTENT -->
-    <div id="view_et" style="overflow-y: auto; gap: 10px; padding: 24px; background-color: #fff; width: 95%; max-width: 1300px; margin: 40px auto; border-radius: 12px; display: flex; flex-direction: row; flex-wrap: wrap; position: relative;">
+    <div id="view_et" style="overflow-y: auto; gap: 10px; padding: 24px; background-color: #fff; width: 100%; max-width: 1300px; margin: 40px auto; border-radius: 12px; display: flex; flex-direction: row; flex-wrap: wrap; position: relative;">
 
         <!-- Optional Close Button -->
-        <button onclick="document.getElementById('view_et').parentElement.style.display='none'" style="position: absolute; top: 10px; right: 10px; background: transparent; border: none; font-size: 24px; cursor: pointer;">&times;</button>
+        <button onclick="document.getElementById('view_et').parentElement.style.display='none'" style="position: fixed; top: 60px; right: 70px; background: transparent; border: none; font-size: 24px; cursor: pointer;">&times;</button>
 
-        <form action="/ton-action-url/" method="post" style="width: 100%;">
+        <form action="{% url 'ajoute_school' %}" method="POST" style="width: 100%;">
+            {% csrf_token %}
             <div class="form-wrapper">
 
                 <!-- Colonne 1 -->
                 <div class="form-section">
                     <div class="form-group">
                         <label for="nom">Nom Établissement:</label>
-                        <input type="text" id="nom" name="nom" placeholder="Etablissement">
+                        <input type="text" id="nom" name="nom" placeholder="Etablissement" required>
                     </div>
 
                     <div class="form-group">
                         <label for="type">Type Établissement:</label>
-                        <select id="type" name="type">
-                            {% for tp in type %}
-                            <option value="">{{tp.nom}}</option>
+                        <select id="type" name="type" required>
+                            {% for tp in all_tpes %}
+                            <option value="{{tp.nom}}">{{tp.nom}}</option>
                             {% endfor %}
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="admission">Admission Établissement:</label>
-                        <select id="admission" name="admission">
+                        <select id="admission" name="admission" required>
                             <option value="">Sélectionner</option>
-                            <option value="non">Pré-inscription Indisponible</option>
-                            <option value="oui">Pré-inscription Disponible</option>
+                            <option value="Pré-inscription Disponible">Pré-inscription Indisponible</option>
+                            <option value="Pré-inscription Indisponible">Pré-inscription Disponible</option>
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label for="description">Description Établissement:</label>
-                        <textarea id="description" name="description" placeholder="Description..."></textarea>
+                        <textarea id="description" name="description" placeholder="Description..." required></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="site">Site Web Établissement:</label>
-                        <input type="url" id="site" name="site" placeholder="https://">
+                        <input type="url" id="site" name="site" placeholder="https://" required>
                     </div>
                 </div>
 
@@ -259,22 +504,22 @@
                 <div class="form-section">
                     <div class="form-group">
                         <label for="note">Note Établissement:</label>
-                        <input type="number" id="note" name="note" min="0" max="5" placeholder="4.5">
+                        <input type="number" id="note" step="0.1" name="note" min="0" max="5" placeholder="4.5" required>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email Établissement:</label>
-                        <input type="email" id="email" name="email" placeholder="adresse@gmail.com">
+                        <input type="email" id="email" name="email" placeholder="adresse@gmail.com" required>
                     </div>
 
                     <div class="form-group">
                         <label for="lat">Latitude Établissement:</label>
-                        <input type="number" id="lat" name="latitude" placeholder="34.405" step="any">
+                        <input type="number" id="lat" step="0.1" name="latitude" placeholder="34.405" step="any" required>
                     </div>
 
                     <div class="form-group">
                         <label for="lng">Longitude Établissement:</label>
-                        <input type="number" id="lng" name="longitude" placeholder="-23.394" step="any">
+                        <input type="number" id="lng" step="0.1" name="longitude" placeholder="-23.394" step="any" required>
                     </div>
 
                     <div class="form-group">
@@ -284,39 +529,30 @@
 
                 <!-- Colonne 3 -->
                 <div class="form-section">
-                    <div class="form-group">
-                        <label for="nom_confirme">Nom Établissement (confirmation):</label>
-                        <input type="text" id="nom_confirme" name="nom_confirme">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="adresse">Adresse Établissement:</label>
-                        <input type="text" id="adresse" name="adresse" placeholder="Rond point Bensouda">
-                    </div>
 
                     <div class="form-group">
                         <label for="tel">Téléphone Établissement:</label>
-                        <input type="tel" id="tel" name="telephone" placeholder="+212 6XX XXX XXX">
+                        <input type="tel" id="tel" name="telephone" placeholder="+212 6XX XXX XXX" required>
                     </div>
 
                     <div class="form-group">
                         <label for="ville">Ville Établissement:</label>
-                        <select id="ville" name="ville">
+                        <select id="ville" name="ville" required>
                             <option value="">Sélectionner</option>
-                            <option value="casablanca">Casablanca</option>
-                            <option value="fes">Fès</option>
-                            <option value="rabat">Rabat</option>
-                            <option value="meknes">Meknès</option>
+                            {% for ville in villes %}
+                            <option value="{{ville}}">{{ville}}</option>
+                            {% endfor %}
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>URLs Images Établissement:</label>
-                        <input type="url" name="image_url_1" placeholder="https://image1">
-                        <input type="url" name="image_url_2" placeholder="https://image2">
-                        <input type="url" name="image_url_3" placeholder="https://image3">
+                        <input type="url" name="image_url_1" placeholder="https://image1" required>
+                        <input type="url" name="image_url_2" placeholder="https://image2" required>
+                        <input type="url" name="image_url_3" placeholder="https://image3" required>
                     </div>
                 </div>
+
             </div>
         </form>
 
@@ -330,8 +566,8 @@
         padding: 10px;
         display: flex;
         flex-direction: column;
-        gap: 16px;
         box-sizing: border-box;
+        gap: 16px;
     }
 
     .form-group {
@@ -352,6 +588,7 @@
         border-radius: 10px;
         border: 1px solid #ccc;
         font-size: 14px;
+        width: 80%;
     }
 
     .form-button {
@@ -362,7 +599,7 @@
         color: white;
         cursor: pointer;
         font-size: 16px;
-        width: 100%;
+        width: 80%;
     }
 
     .form-button:hover {
@@ -370,10 +607,14 @@
     }
 
     .form-wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 24px;
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        
     }
 </style>
+
+<script>
+    document.getElementById('view_et').parentElement.style.display='none';
+</script>
 
 {% endblock %}

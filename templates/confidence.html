@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de Confidentialité - GTS Pro Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 3px solid #1a365d;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #1a365d;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .last-updated {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+            color: #1565c0;
+        }
+
+        h2 {
+            color: #1a365d;
+            font-size: 1.5rem;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #10b981;
+        }
+
+        h3 {
+            color: #2d3748;
+            font-size: 1.2rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        h4 {
+            color: #4a5568;
+            font-size: 1.1rem;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .company-info {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #10b981;
+        }
+
+        .contact-box {
+            background: #1a365d;
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .contact-box h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .contact-box a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        .contact-box a:hover {
+            text-decoration: underline;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: background 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #059669;
+        }
+
+        .toc {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+            color: #1a365d;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+        }
+
+        .toc a {
+            color: #1a365d;
+            text-decoration: none;
+            padding: 5px 0;
+            display: block;
+        }
+
+        .toc a:hover {
+            color: #10b981;
+            text-decoration: underline;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            margin: 20px 0;
+        }
+
+        .data-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .data-type {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #10b981;
+        }
+
+        .data-type h4 {
+            margin-top: 0;
+            color: #1a365d;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .data-types {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="javascript:history.back()" class="back-button">← Retour</a>
+
+        <div class="header" style="align-items: center;display: flex;flex-direction: column;">
+            <h1>Politique de Confidentialité</h1>
+            <p>GTS Pro Service - Protection de vos données personnelles</p>
+        </div>
+
+        <div class="last-updated">
+            Dernière mise à jour : 07 Juillet 2025
+        </div>
+
+        <div class="toc">
+            <h3>Sommaire</h3>
+            <ul>
+                <li><a href="#introduction">1. Introduction</a></li>
+                <li><a href="#identite">2. Identité du Responsable</a></li>
+                <li><a href="#donnees">3. Données Collectées</a></li>
+                <li><a href="#finalites">4. Finalités du Traitement</a></li>
+                <li><a href="#bases">5. Bases Légales</a></li>
+                <li><a href="#destinataires">6. Destinataires des Données</a></li>
+                <li><a href="#droits">7. Vos Droits</a></li>
+                <li><a href="#securite">8. Sécurité des Données</a></li>
+                <li><a href="#contact">9. Contact</a></li>
+            </ul>
+        </div>
+
+        <section id="introduction">
+            <h2>1. Introduction</h2>
+            <p>GTS Pro Service (Global Talaba Student Pro Service), société de droit marocain, attache une importance primordiale à la protection de votre vie privée et de vos données personnelles.</p>
+            <p>Cette politique de confidentialité explique comment nous collectons, utilisons, stockons et protégeons vos informations personnelles dans le cadre de nos services d'accompagnement éducatif pour les étudiants d'Afrique subsaharienne souhaitant poursuivre leurs études au Maroc.</p>
+        </section>
+
+        <section id="identite">
+            <h2>2. Identité du Responsable de Traitement</h2>
+            <div class="company-info">
+                <p><strong>Dénomination :</strong> GTS Pro Service SARL</p>
+                <p><strong>Adresse :</strong> Casablanca, Maroc</p>
+                <p><strong>Email :</strong> <a href="mailto:privacy@gtsproservice.com">privacy@gtsproservice.com</a></p>
+                <p><strong>Téléphone :</strong> +212 6XX XX XX XX</p>
+            </div>
+        </section>
+
+        <section id="donnees">
+            <h2>3. Données Collectées</h2>
+            <p>Nous collectons différents types de données personnelles nécessaires à la fourniture de nos services :</p>
+            
+            <div class="data-types">
+                <div class="data-type">
+                    <h4>Données d'Identification</h4>
+                    <ul>
+                        <li>Nom, prénom</li>
+                        <li>Date de naissance</li>
+                        <li>Nationalité</li>
+                        <li>Coordonnées (email, téléphone, adresse)</li>
+                    </ul>
+                </div>
+
+                <div class="data-type">
+                    <h4>Données Académiques</h4>
+                    <ul>
+                        <li>Diplômes et relevés de notes</li>
+                        <li>Université de destination</li>
+                        <li>Filière d'études</li>
+                        <li>Historique académique</li>
+                    </ul>
+                </div>
+
+                <div class="data-type">
+                    <h4>Données Familiales</h4>
+                    <ul>
+                        <li>Coordonnées des parents/tuteurs</li>
+                        <li>Situation familiale</li>
+                        <li>Contact d'urgence</li>
+                    </ul>
+                </div>
+
+                <div class="data-type">
+                    <h4>Données de Navigation</h4>
+                    <ul>
+                        <li>Adresse IP</li>
+                        <li>Cookies</li>
+                        <li>Pages visitées</li>
+                        <li>Durée des sessions</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="finalites">
+            <h2>4. Finalités du Traitement</h2>
+            <p>Nous utilisons vos données personnelles pour :</p>
+
+            <h3>Fourniture du Service</h3>
+            <ul>
+                <li>Élaborer votre dossier de candidature</li>
+                <li>Organiser votre accueil et hébergement</li>
+                <li>Vous accompagner dans vos démarches administratives</li>
+                <li>Assurer le suivi de votre intégration académique</li>
+            </ul>
+
+            <h3>Communication</h3>
+            <ul>
+                <li>Vous informer de l'avancement de votre dossier</li>
+                <li>Communiquer avec vos parents/tuteurs</li>
+                <li>Envoyer les rapports mensuels de suivi</li>
+                <li>Vous alerter en cas d'urgence</li>
+            </ul>
+
+            <h3>Mise en Relation</h3>
+            <ul>
+                <li>Vous connecter avec notre réseau de mentors</li>
+                <li>Faciliter l'intégration dans la communauté étudiante</li>
+                <li>Organiser les événements de networking</li>
+            </ul>
+        </section>
+
+        <section id="bases">
+            <h2>5. Bases Légales du Traitement</h2>
+            <div class="highlight">
+                <p><strong>Nos traitements sont fondés sur :</strong></p>
+                <ul>
+                    <li><strong>Exécution du contrat :</strong> traitement nécessaire à la fourniture de nos services</li>
+                    <li><strong>Intérêt légitime :</strong> amélioration de la qualité de service, sécurité</li>
+                    <li><strong>Consentement :</strong> communications marketing, témoignages publics</li>
+                    <li><strong>Obligation légale :</strong> respect des réglementations marocaines et internationales</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="destinataires">
+            <h2>6. Destinataires des Données</h2>
+            <p>Vos données peuvent être partagées avec :</p>
+
+            <h3>Personnel Autorisé</h3>
+            <ul>
+                <li>Équipe administrative GTS Pro Service</li>
+                <li>Assistants dédiés à votre accompagnement</li>
+                <li>Responsables académiques</li>
+            </ul>
+
+            <h3>Partenaires (avec consentement)</h3>
+            <ul>
+                <li>Universités et écoles partenaires</li>
+                <li>Prestataires de logement vérifiés</li>
+                <li>Professionnels juridiques (avocats, consultants)</li>
+            </ul>
+
+            <h3>Autorités (si requis par la loi)</h3>
+            <ul>
+                <li>Administrations marocaines</li>
+                <li>Consulats et ambassades</li>
+            </ul>
+        </section>
+
+        <section id="droits">
+            <h2>7. Vos Droits</h2>
+            <p>Conformément à la réglementation, vous disposez des droits suivants :</p>
+
+            <h3>Droit d'Accès</h3>
+            <p>Vous pouvez demander une copie de toutes vos données personnelles que nous détenons.</p>
+
+            <h3>Droit de Rectification</h3>
+            <p>Vous pouvez corriger ou mettre à jour vos informations personnelles.</p>
+
+            <h3>Droit d'Effacement</h3>
+            <p>Vous pouvez demander la suppression de vos données dans certaines circonstances.</p>
+
+            <h3>Droit à la Limitation</h3>
+            <p>Vous pouvez demander la suspension du traitement de vos données.</p>
+
+            <h3>Droit à la Portabilité</h3>
+            <p>Vous pouvez récupérer vos données dans un format structuré.</p>
+
+            <h3>Droit d'Opposition</h3>
+            <p>Vous pouvez vous opposer au traitement de vos données pour des raisons légitimes.</p>
+
+            <div class="highlight">
+                <p><strong>Pour exercer vos droits :</strong></p>
+                <p>Contactez-nous à : <a href="mailto:privacy@gtsproservice.com">privacy@gtsproservice.com</a></p>
+                <p><strong>Délai de réponse :</strong> 30 jours maximum</p>
+            </div>
+        </section>
+
+        <section id="securite">
+            <h2>8. Sécurité des Données</h2>
+            
+            <h3>Mesures Techniques</h3>
+            <ul>
+                <li>Chiffrement des données sensibles</li>
+                <li>Authentification forte</li>
+                <li>Sauvegardes régulières et sécurisées</li>
+                <li>Pare-feu et systèmes anti-intrusion</li>
+            </ul>
+
+            <h3>Mesures Organisationnelles</h3>
+            <ul>
+                <li>Formation du personnel à la protection des données</li>
+                <li>Politique de confidentialité interne</li>
+                <li>Contrôles d'accès stricts</li>
+                <li>Audits de sécurité réguliers</li>
+            </ul>
+
+            <h3>Conservation des Données</h3>
+            <ul>
+                <li><strong>Pendant le service :</strong> durée du contrat + 3 mois</li>
+                <li><strong>Données académiques :</strong> 5 ans (suivi post-études)</li>
+                <li><strong>Données financières :</strong> 10 ans (obligations comptables)</li>
+                <li><strong>Données marketing :</strong> jusqu'à retrait du consentement</li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <div class="contact-box">
+                <h3>Contact - Délégué à la Protection des Données</h3>
+                <p><strong>Email :</strong> <a href="mailto:dpo@gtsproservice.com">dpo@gtsproservice.com</a></p>
+                <p><strong>Adresse :</strong> GTS Pro Service, Casablanca, Maroc</p>
+                <p><strong>Téléphone :</strong> +212 6XX XX XX XX</p>
+                <p><strong>Horaires :</strong> Lundi-Vendredi 9h-18h (GMT+1)</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Modifications</h2>
+            <p>Cette politique peut être modifiée pour s'adapter aux évolutions légales ou de nos services. Toute modification substantielle vous sera notifiée par email.</p>
+        </section>
+
+        <div style="text-align: center; margin: 50px 0; padding: 30px; background: #f7fafc; border-radius: 12px;">
+            <p style="color: #666; font-size: 14px;">
+                © 2025 GTS Pro Service. Tous droits réservés.<br>
+                Cette politique de confidentialité est conforme au RGPD et à la législation marocaine.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight current section in TOC
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.style.fontWeight = link.getAttribute('href') === '#' + current ? 'bold' : 'normal';
+                link.style.color = link.getAttribute('href') === '#' + current ? '#10b981' : '#1a365d';
+            });
+        });
+    </script>
+</body>
+</html>

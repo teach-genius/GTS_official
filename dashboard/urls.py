@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.urls import path
 from .views import (
+    ajouter_formation,
     dashboard_view,
     parametre_view,
     logements_view,
@@ -29,7 +30,9 @@ from .views import (
     annuler_view,
     rejet_demande_view,
     supprimer_pre_view,
-    approuver_pre_view
+    approuver_pre_view,
+    ajoute_school,
+    modifi_school
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -48,8 +51,10 @@ urlpatterns = [
     path('annuler/',annuler_view,name="annuler"),
     path('rejet_demande/',rejet_demande_view,name='rejet_demande'),
     path('Supprimer_pre/',supprimer_pre_view,name='Supprimer_pre'),
-    path('approuver_pre/',approuver_pre_view,name='approuver_pre')
-
+    path('approuver_pre/',approuver_pre_view,name='approuver_pre'),
+    path('add_school/',ajoute_school,name='ajoute_school'),
+    path('modifi_school/',modifi_school,name='modifi_school'),
+    path('ajouter_formation_ecole/',ajouter_formation,name='ajouter_formation_ecole')   
 
 ]
 

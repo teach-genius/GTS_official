@@ -55,3 +55,20 @@ def contact_view(request):
     else:
         context = get_result(request.user)
         return render(request,"contact.html",context)
+
+
+def gts_pro_view(request):
+    return render(request,'page_annexe.html')
+
+def conf_view(request):
+    return render(request,'confidence.html')
+
+
+def utilisation_view(request):
+    return render(request,'utilisation.html')
+
+def rembourse_view(request):
+    return render(request,'remboursement.html')
+
+def cook_view(request):
+    return render(request,'cooki.html')
